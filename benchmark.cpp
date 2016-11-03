@@ -101,21 +101,20 @@ thrift_serialization_test(size_t iterations, ThriftSerializationProto proto = Th
     std::cout << tag << " size = " << serialized.size() << " bytes" << std::endl;
 
     auto start = std::chrono::high_resolution_clock::now();
-    for (size_t i = 0; i < iterations; i++) {
-        buffer1->resetBuffer();
-
-        if (proto == ThriftSerializationProto::Binary) {
+    if (proto == ThriftSerializationProto::Binary) {
+        for (size_t i = 0; i < iterations; i++) {
+            buffer1->resetBuffer();
             r1.write(&binary_protocol1);
-        } else if (proto == ThriftSerializationProto::Compact) {
-            r1.write(&compact_protocol1);
-        }
-
-        serialized = buffer1->getBufferAsString();
-        buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
-
-        if (proto == ThriftSerializationProto::Binary) {
+            serialized = buffer1->getBufferAsString();
+            buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
             r2.read(&binary_protocol2);
-        } else if (proto == ThriftSerializationProto::Compact) {
+        }
+    } else if (proto == ThriftSerializationProto::Compact) {
+        for (size_t i = 0; i < iterations; i++) {
+            buffer1->resetBuffer();
+            r1.write(&compact_protocol1);
+            serialized = buffer1->getBufferAsString();
+            buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
             r2.read(&compact_protocol2);
         }
     }
