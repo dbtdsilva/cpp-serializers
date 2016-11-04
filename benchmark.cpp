@@ -36,8 +36,7 @@ enum class ThriftSerializationProto {
     Compact
 };
 
-void
-thrift_serialization_test(size_t iterations, ThriftSerializationProto proto = ThriftSerializationProto::Binary)
+void thrift_serialization_test(size_t iterations, ThriftSerializationProto proto = ThriftSerializationProto::Binary)
 {
     using apache::thrift::transport::TMemoryBuffer;
     using apache::thrift::protocol::TBinaryProtocol;
@@ -126,8 +125,7 @@ thrift_serialization_test(size_t iterations, ThriftSerializationProto proto = Th
     std::cout << tag << " time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void
-protobuf_serialization_test(size_t iterations)
+void protobuf_serialization_test(size_t iterations)
 {
     using namespace protobuf_test;
 
@@ -167,8 +165,7 @@ protobuf_serialization_test(size_t iterations)
     std::cout << "protobuf: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void
-capnproto_serialization_test(size_t iterations)
+void capnproto_serialization_test(size_t iterations)
 {
     using namespace capnp_test;
 
@@ -231,8 +228,7 @@ capnproto_serialization_test(size_t iterations)
     std::cout << "capnproto: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void
-boost_serialization_test(size_t iterations)
+void boost_serialization_test(size_t iterations)
 {
     using namespace boost_test;
 
@@ -270,8 +266,7 @@ boost_serialization_test(size_t iterations)
     std::cout << "boost: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void
-msgpack_serialization_test(size_t iterations)
+void msgpack_serialization_test(size_t iterations)
 {
     using namespace msgpack_test;
 
@@ -318,8 +313,7 @@ msgpack_serialization_test(size_t iterations)
     std::cout << "msgpack: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void
-cereal_serialization_test(size_t iterations)
+void cereal_serialization_test(size_t iterations)
 {
     using namespace cereal_test;
 
@@ -356,8 +350,7 @@ cereal_serialization_test(size_t iterations)
     std::cout << "cereal: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void
-avro_serialization_test(size_t iterations)
+void avro_serialization_test(size_t iterations)
 {
     using namespace avro_test;
 
@@ -410,8 +403,7 @@ avro_serialization_test(size_t iterations)
     std::cout << "avro: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void
-flatbuffers_serialization_test(size_t iterations)
+void flatbuffers_serialization_test(size_t iterations)
 {
     using namespace flatbuffers_test;
 
@@ -471,13 +463,28 @@ flatbuffers_serialization_test(size_t iterations)
     std::cout << "flatbuffers: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-int
-main(int argc, char **argv)
+void bson_serialization_test(size_t iterations)
+{
+    // Serialize and unserialize
+    // Verification size
+    //std::cout << "bson: size = " << builder.GetSize() << " bytes" << std::endl;
+
+    auto start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        // Serialize and unserialize
+    }
+    auto finish = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+
+    std::cout << "bson: time = " << duration << " milliseconds" << std::endl << std::endl;
+}
+
+int main(int argc, char **argv)
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
     if (argc < 2) {
-        std::cout << "usage: " << argv[0] << " N [thrift-binary thrift-compact protobuf boost msgpack cereal avro capnproto flatbuffers]";
+        std::cout << "usage: " << argv[0] << " N [thrift-binary thrift-compact protobuf boost msgpack cereal avro capnproto flatbuffers bson]";
         std::cout << std::endl << std::endl;
         std::cout << "arguments: " << std::endl;
         std::cout << " N  -- number of iterations" << std::endl << std::endl;
@@ -541,6 +548,10 @@ main(int argc, char **argv)
 
         if (names.empty() || names.find("flatbuffers") != names.end()) {
             flatbuffers_serialization_test(iterations);
+        }
+
+        if (names.empty() || names.find("bson") != names.end()) {
+            bson_serialization_test(iterations);
         }
     } catch (std::exception &exc) {
         std::cerr << "Error: " << exc.what() << std::endl;
