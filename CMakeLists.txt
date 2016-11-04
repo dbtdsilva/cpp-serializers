@@ -202,14 +202,12 @@ ExternalProject_Add(
     URL "https://github.com/mongodb/libbson/releases/download/1.3.6/libbson-1.3.6.tar.gz"
     URL_MD5 "4623409184c42124b6830dabc7a12540"
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${bson_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-    #BUILD_COMMAND $(MAKE)
-    #INSTALL_COMMAND mkdir -p ${bson_PREFIX}/include/avro ${bson_PREFIX}/lib
     LOG_UPDATE ON
     LOG_CONFIGURE ON
     LOG_BUILD ON
 )
 include_directories(${bson_PREFIX}/include/libbson-1.0)
-set(BSON_LIBRARIES ${bson_PREFIX}/lib/libbson-1.0.so)
+set(BSON_LIBRARIES ${bson_PREFIX}/lib/libbson-static-1.0.a)
 #set(BSON_GENERATOR ${bson_PREFIX}/bin/flatc)
 
 set(LINKLIBS
@@ -222,6 +220,7 @@ set(LINKLIBS
     ${FLATBUFFERS_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${ZLIB_LIBRARIES}
+    ${BSON_LIBRARIES}
 )
 
 add_custom_command(
@@ -311,6 +310,6 @@ add_executable(
     ${AVRO_SERIALIZATION_SOURCES}
     ${FLATBUFFERS_SERIALIZATION_SOURCES}
 )
-add_dependencies(benchmark thrift msgpack protobuf capnproto boost cereal avro flatbuffers)
+add_dependencies(benchmark thrift msgpack protobuf capnproto boost cereal avro flatbuffers bson)
 target_link_libraries(benchmark ${LINKLIBS})
 set_target_properties(benchmark PROPERTIES COMPILE_FLAGS "-std=c++11 -O3")
