@@ -194,6 +194,24 @@ include_directories(${flatbuffers_PREFIX}/include)
 set(FLATBUFFERS_LIBRARIES ${flatbuffers_PREFIX}/lib/libflatbuffers.a)
 set(FLATBUFFERS_GENERATOR ${flatbuffers_PREFIX}/bin/flatc)
 
+# BSON
+set(bson_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/external/libbson)
+ExternalProject_Add(
+    bson
+    PREFIX ${bson_PREFIX}
+    URL "https://github.com/mongodb/libbson/releases/download/1.3.6/libbson-1.3.6.tar.gz"
+    URL_MD5 "4623409184c42124b6830dabc7a12540"
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${bson_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+    #BUILD_COMMAND $(MAKE)
+    #INSTALL_COMMAND mkdir -p ${bson_PREFIX}/include/avro ${bson_PREFIX}/lib
+    LOG_UPDATE ON
+    LOG_CONFIGURE ON
+    LOG_BUILD ON
+)
+include_directories(${bson_PREFIX}/include/libbson-1.0)
+set(BSON_LIBRARIES ${bson_PREFIX}/lib/libbson-1.0.so)
+#set(BSON_GENERATOR ${bson_PREFIX}/bin/flatc)
+
 set(LINKLIBS
     ${THRIFT_LIBRARIES}
     ${MSGPACK_LIBRARIES}

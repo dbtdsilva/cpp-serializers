@@ -19,6 +19,8 @@
 #include <capnp/message.h>
 #include <capnp/serialize.h>
 
+#include <bson.h>
+
 #include "protobuf/test.pb.h"
 #include "capnproto/test.capnp.h"
 #include "boost/record.hpp"
