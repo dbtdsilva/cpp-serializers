@@ -308,6 +308,32 @@ add_executable(
     ${AVRO_SERIALIZATION_SOURCES}
     ${FLATBUFFERS_SERIALIZATION_SOURCES}
 )
-add_dependencies(benchmark thrift msgpack protobuf capnproto boost cereal avro flatbuffers bson)
 target_link_libraries(benchmark ${LINKLIBS})
-set_target_properties(benchmark PROPERTIES COMPILE_FLAGS "-std=c++11 -O3")
+add_dependencies(benchmark thrift msgpack protobuf capnproto boost cereal avro flatbuffers bson)
+set_target_properties(benchmark PROPERTIES COMPILE_FLAGS "-std=c++14 -O3")
+# Feature-test Compilation
+add_custom_command(
+    DEPENDS ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/test.proto
+    COMMAND ${PROTOBUF_GENERATOR}
+    ARGS -I${cpp_serializers_SOURCE_DIR}/feature-test/protobuf --cpp_out=${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/schema ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/test.proto
+    OUTPUT  "${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/schema/test.pb.cc"
+    COMMENT "Executing Protobuf compiler"
+)
+set_source_files_properties(
+    ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/schema/test.pb.cc
+    ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/schema/test.pb.h
+    PROPERTIES GENERATED TRUE
+)
+set(PROTOBUF_FEATURE_SOURCES ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/schema/test.pb.cc)
+
+add_executable(
+    feature-test
+    ${cpp_serializers_SOURCE_DIR}/feature-test/feature-test.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test/feature-test-obj.h
+    ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/protobuf.cpp
+    ${PROTOBUF_FEATURE_SOURCES}
+)
+target_link_libraries(feature-test ${LINKLIBS})
+add_dependencies(feature-test thrift msgpack protobuf capnproto boost cereal avro flatbuffers bson)
+set_target_properties(feature-test PROPERTIES COMPILE_FLAGS "-std=c++14 -O3")
+
