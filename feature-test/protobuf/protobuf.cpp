@@ -9,29 +9,113 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include "schema/test.pb.h"
-
 #include "protobuf.h"
 #include "schema/test.pb.h"
+#include "../data.hpp"
 
 using namespace std;
+using namespace protobuf_test;
 
 ProtobufTest::ProtobufTest() : FeatureTestObject(string("Protobuf")) {
 
 }
 // This function checks if a protocol is still able to handle missing fields
 bool ProtobufTest::check_missing_field() {
-    return false;
+    Record r1;
+    for (size_t i = 0; i < kIntegers.size(); i++) {
+        r1.add_ids(kIntegers[i]);
+    }
+    for (size_t i = 0; i < kStringsCount; i++) {
+        r1.add_strings(kStringValue);
+    }
+    std::string serialized;
+    r1.SerializeToString(&serialized);
+
+    // check if we can deserialize back
+    RecordMissing r2;
+    bool err = r2.ParseFromString(serialized);
+    if (!err) return false;
+    for (int i = 0; i < r1.ids_size(); i++) {
+        if (r2.ids(i) != r1.ids(i))
+            return false;
+    }
+    return true;
 }
 // This function checks if a protocol is able to ignore a new field in the schema
 bool ProtobufTest::check_new_field() {
-    return false;
+    Record r1;
+    for (size_t i = 0; i < kIntegers.size(); i++) {
+        r1.add_ids(kIntegers[i]);
+    }
+    for (size_t i = 0; i < kStringsCount; i++) {
+        r1.add_strings(kStringValue);
+    }
+    std::string serialized;
+    r1.SerializeToString(&serialized);
+
+    // check if we can deserialize back
+    RecordNewField r2;
+    bool err = r2.ParseFromString(serialized);
+    if (!err) return false;
+    for (int i = 0; i < r1.strings_size(); i++) {
+        if (r2.strings(i) != r1.strings(i))
+            return false;
+    }
+    for (int i = 0; i < r1.ids_size(); i++) {
+        if (r2.ids(i) != r1.ids(i))
+            return false;
+    }
+    return true;
 }
 // This function checks for types change (e.g. int should be able to change to float)
 bool ProtobufTest::check_types_inheritance() {
-    return false;
+    Record r1;
+    for (size_t i = 0; i < kIntegers.size(); i++) {
+        r1.add_ids(kIntegers[i]);
+    }
+    for (size_t i = 0; i < kStringsCount; i++) {
+        r1.add_strings(kStringValue);
+    }
+    std::string serialized;
+    r1.SerializeToString(&serialized);
+
+    // check if we can deserialize back
+    RecordTypes r2;
+    bool err = r2.ParseFromString(serialized);
+    if (!err) return false;
+    for (int i = 0; i < r1.strings_size(); i++) {
+        if (r2.strings(i) != r1.strings(i))
+            return false;
+    }
+    for (int i = 0; i < r1.ids_size(); i++) {
+        if (r2.ids(i) != r1.ids(i))
+            return false;
+    }
+    return true;
 }
 // This function checks for if a field is able to change it's name or not
 bool ProtobufTest::check_field_names() {
-    return false;
+    Record r1;
+    for (size_t i = 0; i < kIntegers.size(); i++) {
+        r1.add_ids(kIntegers[i]);
+    }
+    for (size_t i = 0; i < kStringsCount; i++) {
+        r1.add_strings(kStringValue);
+    }
+    std::string serialized;
+    r1.SerializeToString(&serialized);
+
+    // check if we can deserialize back
+    RecordRename r2;
+    bool err = r2.ParseFromString(serialized);
+    if (!err) return false;
+    for (int i = 0; i < r1.strings_size(); i++) {
+        if (r2.strings_rem(i) != r1.strings(i))
+            return false;
+    }
+    for (int i = 0; i < r1.ids_size(); i++) {
+        if (r2.ids_rem(i) != r1.ids(i))
+            return false;
+    }
+    return true;
 }

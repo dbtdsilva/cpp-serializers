@@ -38,8 +38,10 @@ void protobuf_AssignDesc_test_2eproto();
 void protobuf_ShutdownFile_test_2eproto();
 
 class Record;
-class Record2;
-class Record3;
+class RecordMissing;
+class RecordNewField;
+class RecordRename;
+class RecordTypes;
 
 // ===================================================================
 
@@ -106,16 +108,16 @@ class Record : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 
   // accessors -------------------------------------------------------
 
-  // repeated int64 ids = 1;
+  // repeated int32 ids = 1;
   int ids_size() const;
   void clear_ids();
   static const int kIdsFieldNumber = 1;
-  ::google::protobuf::int64 ids(int index) const;
-  void set_ids(int index, ::google::protobuf::int64 value);
-  void add_ids(::google::protobuf::int64 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+  ::google::protobuf::int32 ids(int index) const;
+  void set_ids(int index, ::google::protobuf::int32 value);
+  void add_ids(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
       ids() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
       mutable_ids();
 
   // repeated string strings = 2;
@@ -138,7 +140,7 @@ class Record : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > ids_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > ids_;
   mutable int _ids_cached_byte_size_;
   ::google::protobuf::RepeatedPtrField< ::std::string> strings_;
   mutable int _cached_size_;
@@ -153,34 +155,34 @@ extern ::google::protobuf::internal::ExplicitlyConstructed<Record> Record_defaul
 
 // -------------------------------------------------------------------
 
-class Record2 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:protobuf_test.Record2) */ {
+class RecordTypes : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:protobuf_test.RecordTypes) */ {
  public:
-  Record2();
-  virtual ~Record2();
+  RecordTypes();
+  virtual ~RecordTypes();
 
-  Record2(const Record2& from);
+  RecordTypes(const RecordTypes& from);
 
-  inline Record2& operator=(const Record2& from) {
+  inline RecordTypes& operator=(const RecordTypes& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const Record2& default_instance();
+  static const RecordTypes& default_instance();
 
-  static const Record2* internal_default_instance();
+  static const RecordTypes* internal_default_instance();
 
-  void Swap(Record2* other);
+  void Swap(RecordTypes* other);
 
   // implements Message ----------------------------------------------
 
-  inline Record2* New() const { return New(NULL); }
+  inline RecordTypes* New() const { return New(NULL); }
 
-  Record2* New(::google::protobuf::Arena* arena) const;
+  RecordTypes* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Record2& from);
-  void MergeFrom(const Record2& from);
+  void CopyFrom(const RecordTypes& from);
+  void MergeFrom(const RecordTypes& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -199,8 +201,8 @@ class Record2 : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(Record2* other);
-  void UnsafeMergeFrom(const Record2& from);
+  void InternalSwap(RecordTypes* other);
+  void UnsafeMergeFrom(const RecordTypes& from);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -216,109 +218,16 @@ class Record2 : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // accessors -------------------------------------------------------
 
-  // repeated int64 ids = 1;
+  // repeated double ids = 1;
   int ids_size() const;
   void clear_ids();
   static const int kIdsFieldNumber = 1;
-  ::google::protobuf::int64 ids(int index) const;
-  void set_ids(int index, ::google::protobuf::int64 value);
-  void add_ids(::google::protobuf::int64 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+  double ids(int index) const;
+  void set_ids(int index, double value);
+  void add_ids(double value);
+  const ::google::protobuf::RepeatedField< double >&
       ids() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
-      mutable_ids();
-
-  // @@protoc_insertion_point(class_scope:protobuf_test.Record2)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > ids_;
-  mutable int _ids_cached_byte_size_;
-  mutable int _cached_size_;
-  friend void  protobuf_InitDefaults_test_2eproto_impl();
-  friend void  protobuf_AddDesc_test_2eproto_impl();
-  friend void protobuf_AssignDesc_test_2eproto();
-  friend void protobuf_ShutdownFile_test_2eproto();
-
-  void InitAsDefaultInstance();
-};
-extern ::google::protobuf::internal::ExplicitlyConstructed<Record2> Record2_default_instance_;
-
-// -------------------------------------------------------------------
-
-class Record3 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:protobuf_test.Record3) */ {
- public:
-  Record3();
-  virtual ~Record3();
-
-  Record3(const Record3& from);
-
-  inline Record3& operator=(const Record3& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Record3& default_instance();
-
-  static const Record3* internal_default_instance();
-
-  void Swap(Record3* other);
-
-  // implements Message ----------------------------------------------
-
-  inline Record3* New() const { return New(NULL); }
-
-  Record3* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Record3& from);
-  void MergeFrom(const Record3& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  size_t ByteSizeLong() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(Record3* other);
-  void UnsafeMergeFrom(const Record3& from);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // repeated int64 ids = 1;
-  int ids_size() const;
-  void clear_ids();
-  static const int kIdsFieldNumber = 1;
-  ::google::protobuf::int64 ids(int index) const;
-  void set_ids(int index, ::google::protobuf::int64 value);
-  void add_ids(::google::protobuf::int64 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
-      ids() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+  ::google::protobuf::RepeatedField< double >*
       mutable_ids();
 
   // repeated string strings = 2;
@@ -337,11 +246,11 @@ class Record3 : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   const ::google::protobuf::RepeatedPtrField< ::std::string>& strings() const;
   ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_strings();
 
-  // @@protoc_insertion_point(class_scope:protobuf_test.Record3)
+  // @@protoc_insertion_point(class_scope:protobuf_test.RecordTypes)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > ids_;
+  ::google::protobuf::RepeatedField< double > ids_;
   mutable int _ids_cached_byte_size_;
   ::google::protobuf::RepeatedPtrField< ::std::string> strings_;
   mutable int _cached_size_;
@@ -352,7 +261,327 @@ class Record3 : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   void InitAsDefaultInstance();
 };
-extern ::google::protobuf::internal::ExplicitlyConstructed<Record3> Record3_default_instance_;
+extern ::google::protobuf::internal::ExplicitlyConstructed<RecordTypes> RecordTypes_default_instance_;
+
+// -------------------------------------------------------------------
+
+class RecordMissing : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:protobuf_test.RecordMissing) */ {
+ public:
+  RecordMissing();
+  virtual ~RecordMissing();
+
+  RecordMissing(const RecordMissing& from);
+
+  inline RecordMissing& operator=(const RecordMissing& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RecordMissing& default_instance();
+
+  static const RecordMissing* internal_default_instance();
+
+  void Swap(RecordMissing* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RecordMissing* New() const { return New(NULL); }
+
+  RecordMissing* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RecordMissing& from);
+  void MergeFrom(const RecordMissing& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RecordMissing* other);
+  void UnsafeMergeFrom(const RecordMissing& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated int32 ids = 1;
+  int ids_size() const;
+  void clear_ids();
+  static const int kIdsFieldNumber = 1;
+  ::google::protobuf::int32 ids(int index) const;
+  void set_ids(int index, ::google::protobuf::int32 value);
+  void add_ids(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      ids() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_ids();
+
+  // @@protoc_insertion_point(class_scope:protobuf_test.RecordMissing)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > ids_;
+  mutable int _ids_cached_byte_size_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_test_2eproto_impl();
+  friend void  protobuf_AddDesc_test_2eproto_impl();
+  friend void protobuf_AssignDesc_test_2eproto();
+  friend void protobuf_ShutdownFile_test_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<RecordMissing> RecordMissing_default_instance_;
+
+// -------------------------------------------------------------------
+
+class RecordNewField : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:protobuf_test.RecordNewField) */ {
+ public:
+  RecordNewField();
+  virtual ~RecordNewField();
+
+  RecordNewField(const RecordNewField& from);
+
+  inline RecordNewField& operator=(const RecordNewField& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RecordNewField& default_instance();
+
+  static const RecordNewField* internal_default_instance();
+
+  void Swap(RecordNewField* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RecordNewField* New() const { return New(NULL); }
+
+  RecordNewField* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RecordNewField& from);
+  void MergeFrom(const RecordNewField& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RecordNewField* other);
+  void UnsafeMergeFrom(const RecordNewField& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated int32 ids = 1;
+  int ids_size() const;
+  void clear_ids();
+  static const int kIdsFieldNumber = 1;
+  ::google::protobuf::int32 ids(int index) const;
+  void set_ids(int index, ::google::protobuf::int32 value);
+  void add_ids(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      ids() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_ids();
+
+  // repeated string strings = 2;
+  int strings_size() const;
+  void clear_strings();
+  static const int kStringsFieldNumber = 2;
+  const ::std::string& strings(int index) const;
+  ::std::string* mutable_strings(int index);
+  void set_strings(int index, const ::std::string& value);
+  void set_strings(int index, const char* value);
+  void set_strings(int index, const char* value, size_t size);
+  ::std::string* add_strings();
+  void add_strings(const ::std::string& value);
+  void add_strings(const char* value);
+  void add_strings(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& strings() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_strings();
+
+  // optional int32 ids2 = 3;
+  void clear_ids2();
+  static const int kIds2FieldNumber = 3;
+  ::google::protobuf::int32 ids2() const;
+  void set_ids2(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:protobuf_test.RecordNewField)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > ids_;
+  mutable int _ids_cached_byte_size_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> strings_;
+  ::google::protobuf::int32 ids2_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_test_2eproto_impl();
+  friend void  protobuf_AddDesc_test_2eproto_impl();
+  friend void protobuf_AssignDesc_test_2eproto();
+  friend void protobuf_ShutdownFile_test_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<RecordNewField> RecordNewField_default_instance_;
+
+// -------------------------------------------------------------------
+
+class RecordRename : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:protobuf_test.RecordRename) */ {
+ public:
+  RecordRename();
+  virtual ~RecordRename();
+
+  RecordRename(const RecordRename& from);
+
+  inline RecordRename& operator=(const RecordRename& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RecordRename& default_instance();
+
+  static const RecordRename* internal_default_instance();
+
+  void Swap(RecordRename* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RecordRename* New() const { return New(NULL); }
+
+  RecordRename* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RecordRename& from);
+  void MergeFrom(const RecordRename& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RecordRename* other);
+  void UnsafeMergeFrom(const RecordRename& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated int32 ids_rem = 1;
+  int ids_rem_size() const;
+  void clear_ids_rem();
+  static const int kIdsRemFieldNumber = 1;
+  ::google::protobuf::int32 ids_rem(int index) const;
+  void set_ids_rem(int index, ::google::protobuf::int32 value);
+  void add_ids_rem(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      ids_rem() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_ids_rem();
+
+  // repeated string strings_rem = 2;
+  int strings_rem_size() const;
+  void clear_strings_rem();
+  static const int kStringsRemFieldNumber = 2;
+  const ::std::string& strings_rem(int index) const;
+  ::std::string* mutable_strings_rem(int index);
+  void set_strings_rem(int index, const ::std::string& value);
+  void set_strings_rem(int index, const char* value);
+  void set_strings_rem(int index, const char* value, size_t size);
+  ::std::string* add_strings_rem();
+  void add_strings_rem(const ::std::string& value);
+  void add_strings_rem(const char* value);
+  void add_strings_rem(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& strings_rem() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_strings_rem();
+
+  // @@protoc_insertion_point(class_scope:protobuf_test.RecordRename)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > ids_rem_;
+  mutable int _ids_rem_cached_byte_size_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> strings_rem_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_test_2eproto_impl();
+  friend void  protobuf_AddDesc_test_2eproto_impl();
+  friend void protobuf_AssignDesc_test_2eproto();
+  friend void protobuf_ShutdownFile_test_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<RecordRename> RecordRename_default_instance_;
 
 // ===================================================================
 
@@ -362,31 +591,31 @@ extern ::google::protobuf::internal::ExplicitlyConstructed<Record3> Record3_defa
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // Record
 
-// repeated int64 ids = 1;
+// repeated int32 ids = 1;
 inline int Record::ids_size() const {
   return ids_.size();
 }
 inline void Record::clear_ids() {
   ids_.Clear();
 }
-inline ::google::protobuf::int64 Record::ids(int index) const {
+inline ::google::protobuf::int32 Record::ids(int index) const {
   // @@protoc_insertion_point(field_get:protobuf_test.Record.ids)
   return ids_.Get(index);
 }
-inline void Record::set_ids(int index, ::google::protobuf::int64 value) {
+inline void Record::set_ids(int index, ::google::protobuf::int32 value) {
   ids_.Set(index, value);
   // @@protoc_insertion_point(field_set:protobuf_test.Record.ids)
 }
-inline void Record::add_ids(::google::protobuf::int64 value) {
+inline void Record::add_ids(::google::protobuf::int32 value) {
   ids_.Add(value);
   // @@protoc_insertion_point(field_add:protobuf_test.Record.ids)
 }
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
 Record::ids() const {
   // @@protoc_insertion_point(field_list:protobuf_test.Record.ids)
   return ids_;
 }
-inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
 Record::mutable_ids() {
   // @@protoc_insertion_point(field_mutable_list:protobuf_test.Record.ids)
   return &ids_;
@@ -452,134 +681,336 @@ inline const Record* Record::internal_default_instance() {
 }
 // -------------------------------------------------------------------
 
-// Record2
+// RecordTypes
 
-// repeated int64 ids = 1;
-inline int Record2::ids_size() const {
+// repeated double ids = 1;
+inline int RecordTypes::ids_size() const {
   return ids_.size();
 }
-inline void Record2::clear_ids() {
+inline void RecordTypes::clear_ids() {
   ids_.Clear();
 }
-inline ::google::protobuf::int64 Record2::ids(int index) const {
-  // @@protoc_insertion_point(field_get:protobuf_test.Record2.ids)
+inline double RecordTypes::ids(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordTypes.ids)
   return ids_.Get(index);
 }
-inline void Record2::set_ids(int index, ::google::protobuf::int64 value) {
+inline void RecordTypes::set_ids(int index, double value) {
   ids_.Set(index, value);
-  // @@protoc_insertion_point(field_set:protobuf_test.Record2.ids)
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordTypes.ids)
 }
-inline void Record2::add_ids(::google::protobuf::int64 value) {
+inline void RecordTypes::add_ids(double value) {
   ids_.Add(value);
-  // @@protoc_insertion_point(field_add:protobuf_test.Record2.ids)
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordTypes.ids)
 }
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
-Record2::ids() const {
-  // @@protoc_insertion_point(field_list:protobuf_test.Record2.ids)
+inline const ::google::protobuf::RepeatedField< double >&
+RecordTypes::ids() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordTypes.ids)
   return ids_;
 }
-inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
-Record2::mutable_ids() {
-  // @@protoc_insertion_point(field_mutable_list:protobuf_test.Record2.ids)
-  return &ids_;
-}
-
-inline const Record2* Record2::internal_default_instance() {
-  return &Record2_default_instance_.get();
-}
-// -------------------------------------------------------------------
-
-// Record3
-
-// repeated int64 ids = 1;
-inline int Record3::ids_size() const {
-  return ids_.size();
-}
-inline void Record3::clear_ids() {
-  ids_.Clear();
-}
-inline ::google::protobuf::int64 Record3::ids(int index) const {
-  // @@protoc_insertion_point(field_get:protobuf_test.Record3.ids)
-  return ids_.Get(index);
-}
-inline void Record3::set_ids(int index, ::google::protobuf::int64 value) {
-  ids_.Set(index, value);
-  // @@protoc_insertion_point(field_set:protobuf_test.Record3.ids)
-}
-inline void Record3::add_ids(::google::protobuf::int64 value) {
-  ids_.Add(value);
-  // @@protoc_insertion_point(field_add:protobuf_test.Record3.ids)
-}
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
-Record3::ids() const {
-  // @@protoc_insertion_point(field_list:protobuf_test.Record3.ids)
-  return ids_;
-}
-inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
-Record3::mutable_ids() {
-  // @@protoc_insertion_point(field_mutable_list:protobuf_test.Record3.ids)
+inline ::google::protobuf::RepeatedField< double >*
+RecordTypes::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordTypes.ids)
   return &ids_;
 }
 
 // repeated string strings = 2;
-inline int Record3::strings_size() const {
+inline int RecordTypes::strings_size() const {
   return strings_.size();
 }
-inline void Record3::clear_strings() {
+inline void RecordTypes::clear_strings() {
   strings_.Clear();
 }
-inline const ::std::string& Record3::strings(int index) const {
-  // @@protoc_insertion_point(field_get:protobuf_test.Record3.strings)
+inline const ::std::string& RecordTypes::strings(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordTypes.strings)
   return strings_.Get(index);
 }
-inline ::std::string* Record3::mutable_strings(int index) {
-  // @@protoc_insertion_point(field_mutable:protobuf_test.Record3.strings)
+inline ::std::string* RecordTypes::mutable_strings(int index) {
+  // @@protoc_insertion_point(field_mutable:protobuf_test.RecordTypes.strings)
   return strings_.Mutable(index);
 }
-inline void Record3::set_strings(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:protobuf_test.Record3.strings)
+inline void RecordTypes::set_strings(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordTypes.strings)
   strings_.Mutable(index)->assign(value);
 }
-inline void Record3::set_strings(int index, const char* value) {
+inline void RecordTypes::set_strings(int index, const char* value) {
   strings_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_set_char:protobuf_test.RecordTypes.strings)
 }
-inline void Record3::set_strings(int index, const char* value, size_t size) {
+inline void RecordTypes::set_strings(int index, const char* value, size_t size) {
   strings_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_set_pointer:protobuf_test.RecordTypes.strings)
 }
-inline ::std::string* Record3::add_strings() {
-  // @@protoc_insertion_point(field_add_mutable:protobuf_test.Record3.strings)
+inline ::std::string* RecordTypes::add_strings() {
+  // @@protoc_insertion_point(field_add_mutable:protobuf_test.RecordTypes.strings)
   return strings_.Add();
 }
-inline void Record3::add_strings(const ::std::string& value) {
+inline void RecordTypes::add_strings(const ::std::string& value) {
   strings_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordTypes.strings)
 }
-inline void Record3::add_strings(const char* value) {
+inline void RecordTypes::add_strings(const char* value) {
   strings_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_add_char:protobuf_test.RecordTypes.strings)
 }
-inline void Record3::add_strings(const char* value, size_t size) {
+inline void RecordTypes::add_strings(const char* value, size_t size) {
   strings_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_add_pointer:protobuf_test.RecordTypes.strings)
 }
 inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
-Record3::strings() const {
-  // @@protoc_insertion_point(field_list:protobuf_test.Record3.strings)
+RecordTypes::strings() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordTypes.strings)
   return strings_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::std::string>*
-Record3::mutable_strings() {
-  // @@protoc_insertion_point(field_mutable_list:protobuf_test.Record3.strings)
+RecordTypes::mutable_strings() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordTypes.strings)
   return &strings_;
 }
 
-inline const Record3* Record3::internal_default_instance() {
-  return &Record3_default_instance_.get();
+inline const RecordTypes* RecordTypes::internal_default_instance() {
+  return &RecordTypes_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// RecordMissing
+
+// repeated int32 ids = 1;
+inline int RecordMissing::ids_size() const {
+  return ids_.size();
+}
+inline void RecordMissing::clear_ids() {
+  ids_.Clear();
+}
+inline ::google::protobuf::int32 RecordMissing::ids(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordMissing.ids)
+  return ids_.Get(index);
+}
+inline void RecordMissing::set_ids(int index, ::google::protobuf::int32 value) {
+  ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordMissing.ids)
+}
+inline void RecordMissing::add_ids(::google::protobuf::int32 value) {
+  ids_.Add(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordMissing.ids)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RecordMissing::ids() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordMissing.ids)
+  return ids_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RecordMissing::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordMissing.ids)
+  return &ids_;
+}
+
+inline const RecordMissing* RecordMissing::internal_default_instance() {
+  return &RecordMissing_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// RecordNewField
+
+// repeated int32 ids = 1;
+inline int RecordNewField::ids_size() const {
+  return ids_.size();
+}
+inline void RecordNewField::clear_ids() {
+  ids_.Clear();
+}
+inline ::google::protobuf::int32 RecordNewField::ids(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordNewField.ids)
+  return ids_.Get(index);
+}
+inline void RecordNewField::set_ids(int index, ::google::protobuf::int32 value) {
+  ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordNewField.ids)
+}
+inline void RecordNewField::add_ids(::google::protobuf::int32 value) {
+  ids_.Add(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordNewField.ids)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RecordNewField::ids() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordNewField.ids)
+  return ids_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RecordNewField::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordNewField.ids)
+  return &ids_;
+}
+
+// repeated string strings = 2;
+inline int RecordNewField::strings_size() const {
+  return strings_.size();
+}
+inline void RecordNewField::clear_strings() {
+  strings_.Clear();
+}
+inline const ::std::string& RecordNewField::strings(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordNewField.strings)
+  return strings_.Get(index);
+}
+inline ::std::string* RecordNewField::mutable_strings(int index) {
+  // @@protoc_insertion_point(field_mutable:protobuf_test.RecordNewField.strings)
+  return strings_.Mutable(index);
+}
+inline void RecordNewField::set_strings(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordNewField.strings)
+  strings_.Mutable(index)->assign(value);
+}
+inline void RecordNewField::set_strings(int index, const char* value) {
+  strings_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:protobuf_test.RecordNewField.strings)
+}
+inline void RecordNewField::set_strings(int index, const char* value, size_t size) {
+  strings_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:protobuf_test.RecordNewField.strings)
+}
+inline ::std::string* RecordNewField::add_strings() {
+  // @@protoc_insertion_point(field_add_mutable:protobuf_test.RecordNewField.strings)
+  return strings_.Add();
+}
+inline void RecordNewField::add_strings(const ::std::string& value) {
+  strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordNewField.strings)
+}
+inline void RecordNewField::add_strings(const char* value) {
+  strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:protobuf_test.RecordNewField.strings)
+}
+inline void RecordNewField::add_strings(const char* value, size_t size) {
+  strings_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:protobuf_test.RecordNewField.strings)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+RecordNewField::strings() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordNewField.strings)
+  return strings_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+RecordNewField::mutable_strings() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordNewField.strings)
+  return &strings_;
+}
+
+// optional int32 ids2 = 3;
+inline void RecordNewField::clear_ids2() {
+  ids2_ = 0;
+}
+inline ::google::protobuf::int32 RecordNewField::ids2() const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordNewField.ids2)
+  return ids2_;
+}
+inline void RecordNewField::set_ids2(::google::protobuf::int32 value) {
+  
+  ids2_ = value;
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordNewField.ids2)
+}
+
+inline const RecordNewField* RecordNewField::internal_default_instance() {
+  return &RecordNewField_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// RecordRename
+
+// repeated int32 ids_rem = 1;
+inline int RecordRename::ids_rem_size() const {
+  return ids_rem_.size();
+}
+inline void RecordRename::clear_ids_rem() {
+  ids_rem_.Clear();
+}
+inline ::google::protobuf::int32 RecordRename::ids_rem(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordRename.ids_rem)
+  return ids_rem_.Get(index);
+}
+inline void RecordRename::set_ids_rem(int index, ::google::protobuf::int32 value) {
+  ids_rem_.Set(index, value);
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordRename.ids_rem)
+}
+inline void RecordRename::add_ids_rem(::google::protobuf::int32 value) {
+  ids_rem_.Add(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordRename.ids_rem)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RecordRename::ids_rem() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordRename.ids_rem)
+  return ids_rem_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RecordRename::mutable_ids_rem() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordRename.ids_rem)
+  return &ids_rem_;
+}
+
+// repeated string strings_rem = 2;
+inline int RecordRename::strings_rem_size() const {
+  return strings_rem_.size();
+}
+inline void RecordRename::clear_strings_rem() {
+  strings_rem_.Clear();
+}
+inline const ::std::string& RecordRename::strings_rem(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordRename.strings_rem)
+  return strings_rem_.Get(index);
+}
+inline ::std::string* RecordRename::mutable_strings_rem(int index) {
+  // @@protoc_insertion_point(field_mutable:protobuf_test.RecordRename.strings_rem)
+  return strings_rem_.Mutable(index);
+}
+inline void RecordRename::set_strings_rem(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordRename.strings_rem)
+  strings_rem_.Mutable(index)->assign(value);
+}
+inline void RecordRename::set_strings_rem(int index, const char* value) {
+  strings_rem_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:protobuf_test.RecordRename.strings_rem)
+}
+inline void RecordRename::set_strings_rem(int index, const char* value, size_t size) {
+  strings_rem_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:protobuf_test.RecordRename.strings_rem)
+}
+inline ::std::string* RecordRename::add_strings_rem() {
+  // @@protoc_insertion_point(field_add_mutable:protobuf_test.RecordRename.strings_rem)
+  return strings_rem_.Add();
+}
+inline void RecordRename::add_strings_rem(const ::std::string& value) {
+  strings_rem_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordRename.strings_rem)
+}
+inline void RecordRename::add_strings_rem(const char* value) {
+  strings_rem_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:protobuf_test.RecordRename.strings_rem)
+}
+inline void RecordRename::add_strings_rem(const char* value, size_t size) {
+  strings_rem_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:protobuf_test.RecordRename.strings_rem)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+RecordRename::strings_rem() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordRename.strings_rem)
+  return strings_rem_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+RecordRename::mutable_strings_rem() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordRename.strings_rem)
+  return &strings_rem_;
+}
+
+inline const RecordRename* RecordRename::internal_default_instance() {
+  return &RecordRename_default_instance_.get();
 }
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

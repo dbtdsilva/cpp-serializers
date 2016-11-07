@@ -24,12 +24,18 @@ namespace {
 const ::google::protobuf::Descriptor* Record_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Record_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Record2_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* RecordTypes_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  Record2_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Record3_descriptor_ = NULL;
+  RecordTypes_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RecordMissing_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  Record3_reflection_ = NULL;
+  RecordMissing_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RecordNewField_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RecordNewField_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RecordRename_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RecordRename_reflection_ = NULL;
 
 }  // namespace
 
@@ -56,35 +62,66 @@ void protobuf_AssignDesc_test_2eproto() {
       -1,
       sizeof(Record),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Record, _internal_metadata_));
-  Record2_descriptor_ = file->message_type(1);
-  static const int Record2_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Record2, ids_),
+  RecordTypes_descriptor_ = file->message_type(1);
+  static const int RecordTypes_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordTypes, ids_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordTypes, strings_),
   };
-  Record2_reflection_ =
+  RecordTypes_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Record2_descriptor_,
-      Record2::internal_default_instance(),
-      Record2_offsets_,
+      RecordTypes_descriptor_,
+      RecordTypes::internal_default_instance(),
+      RecordTypes_offsets_,
       -1,
       -1,
       -1,
-      sizeof(Record2),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Record2, _internal_metadata_));
-  Record3_descriptor_ = file->message_type(2);
-  static const int Record3_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Record3, ids_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Record3, strings_),
+      sizeof(RecordTypes),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordTypes, _internal_metadata_));
+  RecordMissing_descriptor_ = file->message_type(2);
+  static const int RecordMissing_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordMissing, ids_),
   };
-  Record3_reflection_ =
+  RecordMissing_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Record3_descriptor_,
-      Record3::internal_default_instance(),
-      Record3_offsets_,
+      RecordMissing_descriptor_,
+      RecordMissing::internal_default_instance(),
+      RecordMissing_offsets_,
       -1,
       -1,
       -1,
-      sizeof(Record3),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Record3, _internal_metadata_));
+      sizeof(RecordMissing),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordMissing, _internal_metadata_));
+  RecordNewField_descriptor_ = file->message_type(3);
+  static const int RecordNewField_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordNewField, ids_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordNewField, strings_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordNewField, ids2_),
+  };
+  RecordNewField_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RecordNewField_descriptor_,
+      RecordNewField::internal_default_instance(),
+      RecordNewField_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RecordNewField),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordNewField, _internal_metadata_));
+  RecordRename_descriptor_ = file->message_type(4);
+  static const int RecordRename_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordRename, ids_rem_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordRename, strings_rem_),
+  };
+  RecordRename_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RecordRename_descriptor_,
+      RecordRename::internal_default_instance(),
+      RecordRename_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RecordRename),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordRename, _internal_metadata_));
 }
 
 namespace {
@@ -101,9 +138,13 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Record_descriptor_, Record::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Record2_descriptor_, Record2::internal_default_instance());
+      RecordTypes_descriptor_, RecordTypes::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Record3_descriptor_, Record3::internal_default_instance());
+      RecordMissing_descriptor_, RecordMissing::internal_default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RecordNewField_descriptor_, RecordNewField::internal_default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RecordRename_descriptor_, RecordRename::internal_default_instance());
 }
 
 }  // namespace
@@ -111,10 +152,14 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void protobuf_ShutdownFile_test_2eproto() {
   Record_default_instance_.Shutdown();
   delete Record_reflection_;
-  Record2_default_instance_.Shutdown();
-  delete Record2_reflection_;
-  Record3_default_instance_.Shutdown();
-  delete Record3_reflection_;
+  RecordTypes_default_instance_.Shutdown();
+  delete RecordTypes_reflection_;
+  RecordMissing_default_instance_.Shutdown();
+  delete RecordMissing_reflection_;
+  RecordNewField_default_instance_.Shutdown();
+  delete RecordNewField_reflection_;
+  RecordRename_default_instance_.Shutdown();
+  delete RecordRename_reflection_;
 }
 
 void protobuf_InitDefaults_test_2eproto_impl() {
@@ -122,12 +167,18 @@ void protobuf_InitDefaults_test_2eproto_impl() {
 
   ::google::protobuf::internal::GetEmptyString();
   Record_default_instance_.DefaultConstruct();
-  Record2_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
-  Record3_default_instance_.DefaultConstruct();
+  RecordTypes_default_instance_.DefaultConstruct();
+  RecordMissing_default_instance_.DefaultConstruct();
+  ::google::protobuf::internal::GetEmptyString();
+  RecordNewField_default_instance_.DefaultConstruct();
+  ::google::protobuf::internal::GetEmptyString();
+  RecordRename_default_instance_.DefaultConstruct();
   Record_default_instance_.get_mutable()->InitAsDefaultInstance();
-  Record2_default_instance_.get_mutable()->InitAsDefaultInstance();
-  Record3_default_instance_.get_mutable()->InitAsDefaultInstance();
+  RecordTypes_default_instance_.get_mutable()->InitAsDefaultInstance();
+  RecordMissing_default_instance_.get_mutable()->InitAsDefaultInstance();
+  RecordNewField_default_instance_.get_mutable()->InitAsDefaultInstance();
+  RecordRename_default_instance_.get_mutable()->InitAsDefaultInstance();
 }
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_test_2eproto_once_);
@@ -141,9 +192,12 @@ void protobuf_AddDesc_test_2eproto_impl() {
   protobuf_InitDefaults_test_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\ntest.proto\022\rprotobuf_test\"&\n\006Record\022\013\n"
-    "\003ids\030\001 \003(\003\022\017\n\007strings\030\002 \003(\t\"\026\n\007Record2\022\013"
-    "\n\003ids\030\001 \003(\003\"\'\n\007Record3\022\013\n\003ids\030\001 \003(\003\022\017\n\007s"
-    "trings\030\002 \003(\tb\006proto3", 140);
+    "\003ids\030\001 \003(\005\022\017\n\007strings\030\002 \003(\t\"+\n\013RecordTyp"
+    "es\022\013\n\003ids\030\001 \003(\001\022\017\n\007strings\030\002 \003(\t\"\034\n\rReco"
+    "rdMissing\022\013\n\003ids\030\001 \003(\005\"<\n\016RecordNewField"
+    "\022\013\n\003ids\030\001 \003(\005\022\017\n\007strings\030\002 \003(\t\022\014\n\004ids2\030\003"
+    " \001(\005\"4\n\014RecordRename\022\017\n\007ids_rem\030\001 \003(\005\022\023\n"
+    "\013strings_rem\030\002 \003(\tb\006proto3", 266);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "test.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_test_2eproto);
@@ -249,15 +303,15 @@ bool Record::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated int64 ids = 1;
+      // repeated int32 ids = 1;
       case 1: {
         if (tag == 10) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, this->mutable_ids())));
         } else if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  1, 10, input, this->mutable_ids())));
         } else {
           goto handle_unusual;
@@ -309,13 +363,13 @@ failure:
 void Record::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:protobuf_test.Record)
-  // repeated int64 ids = 1;
+  // repeated int32 ids = 1;
   if (this->ids_size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
     output->WriteVarint32(_ids_cached_byte_size_);
   }
   for (int i = 0; i < this->ids_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64NoTag(
+    ::google::protobuf::internal::WireFormatLite::WriteInt32NoTag(
       this->ids(i), output);
   }
 
@@ -336,7 +390,7 @@ void Record::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:protobuf_test.Record)
-  // repeated int64 ids = 1;
+  // repeated int32 ids = 1;
   if (this->ids_size() > 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
       1,
@@ -347,7 +401,7 @@ void Record::SerializeWithCachedSizes(
   }
   for (int i = 0; i < this->ids_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteInt64NoTagToArray(this->ids(i), target);
+      WriteInt32NoTagToArray(this->ids(i), target);
   }
 
   // repeated string strings = 2;
@@ -368,13 +422,13 @@ size_t Record::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:protobuf_test.Record)
   size_t total_size = 0;
 
-  // repeated int64 ids = 1;
+  // repeated int32 ids = 1;
   {
     size_t data_size = 0;
     unsigned int count = this->ids_size();
     for (unsigned int i = 0; i < count; i++) {
       data_size += ::google::protobuf::internal::WireFormatLite::
-        Int64Size(this->ids(i));
+        Int32Size(this->ids(i));
     }
     if (data_size > 0) {
       total_size += 1 +
@@ -473,31 +527,31 @@ void Record::InternalSwap(Record* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Record
 
-// repeated int64 ids = 1;
+// repeated int32 ids = 1;
 int Record::ids_size() const {
   return ids_.size();
 }
 void Record::clear_ids() {
   ids_.Clear();
 }
-::google::protobuf::int64 Record::ids(int index) const {
+::google::protobuf::int32 Record::ids(int index) const {
   // @@protoc_insertion_point(field_get:protobuf_test.Record.ids)
   return ids_.Get(index);
 }
-void Record::set_ids(int index, ::google::protobuf::int64 value) {
+void Record::set_ids(int index, ::google::protobuf::int32 value) {
   ids_.Set(index, value);
   // @@protoc_insertion_point(field_set:protobuf_test.Record.ids)
 }
-void Record::add_ids(::google::protobuf::int64 value) {
+void Record::add_ids(::google::protobuf::int32 value) {
   ids_.Add(value);
   // @@protoc_insertion_point(field_add:protobuf_test.Record.ids)
 }
-const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
 Record::ids() const {
   // @@protoc_insertion_point(field_list:protobuf_test.Record.ids)
   return ids_;
 }
-::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
 Record::mutable_ids() {
   // @@protoc_insertion_point(field_mutable_list:protobuf_test.Record.ids)
   return &ids_;
@@ -566,88 +620,477 @@ inline const Record* Record::internal_default_instance() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Record2::kIdsFieldNumber;
+const int RecordTypes::kIdsFieldNumber;
+const int RecordTypes::kStringsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-Record2::Record2()
+RecordTypes::RecordTypes()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (this != internal_default_instance()) protobuf_InitDefaults_test_2eproto();
   SharedCtor();
-  // @@protoc_insertion_point(constructor:protobuf_test.Record2)
+  // @@protoc_insertion_point(constructor:protobuf_test.RecordTypes)
 }
 
-void Record2::InitAsDefaultInstance() {
+void RecordTypes::InitAsDefaultInstance() {
 }
 
-Record2::Record2(const Record2& from)
+RecordTypes::RecordTypes(const RecordTypes& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:protobuf_test.Record2)
+  // @@protoc_insertion_point(copy_constructor:protobuf_test.RecordTypes)
 }
 
-void Record2::SharedCtor() {
+void RecordTypes::SharedCtor() {
   _cached_size_ = 0;
 }
 
-Record2::~Record2() {
-  // @@protoc_insertion_point(destructor:protobuf_test.Record2)
+RecordTypes::~RecordTypes() {
+  // @@protoc_insertion_point(destructor:protobuf_test.RecordTypes)
   SharedDtor();
 }
 
-void Record2::SharedDtor() {
+void RecordTypes::SharedDtor() {
 }
 
-void Record2::SetCachedSize(int size) const {
+void RecordTypes::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* Record2::descriptor() {
+const ::google::protobuf::Descriptor* RecordTypes::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return Record2_descriptor_;
+  return RecordTypes_descriptor_;
 }
 
-const Record2& Record2::default_instance() {
+const RecordTypes& RecordTypes::default_instance() {
   protobuf_InitDefaults_test_2eproto();
   return *internal_default_instance();
 }
 
-::google::protobuf::internal::ExplicitlyConstructed<Record2> Record2_default_instance_;
+::google::protobuf::internal::ExplicitlyConstructed<RecordTypes> RecordTypes_default_instance_;
 
-Record2* Record2::New(::google::protobuf::Arena* arena) const {
-  Record2* n = new Record2;
+RecordTypes* RecordTypes::New(::google::protobuf::Arena* arena) const {
+  RecordTypes* n = new RecordTypes;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void Record2::Clear() {
-// @@protoc_insertion_point(message_clear_start:protobuf_test.Record2)
+void RecordTypes::Clear() {
+// @@protoc_insertion_point(message_clear_start:protobuf_test.RecordTypes)
   ids_.Clear();
+  strings_.Clear();
 }
 
-bool Record2::MergePartialFromCodedStream(
+bool RecordTypes::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:protobuf_test.Record2)
+  // @@protoc_insertion_point(parse_start:protobuf_test.RecordTypes)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated int64 ids = 1;
+      // repeated double ids = 1;
       case 1: {
         if (tag == 10) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, this->mutable_ids())));
+        } else if (tag == 9) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 1, 10, input, this->mutable_ids())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_strings;
+        break;
+      }
+
+      // repeated string strings = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_strings:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_strings()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->strings(this->strings_size() - 1).data(),
+            this->strings(this->strings_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "protobuf_test.RecordTypes.strings"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_strings;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:protobuf_test.RecordTypes)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:protobuf_test.RecordTypes)
+  return false;
+#undef DO_
+}
+
+void RecordTypes::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:protobuf_test.RecordTypes)
+  // repeated double ids = 1;
+  if (this->ids_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_ids_cached_byte_size_);
+  }
+  for (int i = 0; i < this->ids_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteDoubleNoTag(
+      this->ids(i), output);
+  }
+
+  // repeated string strings = 2;
+  for (int i = 0; i < this->strings_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->strings(i).data(), this->strings(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "protobuf_test.RecordTypes.strings");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->strings(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:protobuf_test.RecordTypes)
+}
+
+::google::protobuf::uint8* RecordTypes::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:protobuf_test.RecordTypes)
+  // repeated double ids = 1;
+  if (this->ids_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      1,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _ids_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->ids_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteDoubleNoTagToArray(this->ids(i), target);
+  }
+
+  // repeated string strings = 2;
+  for (int i = 0; i < this->strings_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->strings(i).data(), this->strings(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "protobuf_test.RecordTypes.strings");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(2, this->strings(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:protobuf_test.RecordTypes)
+  return target;
+}
+
+size_t RecordTypes::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protobuf_test.RecordTypes)
+  size_t total_size = 0;
+
+  // repeated double ids = 1;
+  {
+    size_t data_size = 0;
+    unsigned int count = this->ids_size();
+    data_size = 8UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _ids_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated string strings = 2;
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->strings_size());
+  for (int i = 0; i < this->strings_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->strings(i));
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RecordTypes::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:protobuf_test.RecordTypes)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RecordTypes* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const RecordTypes>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:protobuf_test.RecordTypes)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:protobuf_test.RecordTypes)
+    UnsafeMergeFrom(*source);
+  }
+}
+
+void RecordTypes::MergeFrom(const RecordTypes& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:protobuf_test.RecordTypes)
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void RecordTypes::UnsafeMergeFrom(const RecordTypes& from) {
+  GOOGLE_DCHECK(&from != this);
+  ids_.UnsafeMergeFrom(from.ids_);
+  strings_.UnsafeMergeFrom(from.strings_);
+}
+
+void RecordTypes::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:protobuf_test.RecordTypes)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RecordTypes::CopyFrom(const RecordTypes& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protobuf_test.RecordTypes)
+  if (&from == this) return;
+  Clear();
+  UnsafeMergeFrom(from);
+}
+
+bool RecordTypes::IsInitialized() const {
+
+  return true;
+}
+
+void RecordTypes::Swap(RecordTypes* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RecordTypes::InternalSwap(RecordTypes* other) {
+  ids_.UnsafeArenaSwap(&other->ids_);
+  strings_.UnsafeArenaSwap(&other->strings_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RecordTypes::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RecordTypes_descriptor_;
+  metadata.reflection = RecordTypes_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RecordTypes
+
+// repeated double ids = 1;
+int RecordTypes::ids_size() const {
+  return ids_.size();
+}
+void RecordTypes::clear_ids() {
+  ids_.Clear();
+}
+double RecordTypes::ids(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordTypes.ids)
+  return ids_.Get(index);
+}
+void RecordTypes::set_ids(int index, double value) {
+  ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordTypes.ids)
+}
+void RecordTypes::add_ids(double value) {
+  ids_.Add(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordTypes.ids)
+}
+const ::google::protobuf::RepeatedField< double >&
+RecordTypes::ids() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordTypes.ids)
+  return ids_;
+}
+::google::protobuf::RepeatedField< double >*
+RecordTypes::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordTypes.ids)
+  return &ids_;
+}
+
+// repeated string strings = 2;
+int RecordTypes::strings_size() const {
+  return strings_.size();
+}
+void RecordTypes::clear_strings() {
+  strings_.Clear();
+}
+const ::std::string& RecordTypes::strings(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordTypes.strings)
+  return strings_.Get(index);
+}
+::std::string* RecordTypes::mutable_strings(int index) {
+  // @@protoc_insertion_point(field_mutable:protobuf_test.RecordTypes.strings)
+  return strings_.Mutable(index);
+}
+void RecordTypes::set_strings(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordTypes.strings)
+  strings_.Mutable(index)->assign(value);
+}
+void RecordTypes::set_strings(int index, const char* value) {
+  strings_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:protobuf_test.RecordTypes.strings)
+}
+void RecordTypes::set_strings(int index, const char* value, size_t size) {
+  strings_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:protobuf_test.RecordTypes.strings)
+}
+::std::string* RecordTypes::add_strings() {
+  // @@protoc_insertion_point(field_add_mutable:protobuf_test.RecordTypes.strings)
+  return strings_.Add();
+}
+void RecordTypes::add_strings(const ::std::string& value) {
+  strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordTypes.strings)
+}
+void RecordTypes::add_strings(const char* value) {
+  strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:protobuf_test.RecordTypes.strings)
+}
+void RecordTypes::add_strings(const char* value, size_t size) {
+  strings_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:protobuf_test.RecordTypes.strings)
+}
+const ::google::protobuf::RepeatedPtrField< ::std::string>&
+RecordTypes::strings() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordTypes.strings)
+  return strings_;
+}
+::google::protobuf::RepeatedPtrField< ::std::string>*
+RecordTypes::mutable_strings() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordTypes.strings)
+  return &strings_;
+}
+
+inline const RecordTypes* RecordTypes::internal_default_instance() {
+  return &RecordTypes_default_instance_.get();
+}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RecordMissing::kIdsFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RecordMissing::RecordMissing()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_test_2eproto();
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:protobuf_test.RecordMissing)
+}
+
+void RecordMissing::InitAsDefaultInstance() {
+}
+
+RecordMissing::RecordMissing(const RecordMissing& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  UnsafeMergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:protobuf_test.RecordMissing)
+}
+
+void RecordMissing::SharedCtor() {
+  _cached_size_ = 0;
+}
+
+RecordMissing::~RecordMissing() {
+  // @@protoc_insertion_point(destructor:protobuf_test.RecordMissing)
+  SharedDtor();
+}
+
+void RecordMissing::SharedDtor() {
+}
+
+void RecordMissing::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RecordMissing::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RecordMissing_descriptor_;
+}
+
+const RecordMissing& RecordMissing::default_instance() {
+  protobuf_InitDefaults_test_2eproto();
+  return *internal_default_instance();
+}
+
+::google::protobuf::internal::ExplicitlyConstructed<RecordMissing> RecordMissing_default_instance_;
+
+RecordMissing* RecordMissing::New(::google::protobuf::Arena* arena) const {
+  RecordMissing* n = new RecordMissing;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RecordMissing::Clear() {
+// @@protoc_insertion_point(message_clear_start:protobuf_test.RecordMissing)
+  ids_.Clear();
+}
+
+bool RecordMissing::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:protobuf_test.RecordMissing)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated int32 ids = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, this->mutable_ids())));
         } else if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  1, 10, input, this->mutable_ids())));
         } else {
           goto handle_unusual;
@@ -669,35 +1112,35 @@ bool Record2::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:protobuf_test.Record2)
+  // @@protoc_insertion_point(parse_success:protobuf_test.RecordMissing)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:protobuf_test.Record2)
+  // @@protoc_insertion_point(parse_failure:protobuf_test.RecordMissing)
   return false;
 #undef DO_
 }
 
-void Record2::SerializeWithCachedSizes(
+void RecordMissing::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:protobuf_test.Record2)
-  // repeated int64 ids = 1;
+  // @@protoc_insertion_point(serialize_start:protobuf_test.RecordMissing)
+  // repeated int32 ids = 1;
   if (this->ids_size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
     output->WriteVarint32(_ids_cached_byte_size_);
   }
   for (int i = 0; i < this->ids_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64NoTag(
+    ::google::protobuf::internal::WireFormatLite::WriteInt32NoTag(
       this->ids(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:protobuf_test.Record2)
+  // @@protoc_insertion_point(serialize_end:protobuf_test.RecordMissing)
 }
 
-::google::protobuf::uint8* Record2::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* RecordMissing::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:protobuf_test.Record2)
-  // repeated int64 ids = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:protobuf_test.RecordMissing)
+  // repeated int32 ids = 1;
   if (this->ids_size() > 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
       1,
@@ -708,24 +1151,24 @@ void Record2::SerializeWithCachedSizes(
   }
   for (int i = 0; i < this->ids_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteInt64NoTagToArray(this->ids(i), target);
+      WriteInt32NoTagToArray(this->ids(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:protobuf_test.Record2)
+  // @@protoc_insertion_point(serialize_to_array_end:protobuf_test.RecordMissing)
   return target;
 }
 
-size_t Record2::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:protobuf_test.Record2)
+size_t RecordMissing::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protobuf_test.RecordMissing)
   size_t total_size = 0;
 
-  // repeated int64 ids = 1;
+  // repeated int32 ids = 1;
   {
     size_t data_size = 0;
     unsigned int count = this->ids_size();
     for (unsigned int i = 0; i < count; i++) {
       data_size += ::google::protobuf::internal::WireFormatLite::
-        Int64Size(this->ids(i));
+        Int32Size(this->ids(i));
     }
     if (data_size > 0) {
       total_size += 1 +
@@ -745,23 +1188,23 @@ size_t Record2::ByteSizeLong() const {
   return total_size;
 }
 
-void Record2::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:protobuf_test.Record2)
+void RecordMissing::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:protobuf_test.RecordMissing)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Record2* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Record2>(
+  const RecordMissing* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const RecordMissing>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:protobuf_test.Record2)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:protobuf_test.RecordMissing)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:protobuf_test.Record2)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:protobuf_test.RecordMissing)
     UnsafeMergeFrom(*source);
   }
 }
 
-void Record2::MergeFrom(const Record2& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:protobuf_test.Record2)
+void RecordMissing::MergeFrom(const RecordMissing& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:protobuf_test.RecordMissing)
   if (GOOGLE_PREDICT_TRUE(&from != this)) {
     UnsafeMergeFrom(from);
   } else {
@@ -769,173 +1212,176 @@ void Record2::MergeFrom(const Record2& from) {
   }
 }
 
-void Record2::UnsafeMergeFrom(const Record2& from) {
+void RecordMissing::UnsafeMergeFrom(const RecordMissing& from) {
   GOOGLE_DCHECK(&from != this);
   ids_.UnsafeMergeFrom(from.ids_);
 }
 
-void Record2::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:protobuf_test.Record2)
+void RecordMissing::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:protobuf_test.RecordMissing)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Record2::CopyFrom(const Record2& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:protobuf_test.Record2)
+void RecordMissing::CopyFrom(const RecordMissing& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protobuf_test.RecordMissing)
   if (&from == this) return;
   Clear();
   UnsafeMergeFrom(from);
 }
 
-bool Record2::IsInitialized() const {
+bool RecordMissing::IsInitialized() const {
 
   return true;
 }
 
-void Record2::Swap(Record2* other) {
+void RecordMissing::Swap(RecordMissing* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void Record2::InternalSwap(Record2* other) {
+void RecordMissing::InternalSwap(RecordMissing* other) {
   ids_.UnsafeArenaSwap(&other->ids_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata Record2::GetMetadata() const {
+::google::protobuf::Metadata RecordMissing::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Record2_descriptor_;
-  metadata.reflection = Record2_reflection_;
+  metadata.descriptor = RecordMissing_descriptor_;
+  metadata.reflection = RecordMissing_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Record2
+// RecordMissing
 
-// repeated int64 ids = 1;
-int Record2::ids_size() const {
+// repeated int32 ids = 1;
+int RecordMissing::ids_size() const {
   return ids_.size();
 }
-void Record2::clear_ids() {
+void RecordMissing::clear_ids() {
   ids_.Clear();
 }
-::google::protobuf::int64 Record2::ids(int index) const {
-  // @@protoc_insertion_point(field_get:protobuf_test.Record2.ids)
+::google::protobuf::int32 RecordMissing::ids(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordMissing.ids)
   return ids_.Get(index);
 }
-void Record2::set_ids(int index, ::google::protobuf::int64 value) {
+void RecordMissing::set_ids(int index, ::google::protobuf::int32 value) {
   ids_.Set(index, value);
-  // @@protoc_insertion_point(field_set:protobuf_test.Record2.ids)
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordMissing.ids)
 }
-void Record2::add_ids(::google::protobuf::int64 value) {
+void RecordMissing::add_ids(::google::protobuf::int32 value) {
   ids_.Add(value);
-  // @@protoc_insertion_point(field_add:protobuf_test.Record2.ids)
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordMissing.ids)
 }
-const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
-Record2::ids() const {
-  // @@protoc_insertion_point(field_list:protobuf_test.Record2.ids)
+const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RecordMissing::ids() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordMissing.ids)
   return ids_;
 }
-::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
-Record2::mutable_ids() {
-  // @@protoc_insertion_point(field_mutable_list:protobuf_test.Record2.ids)
+::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RecordMissing::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordMissing.ids)
   return &ids_;
 }
 
-inline const Record2* Record2::internal_default_instance() {
-  return &Record2_default_instance_.get();
+inline const RecordMissing* RecordMissing::internal_default_instance() {
+  return &RecordMissing_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Record3::kIdsFieldNumber;
-const int Record3::kStringsFieldNumber;
+const int RecordNewField::kIdsFieldNumber;
+const int RecordNewField::kStringsFieldNumber;
+const int RecordNewField::kIds2FieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-Record3::Record3()
+RecordNewField::RecordNewField()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (this != internal_default_instance()) protobuf_InitDefaults_test_2eproto();
   SharedCtor();
-  // @@protoc_insertion_point(constructor:protobuf_test.Record3)
+  // @@protoc_insertion_point(constructor:protobuf_test.RecordNewField)
 }
 
-void Record3::InitAsDefaultInstance() {
+void RecordNewField::InitAsDefaultInstance() {
 }
 
-Record3::Record3(const Record3& from)
+RecordNewField::RecordNewField(const RecordNewField& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:protobuf_test.Record3)
+  // @@protoc_insertion_point(copy_constructor:protobuf_test.RecordNewField)
 }
 
-void Record3::SharedCtor() {
+void RecordNewField::SharedCtor() {
+  ids2_ = 0;
   _cached_size_ = 0;
 }
 
-Record3::~Record3() {
-  // @@protoc_insertion_point(destructor:protobuf_test.Record3)
+RecordNewField::~RecordNewField() {
+  // @@protoc_insertion_point(destructor:protobuf_test.RecordNewField)
   SharedDtor();
 }
 
-void Record3::SharedDtor() {
+void RecordNewField::SharedDtor() {
 }
 
-void Record3::SetCachedSize(int size) const {
+void RecordNewField::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* Record3::descriptor() {
+const ::google::protobuf::Descriptor* RecordNewField::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return Record3_descriptor_;
+  return RecordNewField_descriptor_;
 }
 
-const Record3& Record3::default_instance() {
+const RecordNewField& RecordNewField::default_instance() {
   protobuf_InitDefaults_test_2eproto();
   return *internal_default_instance();
 }
 
-::google::protobuf::internal::ExplicitlyConstructed<Record3> Record3_default_instance_;
+::google::protobuf::internal::ExplicitlyConstructed<RecordNewField> RecordNewField_default_instance_;
 
-Record3* Record3::New(::google::protobuf::Arena* arena) const {
-  Record3* n = new Record3;
+RecordNewField* RecordNewField::New(::google::protobuf::Arena* arena) const {
+  RecordNewField* n = new RecordNewField;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void Record3::Clear() {
-// @@protoc_insertion_point(message_clear_start:protobuf_test.Record3)
+void RecordNewField::Clear() {
+// @@protoc_insertion_point(message_clear_start:protobuf_test.RecordNewField)
+  ids2_ = 0;
   ids_.Clear();
   strings_.Clear();
 }
 
-bool Record3::MergePartialFromCodedStream(
+bool RecordNewField::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:protobuf_test.Record3)
+  // @@protoc_insertion_point(parse_start:protobuf_test.RecordNewField)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated int64 ids = 1;
+      // repeated int32 ids = 1;
       case 1: {
         if (tag == 10) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, this->mutable_ids())));
         } else if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  1, 10, input, this->mutable_ids())));
         } else {
           goto handle_unusual;
@@ -954,11 +1400,26 @@ bool Record3::MergePartialFromCodedStream(
             this->strings(this->strings_size() - 1).data(),
             this->strings(this->strings_size() - 1).length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "protobuf_test.Record3.strings"));
+            "protobuf_test.RecordNewField.strings"));
         } else {
           goto handle_unusual;
         }
         if (input->ExpectTag(18)) goto parse_strings;
+        if (input->ExpectTag(24)) goto parse_ids2;
+        break;
+      }
+
+      // optional int32 ids2 = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_ids2:
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &ids2_)));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -976,24 +1437,24 @@ bool Record3::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:protobuf_test.Record3)
+  // @@protoc_insertion_point(parse_success:protobuf_test.RecordNewField)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:protobuf_test.Record3)
+  // @@protoc_insertion_point(parse_failure:protobuf_test.RecordNewField)
   return false;
 #undef DO_
 }
 
-void Record3::SerializeWithCachedSizes(
+void RecordNewField::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:protobuf_test.Record3)
-  // repeated int64 ids = 1;
+  // @@protoc_insertion_point(serialize_start:protobuf_test.RecordNewField)
+  // repeated int32 ids = 1;
   if (this->ids_size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
     output->WriteVarint32(_ids_cached_byte_size_);
   }
   for (int i = 0; i < this->ids_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64NoTag(
+    ::google::protobuf::internal::WireFormatLite::WriteInt32NoTag(
       this->ids(i), output);
   }
 
@@ -1002,19 +1463,24 @@ void Record3::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->strings(i).data(), this->strings(i).length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "protobuf_test.Record3.strings");
+      "protobuf_test.RecordNewField.strings");
     ::google::protobuf::internal::WireFormatLite::WriteString(
       2, this->strings(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:protobuf_test.Record3)
+  // optional int32 ids2 = 3;
+  if (this->ids2() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->ids2(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:protobuf_test.RecordNewField)
 }
 
-::google::protobuf::uint8* Record3::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* RecordNewField::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:protobuf_test.Record3)
-  // repeated int64 ids = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:protobuf_test.RecordNewField)
+  // repeated int32 ids = 1;
   if (this->ids_size() > 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
       1,
@@ -1025,7 +1491,7 @@ void Record3::SerializeWithCachedSizes(
   }
   for (int i = 0; i < this->ids_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteInt64NoTagToArray(this->ids(i), target);
+      WriteInt32NoTagToArray(this->ids(i), target);
   }
 
   // repeated string strings = 2;
@@ -1033,26 +1499,38 @@ void Record3::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->strings(i).data(), this->strings(i).length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "protobuf_test.Record3.strings");
+      "protobuf_test.RecordNewField.strings");
     target = ::google::protobuf::internal::WireFormatLite::
       WriteStringToArray(2, this->strings(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:protobuf_test.Record3)
+  // optional int32 ids2 = 3;
+  if (this->ids2() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->ids2(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:protobuf_test.RecordNewField)
   return target;
 }
 
-size_t Record3::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:protobuf_test.Record3)
+size_t RecordNewField::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protobuf_test.RecordNewField)
   size_t total_size = 0;
 
-  // repeated int64 ids = 1;
+  // optional int32 ids2 = 3;
+  if (this->ids2() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->ids2());
+  }
+
+  // repeated int32 ids = 1;
   {
     size_t data_size = 0;
     unsigned int count = this->ids_size();
     for (unsigned int i = 0; i < count; i++) {
       data_size += ::google::protobuf::internal::WireFormatLite::
-        Int64Size(this->ids(i));
+        Int32Size(this->ids(i));
     }
     if (data_size > 0) {
       total_size += 1 +
@@ -1080,23 +1558,23 @@ size_t Record3::ByteSizeLong() const {
   return total_size;
 }
 
-void Record3::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:protobuf_test.Record3)
+void RecordNewField::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:protobuf_test.RecordNewField)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Record3* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Record3>(
+  const RecordNewField* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const RecordNewField>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:protobuf_test.Record3)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:protobuf_test.RecordNewField)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:protobuf_test.Record3)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:protobuf_test.RecordNewField)
     UnsafeMergeFrom(*source);
   }
 }
 
-void Record3::MergeFrom(const Record3& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:protobuf_test.Record3)
+void RecordNewField::MergeFrom(const RecordNewField& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:protobuf_test.RecordNewField)
   if (GOOGLE_PREDICT_TRUE(&from != this)) {
     UnsafeMergeFrom(from);
   } else {
@@ -1104,140 +1582,550 @@ void Record3::MergeFrom(const Record3& from) {
   }
 }
 
-void Record3::UnsafeMergeFrom(const Record3& from) {
+void RecordNewField::UnsafeMergeFrom(const RecordNewField& from) {
   GOOGLE_DCHECK(&from != this);
   ids_.UnsafeMergeFrom(from.ids_);
   strings_.UnsafeMergeFrom(from.strings_);
+  if (from.ids2() != 0) {
+    set_ids2(from.ids2());
+  }
 }
 
-void Record3::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:protobuf_test.Record3)
+void RecordNewField::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:protobuf_test.RecordNewField)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Record3::CopyFrom(const Record3& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:protobuf_test.Record3)
+void RecordNewField::CopyFrom(const RecordNewField& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protobuf_test.RecordNewField)
   if (&from == this) return;
   Clear();
   UnsafeMergeFrom(from);
 }
 
-bool Record3::IsInitialized() const {
+bool RecordNewField::IsInitialized() const {
 
   return true;
 }
 
-void Record3::Swap(Record3* other) {
+void RecordNewField::Swap(RecordNewField* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void Record3::InternalSwap(Record3* other) {
+void RecordNewField::InternalSwap(RecordNewField* other) {
   ids_.UnsafeArenaSwap(&other->ids_);
   strings_.UnsafeArenaSwap(&other->strings_);
+  std::swap(ids2_, other->ids2_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata Record3::GetMetadata() const {
+::google::protobuf::Metadata RecordNewField::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Record3_descriptor_;
-  metadata.reflection = Record3_reflection_;
+  metadata.descriptor = RecordNewField_descriptor_;
+  metadata.reflection = RecordNewField_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Record3
+// RecordNewField
 
-// repeated int64 ids = 1;
-int Record3::ids_size() const {
+// repeated int32 ids = 1;
+int RecordNewField::ids_size() const {
   return ids_.size();
 }
-void Record3::clear_ids() {
+void RecordNewField::clear_ids() {
   ids_.Clear();
 }
-::google::protobuf::int64 Record3::ids(int index) const {
-  // @@protoc_insertion_point(field_get:protobuf_test.Record3.ids)
+::google::protobuf::int32 RecordNewField::ids(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordNewField.ids)
   return ids_.Get(index);
 }
-void Record3::set_ids(int index, ::google::protobuf::int64 value) {
+void RecordNewField::set_ids(int index, ::google::protobuf::int32 value) {
   ids_.Set(index, value);
-  // @@protoc_insertion_point(field_set:protobuf_test.Record3.ids)
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordNewField.ids)
 }
-void Record3::add_ids(::google::protobuf::int64 value) {
+void RecordNewField::add_ids(::google::protobuf::int32 value) {
   ids_.Add(value);
-  // @@protoc_insertion_point(field_add:protobuf_test.Record3.ids)
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordNewField.ids)
 }
-const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
-Record3::ids() const {
-  // @@protoc_insertion_point(field_list:protobuf_test.Record3.ids)
+const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RecordNewField::ids() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordNewField.ids)
   return ids_;
 }
-::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
-Record3::mutable_ids() {
-  // @@protoc_insertion_point(field_mutable_list:protobuf_test.Record3.ids)
+::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RecordNewField::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordNewField.ids)
   return &ids_;
 }
 
 // repeated string strings = 2;
-int Record3::strings_size() const {
+int RecordNewField::strings_size() const {
   return strings_.size();
 }
-void Record3::clear_strings() {
+void RecordNewField::clear_strings() {
   strings_.Clear();
 }
-const ::std::string& Record3::strings(int index) const {
-  // @@protoc_insertion_point(field_get:protobuf_test.Record3.strings)
+const ::std::string& RecordNewField::strings(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordNewField.strings)
   return strings_.Get(index);
 }
-::std::string* Record3::mutable_strings(int index) {
-  // @@protoc_insertion_point(field_mutable:protobuf_test.Record3.strings)
+::std::string* RecordNewField::mutable_strings(int index) {
+  // @@protoc_insertion_point(field_mutable:protobuf_test.RecordNewField.strings)
   return strings_.Mutable(index);
 }
-void Record3::set_strings(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:protobuf_test.Record3.strings)
+void RecordNewField::set_strings(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordNewField.strings)
   strings_.Mutable(index)->assign(value);
 }
-void Record3::set_strings(int index, const char* value) {
+void RecordNewField::set_strings(int index, const char* value) {
   strings_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_set_char:protobuf_test.RecordNewField.strings)
 }
-void Record3::set_strings(int index, const char* value, size_t size) {
+void RecordNewField::set_strings(int index, const char* value, size_t size) {
   strings_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_set_pointer:protobuf_test.RecordNewField.strings)
 }
-::std::string* Record3::add_strings() {
-  // @@protoc_insertion_point(field_add_mutable:protobuf_test.Record3.strings)
+::std::string* RecordNewField::add_strings() {
+  // @@protoc_insertion_point(field_add_mutable:protobuf_test.RecordNewField.strings)
   return strings_.Add();
 }
-void Record3::add_strings(const ::std::string& value) {
+void RecordNewField::add_strings(const ::std::string& value) {
   strings_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordNewField.strings)
 }
-void Record3::add_strings(const char* value) {
+void RecordNewField::add_strings(const char* value) {
   strings_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_add_char:protobuf_test.RecordNewField.strings)
 }
-void Record3::add_strings(const char* value, size_t size) {
+void RecordNewField::add_strings(const char* value, size_t size) {
   strings_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:protobuf_test.Record3.strings)
+  // @@protoc_insertion_point(field_add_pointer:protobuf_test.RecordNewField.strings)
 }
 const ::google::protobuf::RepeatedPtrField< ::std::string>&
-Record3::strings() const {
-  // @@protoc_insertion_point(field_list:protobuf_test.Record3.strings)
+RecordNewField::strings() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordNewField.strings)
   return strings_;
 }
 ::google::protobuf::RepeatedPtrField< ::std::string>*
-Record3::mutable_strings() {
-  // @@protoc_insertion_point(field_mutable_list:protobuf_test.Record3.strings)
+RecordNewField::mutable_strings() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordNewField.strings)
   return &strings_;
 }
 
-inline const Record3* Record3::internal_default_instance() {
-  return &Record3_default_instance_.get();
+// optional int32 ids2 = 3;
+void RecordNewField::clear_ids2() {
+  ids2_ = 0;
+}
+::google::protobuf::int32 RecordNewField::ids2() const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordNewField.ids2)
+  return ids2_;
+}
+void RecordNewField::set_ids2(::google::protobuf::int32 value) {
+  
+  ids2_ = value;
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordNewField.ids2)
+}
+
+inline const RecordNewField* RecordNewField::internal_default_instance() {
+  return &RecordNewField_default_instance_.get();
+}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RecordRename::kIdsRemFieldNumber;
+const int RecordRename::kStringsRemFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RecordRename::RecordRename()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_test_2eproto();
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:protobuf_test.RecordRename)
+}
+
+void RecordRename::InitAsDefaultInstance() {
+}
+
+RecordRename::RecordRename(const RecordRename& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  UnsafeMergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:protobuf_test.RecordRename)
+}
+
+void RecordRename::SharedCtor() {
+  _cached_size_ = 0;
+}
+
+RecordRename::~RecordRename() {
+  // @@protoc_insertion_point(destructor:protobuf_test.RecordRename)
+  SharedDtor();
+}
+
+void RecordRename::SharedDtor() {
+}
+
+void RecordRename::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RecordRename::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RecordRename_descriptor_;
+}
+
+const RecordRename& RecordRename::default_instance() {
+  protobuf_InitDefaults_test_2eproto();
+  return *internal_default_instance();
+}
+
+::google::protobuf::internal::ExplicitlyConstructed<RecordRename> RecordRename_default_instance_;
+
+RecordRename* RecordRename::New(::google::protobuf::Arena* arena) const {
+  RecordRename* n = new RecordRename;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RecordRename::Clear() {
+// @@protoc_insertion_point(message_clear_start:protobuf_test.RecordRename)
+  ids_rem_.Clear();
+  strings_rem_.Clear();
+}
+
+bool RecordRename::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:protobuf_test.RecordRename)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated int32 ids_rem = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_ids_rem())));
+        } else if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 1, 10, input, this->mutable_ids_rem())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_strings_rem;
+        break;
+      }
+
+      // repeated string strings_rem = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_strings_rem:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_strings_rem()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->strings_rem(this->strings_rem_size() - 1).data(),
+            this->strings_rem(this->strings_rem_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "protobuf_test.RecordRename.strings_rem"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_strings_rem;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:protobuf_test.RecordRename)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:protobuf_test.RecordRename)
+  return false;
+#undef DO_
+}
+
+void RecordRename::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:protobuf_test.RecordRename)
+  // repeated int32 ids_rem = 1;
+  if (this->ids_rem_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_ids_rem_cached_byte_size_);
+  }
+  for (int i = 0; i < this->ids_rem_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32NoTag(
+      this->ids_rem(i), output);
+  }
+
+  // repeated string strings_rem = 2;
+  for (int i = 0; i < this->strings_rem_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->strings_rem(i).data(), this->strings_rem(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "protobuf_test.RecordRename.strings_rem");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->strings_rem(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:protobuf_test.RecordRename)
+}
+
+::google::protobuf::uint8* RecordRename::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:protobuf_test.RecordRename)
+  // repeated int32 ids_rem = 1;
+  if (this->ids_rem_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      1,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _ids_rem_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->ids_rem_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt32NoTagToArray(this->ids_rem(i), target);
+  }
+
+  // repeated string strings_rem = 2;
+  for (int i = 0; i < this->strings_rem_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->strings_rem(i).data(), this->strings_rem(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "protobuf_test.RecordRename.strings_rem");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(2, this->strings_rem(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:protobuf_test.RecordRename)
+  return target;
+}
+
+size_t RecordRename::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protobuf_test.RecordRename)
+  size_t total_size = 0;
+
+  // repeated int32 ids_rem = 1;
+  {
+    size_t data_size = 0;
+    unsigned int count = this->ids_rem_size();
+    for (unsigned int i = 0; i < count; i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int32Size(this->ids_rem(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _ids_rem_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated string strings_rem = 2;
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->strings_rem_size());
+  for (int i = 0; i < this->strings_rem_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->strings_rem(i));
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RecordRename::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:protobuf_test.RecordRename)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RecordRename* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const RecordRename>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:protobuf_test.RecordRename)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:protobuf_test.RecordRename)
+    UnsafeMergeFrom(*source);
+  }
+}
+
+void RecordRename::MergeFrom(const RecordRename& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:protobuf_test.RecordRename)
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void RecordRename::UnsafeMergeFrom(const RecordRename& from) {
+  GOOGLE_DCHECK(&from != this);
+  ids_rem_.UnsafeMergeFrom(from.ids_rem_);
+  strings_rem_.UnsafeMergeFrom(from.strings_rem_);
+}
+
+void RecordRename::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:protobuf_test.RecordRename)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RecordRename::CopyFrom(const RecordRename& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protobuf_test.RecordRename)
+  if (&from == this) return;
+  Clear();
+  UnsafeMergeFrom(from);
+}
+
+bool RecordRename::IsInitialized() const {
+
+  return true;
+}
+
+void RecordRename::Swap(RecordRename* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RecordRename::InternalSwap(RecordRename* other) {
+  ids_rem_.UnsafeArenaSwap(&other->ids_rem_);
+  strings_rem_.UnsafeArenaSwap(&other->strings_rem_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RecordRename::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RecordRename_descriptor_;
+  metadata.reflection = RecordRename_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RecordRename
+
+// repeated int32 ids_rem = 1;
+int RecordRename::ids_rem_size() const {
+  return ids_rem_.size();
+}
+void RecordRename::clear_ids_rem() {
+  ids_rem_.Clear();
+}
+::google::protobuf::int32 RecordRename::ids_rem(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordRename.ids_rem)
+  return ids_rem_.Get(index);
+}
+void RecordRename::set_ids_rem(int index, ::google::protobuf::int32 value) {
+  ids_rem_.Set(index, value);
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordRename.ids_rem)
+}
+void RecordRename::add_ids_rem(::google::protobuf::int32 value) {
+  ids_rem_.Add(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordRename.ids_rem)
+}
+const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RecordRename::ids_rem() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordRename.ids_rem)
+  return ids_rem_;
+}
+::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RecordRename::mutable_ids_rem() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordRename.ids_rem)
+  return &ids_rem_;
+}
+
+// repeated string strings_rem = 2;
+int RecordRename::strings_rem_size() const {
+  return strings_rem_.size();
+}
+void RecordRename::clear_strings_rem() {
+  strings_rem_.Clear();
+}
+const ::std::string& RecordRename::strings_rem(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordRename.strings_rem)
+  return strings_rem_.Get(index);
+}
+::std::string* RecordRename::mutable_strings_rem(int index) {
+  // @@protoc_insertion_point(field_mutable:protobuf_test.RecordRename.strings_rem)
+  return strings_rem_.Mutable(index);
+}
+void RecordRename::set_strings_rem(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordRename.strings_rem)
+  strings_rem_.Mutable(index)->assign(value);
+}
+void RecordRename::set_strings_rem(int index, const char* value) {
+  strings_rem_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:protobuf_test.RecordRename.strings_rem)
+}
+void RecordRename::set_strings_rem(int index, const char* value, size_t size) {
+  strings_rem_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:protobuf_test.RecordRename.strings_rem)
+}
+::std::string* RecordRename::add_strings_rem() {
+  // @@protoc_insertion_point(field_add_mutable:protobuf_test.RecordRename.strings_rem)
+  return strings_rem_.Add();
+}
+void RecordRename::add_strings_rem(const ::std::string& value) {
+  strings_rem_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordRename.strings_rem)
+}
+void RecordRename::add_strings_rem(const char* value) {
+  strings_rem_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:protobuf_test.RecordRename.strings_rem)
+}
+void RecordRename::add_strings_rem(const char* value, size_t size) {
+  strings_rem_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:protobuf_test.RecordRename.strings_rem)
+}
+const ::google::protobuf::RepeatedPtrField< ::std::string>&
+RecordRename::strings_rem() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordRename.strings_rem)
+  return strings_rem_;
+}
+::google::protobuf::RepeatedPtrField< ::std::string>*
+RecordRename::mutable_strings_rem() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordRename.strings_rem)
+  return &strings_rem_;
+}
+
+inline const RecordRename* RecordRename::internal_default_instance() {
+  return &RecordRename_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
