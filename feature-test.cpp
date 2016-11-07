@@ -13,8 +13,9 @@
 #include <google/protobuf/stubs/common.h>
 #include <cstdlib>
 
-#include "feature-test-obj.h"
-#include "protobuf/protobuf.h"
+#include "feature-test/feature-test-obj.h"
+#include "feature-test/protobuf/protobuf.h"
+#include "feature-test/thrift/thrift.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ int main(int argc, char **argv)
     vector<unique_ptr<FeatureTestObject>> tests_protocols;
 
     if (argc < 1) {
-        std::cout << "usage: " << argv[0] << " [thrift-binary thrift-compact protobuf boost msgpack cereal avro capnproto flatbuffers bson]";
+        std::cout << "usage: " << argv[0] << " [thrift protobuf boost msgpack cereal avro capnproto flatbuffers bson]";
         std::cout << std::endl << std::endl;
         return EXIT_SUCCESS;
     }
@@ -38,11 +39,8 @@ int main(int argc, char **argv)
     }
 
     try {
-        if (names.empty() || names.find("thrift-binary") != names.end()) {
-        }
-
-        if (names.empty() || names.find("thrift-compact") != names.end()) {
-
+        if (names.empty() || names.find("thrift") != names.end()) {
+            tests_protocols.push_back(make_unique<ThriftTest>());
         }
 
         if (names.empty() || names.find("protobuf") != names.end()) {

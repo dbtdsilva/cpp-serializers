@@ -18,7 +18,7 @@ Record::~Record() throw() {
 }
 
 
-void Record::__set_ids(const std::vector<int64_t> & val) {
+void Record::__set_ids(const std::vector<int32_t> & val) {
   this->ids = val;
 }
 
@@ -60,7 +60,7 @@ uint32_t Record::read(::apache::thrift::protocol::TProtocol* iprot) {
             uint32_t _i4;
             for (_i4 = 0; _i4 < _size0; ++_i4)
             {
-              xfer += iprot->readI64(this->ids[_i4]);
+              xfer += iprot->readI32(this->ids[_i4]);
             }
             xfer += iprot->readListEnd();
           }
@@ -112,11 +112,11 @@ uint32_t Record::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   xfer += oprot->writeFieldBegin("ids", ::apache::thrift::protocol::T_LIST, 1);
   {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I64, static_cast<uint32_t>(this->ids.size()));
-    std::vector<int64_t> ::const_iterator _iter10;
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I32, static_cast<uint32_t>(this->ids.size()));
+    std::vector<int32_t> ::const_iterator _iter10;
     for (_iter10 = this->ids.begin(); _iter10 != this->ids.end(); ++_iter10)
     {
-      xfer += oprot->writeI64((*_iter10));
+      xfer += oprot->writeI32((*_iter10));
     }
     xfer += oprot->writeListEnd();
   }
@@ -167,7 +167,7 @@ RecordMissing::~RecordMissing() throw() {
 }
 
 
-void RecordMissing::__set_ids(const std::vector<int64_t> & val) {
+void RecordMissing::__set_ids(const std::vector<int32_t> & val) {
   this->ids = val;
 }
 
@@ -204,7 +204,7 @@ uint32_t RecordMissing::read(::apache::thrift::protocol::TProtocol* iprot) {
             uint32_t _i18;
             for (_i18 = 0; _i18 < _size14; ++_i18)
             {
-              xfer += iprot->readI64(this->ids[_i18]);
+              xfer += iprot->readI32(this->ids[_i18]);
             }
             xfer += iprot->readListEnd();
           }
@@ -234,11 +234,11 @@ uint32_t RecordMissing::write(::apache::thrift::protocol::TProtocol* oprot) cons
 
   xfer += oprot->writeFieldBegin("ids", ::apache::thrift::protocol::T_LIST, 1);
   {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I64, static_cast<uint32_t>(this->ids.size()));
-    std::vector<int64_t> ::const_iterator _iter19;
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I32, static_cast<uint32_t>(this->ids.size()));
+    std::vector<int32_t> ::const_iterator _iter19;
     for (_iter19 = this->ids.begin(); _iter19 != this->ids.end(); ++_iter19)
     {
-      xfer += oprot->writeI64((*_iter19));
+      xfer += oprot->writeI32((*_iter19));
     }
     xfer += oprot->writeListEnd();
   }
@@ -273,7 +273,7 @@ RecordNewField::~RecordNewField() throw() {
 }
 
 
-void RecordNewField::__set_ids(const std::vector<int64_t> & val) {
+void RecordNewField::__set_ids(const std::vector<int32_t> & val) {
   this->ids = val;
 }
 
@@ -281,8 +281,9 @@ void RecordNewField::__set_strings(const std::vector<std::string> & val) {
   this->strings = val;
 }
 
-void RecordNewField::__set_id(const int64_t val) {
+void RecordNewField::__set_id(const int32_t val) {
   this->id = val;
+__isset.id = true;
 }
 
 uint32_t RecordNewField::read(::apache::thrift::protocol::TProtocol* iprot) {
@@ -299,7 +300,6 @@ uint32_t RecordNewField::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   bool isset_ids = false;
   bool isset_strings = false;
-  bool isset_id = false;
 
   while (true)
   {
@@ -320,7 +320,7 @@ uint32_t RecordNewField::read(::apache::thrift::protocol::TProtocol* iprot) {
             uint32_t _i26;
             for (_i26 = 0; _i26 < _size22; ++_i26)
             {
-              xfer += iprot->readI64(this->ids[_i26]);
+              xfer += iprot->readI32(this->ids[_i26]);
             }
             xfer += iprot->readListEnd();
           }
@@ -350,9 +350,9 @@ uint32_t RecordNewField::read(::apache::thrift::protocol::TProtocol* iprot) {
         }
         break;
       case 3:
-        if (ftype == ::apache::thrift::protocol::T_I64) {
-          xfer += iprot->readI64(this->id);
-          isset_id = true;
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->id);
+          this->__isset.id = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -370,8 +370,6 @@ uint32_t RecordNewField::read(::apache::thrift::protocol::TProtocol* iprot) {
     throw TProtocolException(TProtocolException::INVALID_DATA);
   if (!isset_strings)
     throw TProtocolException(TProtocolException::INVALID_DATA);
-  if (!isset_id)
-    throw TProtocolException(TProtocolException::INVALID_DATA);
   return xfer;
 }
 
@@ -382,11 +380,11 @@ uint32_t RecordNewField::write(::apache::thrift::protocol::TProtocol* oprot) con
 
   xfer += oprot->writeFieldBegin("ids", ::apache::thrift::protocol::T_LIST, 1);
   {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I64, static_cast<uint32_t>(this->ids.size()));
-    std::vector<int64_t> ::const_iterator _iter32;
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I32, static_cast<uint32_t>(this->ids.size()));
+    std::vector<int32_t> ::const_iterator _iter32;
     for (_iter32 = this->ids.begin(); _iter32 != this->ids.end(); ++_iter32)
     {
-      xfer += oprot->writeI64((*_iter32));
+      xfer += oprot->writeI32((*_iter32));
     }
     xfer += oprot->writeListEnd();
   }
@@ -404,10 +402,11 @@ uint32_t RecordNewField::write(::apache::thrift::protocol::TProtocol* oprot) con
   }
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("id", ::apache::thrift::protocol::T_I64, 3);
-  xfer += oprot->writeI64(this->id);
-  xfer += oprot->writeFieldEnd();
-
+  if (this->__isset.id) {
+    xfer += oprot->writeFieldBegin("id", ::apache::thrift::protocol::T_I32, 3);
+    xfer += oprot->writeI32(this->id);
+    xfer += oprot->writeFieldEnd();
+  }
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -418,17 +417,20 @@ void swap(RecordNewField &a, RecordNewField &b) {
   swap(a.ids, b.ids);
   swap(a.strings, b.strings);
   swap(a.id, b.id);
+  swap(a.__isset, b.__isset);
 }
 
 RecordNewField::RecordNewField(const RecordNewField& other34) {
   ids = other34.ids;
   strings = other34.strings;
   id = other34.id;
+  __isset = other34.__isset;
 }
 RecordNewField& RecordNewField::operator=(const RecordNewField& other35) {
   ids = other35.ids;
   strings = other35.strings;
   id = other35.id;
+  __isset = other35.__isset;
   return *this;
 }
 void RecordNewField::printTo(std::ostream& out) const {
@@ -436,7 +438,7 @@ void RecordNewField::printTo(std::ostream& out) const {
   out << "RecordNewField(";
   out << "ids=" << to_string(ids);
   out << ", " << "strings=" << to_string(strings);
-  out << ", " << "id=" << to_string(id);
+  out << ", " << "id="; (__isset.id ? (out << to_string(id)) : (out << "<null>"));
   out << ")";
 }
 
@@ -445,7 +447,7 @@ RecordRename::~RecordRename() throw() {
 }
 
 
-void RecordRename::__set_ids_rem(const std::vector<int64_t> & val) {
+void RecordRename::__set_ids_rem(const std::vector<int32_t> & val) {
   this->ids_rem = val;
 }
 
@@ -487,7 +489,7 @@ uint32_t RecordRename::read(::apache::thrift::protocol::TProtocol* iprot) {
             uint32_t _i40;
             for (_i40 = 0; _i40 < _size36; ++_i40)
             {
-              xfer += iprot->readI64(this->ids_rem[_i40]);
+              xfer += iprot->readI32(this->ids_rem[_i40]);
             }
             xfer += iprot->readListEnd();
           }
@@ -539,11 +541,11 @@ uint32_t RecordRename::write(::apache::thrift::protocol::TProtocol* oprot) const
 
   xfer += oprot->writeFieldBegin("ids_rem", ::apache::thrift::protocol::T_LIST, 1);
   {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I64, static_cast<uint32_t>(this->ids_rem.size()));
-    std::vector<int64_t> ::const_iterator _iter46;
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I32, static_cast<uint32_t>(this->ids_rem.size()));
+    std::vector<int32_t> ::const_iterator _iter46;
     for (_iter46 = this->ids_rem.begin(); _iter46 != this->ids_rem.end(); ++_iter46)
     {
-      xfer += oprot->writeI64((*_iter46));
+      xfer += oprot->writeI32((*_iter46));
     }
     xfer += oprot->writeListEnd();
   }
@@ -594,7 +596,7 @@ RecordTypes::~RecordTypes() throw() {
 }
 
 
-void RecordTypes::__set_ids(const std::vector<double> & val) {
+void RecordTypes::__set_ids(const std::vector<int64_t> & val) {
   this->ids = val;
 }
 
@@ -636,7 +638,7 @@ uint32_t RecordTypes::read(::apache::thrift::protocol::TProtocol* iprot) {
             uint32_t _i54;
             for (_i54 = 0; _i54 < _size50; ++_i54)
             {
-              xfer += iprot->readDouble(this->ids[_i54]);
+              xfer += iprot->readI64(this->ids[_i54]);
             }
             xfer += iprot->readListEnd();
           }
@@ -688,11 +690,11 @@ uint32_t RecordTypes::write(::apache::thrift::protocol::TProtocol* oprot) const 
 
   xfer += oprot->writeFieldBegin("ids", ::apache::thrift::protocol::T_LIST, 1);
   {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_DOUBLE, static_cast<uint32_t>(this->ids.size()));
-    std::vector<double> ::const_iterator _iter60;
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I64, static_cast<uint32_t>(this->ids.size()));
+    std::vector<int64_t> ::const_iterator _iter60;
     for (_iter60 = this->ids.begin(); _iter60 != this->ids.end(); ++_iter60)
     {
-      xfer += oprot->writeDouble((*_iter60));
+      xfer += oprot->writeI64((*_iter60));
     }
     xfer += oprot->writeListEnd();
   }

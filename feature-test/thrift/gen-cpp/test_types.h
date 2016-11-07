@@ -39,10 +39,10 @@ class Record {
   }
 
   virtual ~Record() throw();
-  std::vector<int64_t>  ids;
+  std::vector<int32_t>  ids;
   std::vector<std::string>  strings;
 
-  void __set_ids(const std::vector<int64_t> & val);
+  void __set_ids(const std::vector<int32_t> & val);
 
   void __set_strings(const std::vector<std::string> & val);
 
@@ -84,9 +84,9 @@ class RecordMissing {
   }
 
   virtual ~RecordMissing() throw();
-  std::vector<int64_t>  ids;
+  std::vector<int32_t>  ids;
 
-  void __set_ids(const std::vector<int64_t> & val);
+  void __set_ids(const std::vector<int32_t> & val);
 
   bool operator == (const RecordMissing & rhs) const
   {
@@ -114,6 +114,10 @@ inline std::ostream& operator<<(std::ostream& out, const RecordMissing& obj)
   return out;
 }
 
+typedef struct _RecordNewField__isset {
+  _RecordNewField__isset() : id(false) {}
+  bool id :1;
+} _RecordNewField__isset;
 
 class RecordNewField {
  public:
@@ -124,15 +128,17 @@ class RecordNewField {
   }
 
   virtual ~RecordNewField() throw();
-  std::vector<int64_t>  ids;
+  std::vector<int32_t>  ids;
   std::vector<std::string>  strings;
-  int64_t id;
+  int32_t id;
 
-  void __set_ids(const std::vector<int64_t> & val);
+  _RecordNewField__isset __isset;
+
+  void __set_ids(const std::vector<int32_t> & val);
 
   void __set_strings(const std::vector<std::string> & val);
 
-  void __set_id(const int64_t val);
+  void __set_id(const int32_t val);
 
   bool operator == (const RecordNewField & rhs) const
   {
@@ -140,7 +146,9 @@ class RecordNewField {
       return false;
     if (!(strings == rhs.strings))
       return false;
-    if (!(id == rhs.id))
+    if (__isset.id != rhs.__isset.id)
+      return false;
+    else if (__isset.id && !(id == rhs.id))
       return false;
     return true;
   }
@@ -174,10 +182,10 @@ class RecordRename {
   }
 
   virtual ~RecordRename() throw();
-  std::vector<int64_t>  ids_rem;
+  std::vector<int32_t>  ids_rem;
   std::vector<std::string>  strings_rem;
 
-  void __set_ids_rem(const std::vector<int64_t> & val);
+  void __set_ids_rem(const std::vector<int32_t> & val);
 
   void __set_strings_rem(const std::vector<std::string> & val);
 
@@ -219,10 +227,10 @@ class RecordTypes {
   }
 
   virtual ~RecordTypes() throw();
-  std::vector<double>  ids;
+  std::vector<int64_t>  ids;
   std::vector<std::string>  strings;
 
-  void __set_ids(const std::vector<double> & val);
+  void __set_ids(const std::vector<int64_t> & val);
 
   void __set_strings(const std::vector<std::string> & val);
 

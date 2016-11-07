@@ -33,8 +33,8 @@ bool ProtobufTest::check_missing_field() {
 
     // check if we can deserialize back
     RecordMissing r2;
-    bool err = r2.ParseFromString(serialized);
-    if (!err) return false;
+    bool ok = r2.ParseFromString(serialized);
+    if (!ok || r1.ids_size() != r2.ids_size()) return false;
     for (int i = 0; i < r1.ids_size(); i++) {
         if (r2.ids(i) != r1.ids(i))
             return false;
@@ -55,8 +55,8 @@ bool ProtobufTest::check_new_field() {
 
     // check if we can deserialize back
     RecordNewField r2;
-    bool err = r2.ParseFromString(serialized);
-    if (!err) return false;
+    bool ok = r2.ParseFromString(serialized);
+    if (!ok || r1.ids_size() != r2.ids_size() || r1.strings_size() != r2.strings_size()) return false;
     for (int i = 0; i < r1.strings_size(); i++) {
         if (r2.strings(i) != r1.strings(i))
             return false;
@@ -81,8 +81,8 @@ bool ProtobufTest::check_types_inheritance() {
 
     // check if we can deserialize back
     RecordTypes r2;
-    bool err = r2.ParseFromString(serialized);
-    if (!err) return false;
+    bool ok = r2.ParseFromString(serialized);
+    if (!ok || r1.ids_size() != r2.ids_size() || r1.strings_size() != r2.strings_size()) return false;
     for (int i = 0; i < r1.strings_size(); i++) {
         if (r2.strings(i) != r1.strings(i))
             return false;
@@ -107,8 +107,8 @@ bool ProtobufTest::check_field_names() {
 
     // check if we can deserialize back
     RecordRename r2;
-    bool err = r2.ParseFromString(serialized);
-    if (!err) return false;
+    bool ok = r2.ParseFromString(serialized);
+    if (!ok || r1.ids_size() != r2.ids_rem_size() || r1.strings_size() != r2.strings_rem_size()) return false;
     for (int i = 0; i < r1.strings_size(); i++) {
         if (r2.strings_rem(i) != r1.strings(i))
             return false;

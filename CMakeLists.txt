@@ -348,7 +348,7 @@ set(THRIFT_FEATURE_SOURCES
 
 add_executable(
     feature-test
-    ${cpp_serializers_SOURCE_DIR}/feature-test/feature-test.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/feature-test-obj.h
     ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/protobuf.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/thrift.cpp

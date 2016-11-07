@@ -22,6 +22,7 @@ using namespace std;
 using apache::thrift::transport::TMemoryBuffer;
 using apache::thrift::protocol::TBinaryProtocol;
 using apache::thrift::protocol::TBinaryProtocolT;
+using apache::thrift::protocol::TProtocolException;
 
 using namespace thrift_test;
 
@@ -30,17 +31,161 @@ ThriftTest::ThriftTest() : FeatureTestObject(string("Thrift")) {
 }
 // This function checks if a protocol is still able to handle missing fields
 bool ThriftTest::check_missing_field() {
-    return false;
+    boost::shared_ptr<TMemoryBuffer> buffer1(new TMemoryBuffer());
+    boost::shared_ptr<TMemoryBuffer> buffer2(new TMemoryBuffer());
+
+    TBinaryProtocolT<TMemoryBuffer> binary_protocol1(buffer1);
+    TBinaryProtocolT<TMemoryBuffer> binary_protocol2(buffer2);
+    Record r1;
+
+    for (size_t i = 0; i < kIntegers.size(); i++) {
+        r1.ids.push_back(kIntegers[i]);
+    }
+
+    for (size_t i = 0; i < kStringsCount; i++) {
+        r1.strings.push_back(kStringValue);
+    }
+
+    std::string serialized;
+    r1.write(&binary_protocol1);
+    serialized = buffer1->getBufferAsString();
+
+    // check if we can deserialize back
+    RecordMissing r2;
+    buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
+    try {
+        r2.read(&binary_protocol2);
+    } catch(TProtocolException&) {
+        return false;
+    }
+
+    if (r2.ids.size() != r1.ids.size()) return false;
+    for (size_t i = 0; i < r2.ids.size(); i++) {
+        if (r2.ids.at(i) != r1.ids.at(i))
+            return false;
+    }
+    return true;
 }
 // This function checks if a protocol is able to ignore a new field in the schema
 bool ThriftTest::check_new_field() {
-    return false;
+    boost::shared_ptr<TMemoryBuffer> buffer1(new TMemoryBuffer());
+    boost::shared_ptr<TMemoryBuffer> buffer2(new TMemoryBuffer());
+
+    TBinaryProtocolT<TMemoryBuffer> binary_protocol1(buffer1);
+    TBinaryProtocolT<TMemoryBuffer> binary_protocol2(buffer2);
+    Record r1;
+
+    for (size_t i = 0; i < kIntegers.size(); i++) {
+        r1.ids.push_back(kIntegers[i]);
+    }
+
+    for (size_t i = 0; i < kStringsCount; i++) {
+        r1.strings.push_back(kStringValue);
+    }
+
+    std::string serialized;
+    r1.write(&binary_protocol1);
+    serialized = buffer1->getBufferAsString();
+
+    // check if we can deserialize back
+    RecordNewField r2;
+    buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
+    try {
+        r2.read(&binary_protocol2);
+    } catch(TProtocolException&) {
+        return false;
+    }
+
+    if (r2.ids.size() != r1.ids.size() || r1.strings.size() != r2.strings.size()) return false;
+    for (size_t i = 0; i < r2.ids.size(); i++) {
+        if (r2.ids.at(i) != r1.ids.at(i))
+            return false;
+    }
+    for (size_t i = 0; i < r2.strings.size(); i++) {
+        if (r2.strings.at(i) != r1.strings.at(i))
+            return false;
+    }
+    return true;
 }
 // This function checks for types change (e.g. int should be able to change to float)
 bool ThriftTest::check_types_inheritance() {
-    return false;
+    boost::shared_ptr<TMemoryBuffer> buffer1(new TMemoryBuffer());
+    boost::shared_ptr<TMemoryBuffer> buffer2(new TMemoryBuffer());
+
+    TBinaryProtocolT<TMemoryBuffer> binary_protocol1(buffer1);
+    TBinaryProtocolT<TMemoryBuffer> binary_protocol2(buffer2);
+    Record r1;
+
+    for (size_t i = 0; i < kIntegers.size(); i++) {
+        r1.ids.push_back(kIntegers[i]);
+    }
+
+    for (size_t i = 0; i < kStringsCount; i++) {
+        r1.strings.push_back(kStringValue);
+    }
+
+    std::string serialized;
+    r1.write(&binary_protocol1);
+    serialized = buffer1->getBufferAsString();
+
+    // check if we can deserialize back
+    RecordTypes r2;
+    buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
+    try {
+        r2.read(&binary_protocol2);
+    } catch(TProtocolException&) {
+        return false;
+    }
+
+    if (r2.ids.size() != r1.ids.size() || r1.strings.size() != r2.strings.size()) return false;
+    for (size_t i = 0; i < r2.ids.size(); i++) {
+        if (r2.ids.at(i) != r1.ids.at(i))
+            return false;
+    }
+    for (size_t i = 0; i < r2.strings.size(); i++) {
+        if (r2.strings.at(i) != r1.strings.at(i))
+            return false;
+    }
+    return true;
 }
 // This function checks for if a field is able to change it's name or not
 bool ThriftTest::check_field_names() {
-    return false;
+    boost::shared_ptr<TMemoryBuffer> buffer1(new TMemoryBuffer());
+    boost::shared_ptr<TMemoryBuffer> buffer2(new TMemoryBuffer());
+
+    TBinaryProtocolT<TMemoryBuffer> binary_protocol1(buffer1);
+    TBinaryProtocolT<TMemoryBuffer> binary_protocol2(buffer2);
+    Record r1;
+
+    for (size_t i = 0; i < kIntegers.size(); i++) {
+        r1.ids.push_back(kIntegers[i]);
+    }
+
+    for (size_t i = 0; i < kStringsCount; i++) {
+        r1.strings.push_back(kStringValue);
+    }
+
+    std::string serialized;
+    r1.write(&binary_protocol1);
+    serialized = buffer1->getBufferAsString();
+
+    // check if we can deserialize back
+    RecordRename r2;
+    buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
+    try {
+        r2.read(&binary_protocol2);
+    } catch(TProtocolException&) {
+        return false;
+    }
+
+    if (r2.ids_rem.size() != r1.ids.size() || r1.strings.size() != r2.strings_rem.size()) return false;
+    for (size_t i = 0; i < r2.ids_rem.size(); i++) {
+        if (r2.ids_rem.at(i) != r1.ids.at(i))
+            return false;
+    }
+    for (size_t i = 0; i < r2.strings_rem.size(); i++) {
+        if (r2.strings_rem.at(i) != r1.strings.at(i))
+            return false;
+    }
+    return true;
 }
