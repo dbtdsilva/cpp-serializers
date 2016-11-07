@@ -326,12 +326,34 @@ set_source_files_properties(
 )
 set(PROTOBUF_FEATURE_SOURCES ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/schema/test.pb.cc)
 
+add_custom_command(
+        DEPENDS ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/test.thrift
+        COMMAND ${THRIFT_GENERATOR}
+        ARGS -r -gen cpp -o ${cpp_serializers_SOURCE_DIR}/feature-test/thrift ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/test.thrift
+        OUTPUT  "${cpp_serializers_SOURCE_DIR}/feature-test/thrift/gen-cpp/test_constants.cpp"
+        "${cpp_serializers_SOURCE_DIR}/feature-test/thrift/gen-cpp/test_types.cpp"
+        COMMENT "Executing Thrift compiler"
+)
+set_source_files_properties(
+        ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/gen-cpp/test_constants.cpp
+        ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/gen-cpp/test_types.cpp
+        ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/gen-cpp/test_constants.h
+        ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/gen-cpp/test_types.h
+        PROPERTIES GENERATED TRUE
+)
+set(THRIFT_FEATURE_SOURCES
+        ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/gen-cpp/test_constants.cpp
+        ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/gen-cpp/test_types.cpp
+        )
+
 add_executable(
     feature-test
     ${cpp_serializers_SOURCE_DIR}/feature-test/feature-test.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/feature-test-obj.h
     ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/protobuf.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/thrift.cpp
     ${PROTOBUF_FEATURE_SOURCES}
+    ${THRIFT_FEATURE_SOURCES}
 )
 target_link_libraries(feature-test ${LINKLIBS})
 add_dependencies(feature-test thrift msgpack protobuf capnproto boost cereal avro flatbuffers bson)
