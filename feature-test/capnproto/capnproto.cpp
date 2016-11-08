@@ -1,7 +1,3 @@
-//
-// Created by myrddin on 07/11/16.
-//
-
 #include "capnproto.h"
 #include <string>
 

@@ -1,7 +1,3 @@
-//
-// Created by myrddin on 07/11/16.
-//
-
 #ifndef CPP_SERIALIZERS_CAPNPROTO_H
 #define CPP_SERIALIZERS_CAPNPROTO_H
 
