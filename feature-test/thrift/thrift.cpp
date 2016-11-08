@@ -29,7 +29,7 @@ using namespace thrift_test;
 ThriftTest::ThriftTest() : FeatureTestObject(string("Thrift")) {
 
 }
-// This function checks if a protocol is still able to handle missing fields
+
 bool ThriftTest::check_missing_field() {
     boost::shared_ptr<TMemoryBuffer> buffer1(new TMemoryBuffer());
     boost::shared_ptr<TMemoryBuffer> buffer2(new TMemoryBuffer());
@@ -66,7 +66,7 @@ bool ThriftTest::check_missing_field() {
     }
     return true;
 }
-// This function checks if a protocol is able to ignore a new field in the schema
+
 bool ThriftTest::check_new_field() {
     boost::shared_ptr<TMemoryBuffer> buffer1(new TMemoryBuffer());
     boost::shared_ptr<TMemoryBuffer> buffer2(new TMemoryBuffer());
@@ -107,7 +107,7 @@ bool ThriftTest::check_new_field() {
     }
     return true;
 }
-// This function checks for types change (e.g. int should be able to change to float)
+
 bool ThriftTest::check_types_inheritance() {
     boost::shared_ptr<TMemoryBuffer> buffer1(new TMemoryBuffer());
     boost::shared_ptr<TMemoryBuffer> buffer2(new TMemoryBuffer());
@@ -148,7 +148,7 @@ bool ThriftTest::check_types_inheritance() {
     }
     return true;
 }
-// This function checks for if a field is able to change it's name or not
+
 bool ThriftTest::check_field_names() {
     boost::shared_ptr<TMemoryBuffer> buffer1(new TMemoryBuffer());
     boost::shared_ptr<TMemoryBuffer> buffer2(new TMemoryBuffer());

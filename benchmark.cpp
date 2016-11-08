@@ -182,6 +182,7 @@ void capnproto_serialization_test(size_t iterations)
         strings.set(i, kStringValue);
     }
 
+
     kj::ArrayPtr<const kj::ArrayPtr<const capnp::word>> serialized =
         message.getSegmentsForOutput();
 

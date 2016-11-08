@@ -19,7 +19,7 @@ using namespace protobuf_test;
 ProtobufTest::ProtobufTest() : FeatureTestObject(string("Protobuf")) {
 
 }
-// This function checks if a protocol is still able to handle missing fields
+
 bool ProtobufTest::check_missing_field() {
     Record r1;
     for (size_t i = 0; i < kIntegers.size(); i++) {
@@ -41,7 +41,7 @@ bool ProtobufTest::check_missing_field() {
     }
     return true;
 }
-// This function checks if a protocol is able to ignore a new field in the schema
+
 bool ProtobufTest::check_new_field() {
     Record r1;
     for (size_t i = 0; i < kIntegers.size(); i++) {
@@ -67,7 +67,7 @@ bool ProtobufTest::check_new_field() {
     }
     return true;
 }
-// This function checks for types change (e.g. int should be able to change to float)
+
 bool ProtobufTest::check_types_inheritance() {
     Record r1;
     for (size_t i = 0; i < kIntegers.size(); i++) {
@@ -93,7 +93,7 @@ bool ProtobufTest::check_types_inheritance() {
     }
     return true;
 }
-// This function checks for if a field is able to change it's name or not
+
 bool ProtobufTest::check_field_names() {
     Record r1;
     for (size_t i = 0; i < kIntegers.size(); i++) {

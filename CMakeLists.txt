@@ -352,6 +352,7 @@ add_executable(
     ${cpp_serializers_SOURCE_DIR}/feature-test/feature-test-obj.h
     ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/protobuf.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/thrift.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test/capnproto/capnproto.cpp
     ${PROTOBUF_FEATURE_SOURCES}
     ${THRIFT_FEATURE_SOURCES}
 )

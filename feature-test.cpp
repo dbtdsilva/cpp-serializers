@@ -6,16 +6,13 @@
 #include <vector>
 #include <chrono>
 #include <sstream>
-
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
-
 #include <google/protobuf/stubs/common.h>
-#include <cstdlib>
-
 #include "feature-test/feature-test-obj.h"
 #include "feature-test/protobuf/protobuf.h"
 #include "feature-test/thrift/thrift.h"
+#include "feature-test/capnproto/capnproto.h"
 
 using namespace std;
 
@@ -39,16 +36,12 @@ int main(int argc, char **argv)
     }
 
     try {
-        if (names.empty() || names.find("thrift") != names.end()) {
+        if (names.empty() || names.find("thrift") != names.end())
             tests_protocols.push_back(make_unique<ThriftTest>());
-        }
-
-        if (names.empty() || names.find("protobuf") != names.end()) {
+        if (names.empty() || names.find("protobuf") != names.end())
             tests_protocols.push_back(make_unique<ProtobufTest>());
-        }
-
-        if (names.empty() || names.find("capnproto") != names.end()) {
-        }
+        if (names.empty() || names.find("capnproto") != names.end()) 
+            tests_protocols.push_back(make_unique<CapNProtoTest>());
 
         if (names.empty() || names.find("boost") != names.end()) {
         }
