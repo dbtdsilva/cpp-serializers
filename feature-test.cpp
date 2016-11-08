@@ -9,10 +9,17 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
 #include <google/protobuf/stubs/common.h>
+
 #include "feature-test/feature-test-obj.h"
+#include "feature-test/avro/avro.h"
+#include "feature-test/boost/boost.h"
+#include "feature-test/bson/bson.h"
+#include "feature-test/capnproto/capnproto.h"
+#include "feature-test/cereal/cereal.h"
+#include "feature-test/flatbuffers/flatbuffers.h"
+#include "feature-test/msgpack/msgpack.h"
 #include "feature-test/protobuf/protobuf.h"
 #include "feature-test/thrift/thrift.h"
-#include "feature-test/capnproto/capnproto.h"
 
 using namespace std;
 
@@ -29,8 +36,8 @@ int main(int argc, char **argv)
     }
 
     std::set<std::string> names;
-    if (argc > 2) {
-        for (int i = 2; i < argc; i++) {
+    if (argc > 1) {
+        for (int i = 1; i < argc; i++) {
             names.insert(argv[i]);
         }
     }
@@ -40,26 +47,20 @@ int main(int argc, char **argv)
             tests_protocols.push_back(make_unique<ThriftTest>());
         if (names.empty() || names.find("protobuf") != names.end())
             tests_protocols.push_back(make_unique<ProtobufTest>());
-        if (names.empty() || names.find("capnproto") != names.end()) 
+        if (names.empty() || names.find("capnproto") != names.end())
             tests_protocols.push_back(make_unique<CapNProtoTest>());
-
-        if (names.empty() || names.find("boost") != names.end()) {
-        }
-
-        if (names.empty() || names.find("msgpack") != names.end()) {
-        }
-
-        if (names.empty() || names.find("cereal") != names.end()) {
-        }
-
-        if (names.empty() || names.find("avro") != names.end()) {
-        }
-
-        if (names.empty() || names.find("flatbuffers") != names.end()) {
-        }
-
-        if (names.empty() || names.find("bson") != names.end()) {
-        }
+        if (names.empty() || names.find("boost") != names.end())
+            tests_protocols.push_back(make_unique<BoostTest>());
+        if (names.empty() || names.find("msgpack") != names.end())
+            tests_protocols.push_back(make_unique<MsgPackTest>());
+        if (names.empty() || names.find("cereal") != names.end())
+            tests_protocols.push_back(make_unique<CerealTest>());
+        if (names.empty() || names.find("avro") != names.end())
+            tests_protocols.push_back(make_unique<AvroTest>());
+        if (names.empty() || names.find("flatbuffers") != names.end()) 
+            tests_protocols.push_back(make_unique<FlatBuffersTest>());
+        if (names.empty() || names.find("bson") != names.end()) 
+            tests_protocols.push_back(make_unique<BsonTest>());
     } catch (std::exception &exc) {
         std::cerr << "Error: " << exc.what() << std::endl;
         return EXIT_FAILURE;

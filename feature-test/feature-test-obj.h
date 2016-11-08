@@ -6,6 +6,7 @@
 class FeatureTestObject {
 public:
     FeatureTestObject(std::string name) : name_(name) {};
+    
     // This function checks if a protocol is still able to handle missing fields
     virtual bool check_missing_field() = 0;
     // This function checks if a protocol is able to ignore a new field in the schema

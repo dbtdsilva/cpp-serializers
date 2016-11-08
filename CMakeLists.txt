@@ -311,6 +311,7 @@ add_executable(
 target_link_libraries(benchmark ${LINKLIBS})
 add_dependencies(benchmark thrift msgpack protobuf capnproto boost cereal avro flatbuffers bson)
 set_target_properties(benchmark PROPERTIES COMPILE_FLAGS "-std=c++14 -O3")
+
 # Feature-test Compilation
 add_custom_command(
     DEPENDS ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/test.proto
@@ -350,9 +351,15 @@ add_executable(
     feature-test
     ${cpp_serializers_SOURCE_DIR}/feature-test.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/feature-test-obj.h
+    ${cpp_serializers_SOURCE_DIR}/feature-test/avro/avro.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test/boost/boost.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test/bson/bson.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test/capnproto/capnproto.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test/cereal/cereal.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test/flatbuffers/flatbuffers.cpp
+    ${cpp_serializers_SOURCE_DIR}/feature-test/msgpack/msgpack.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/protobuf.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/thrift.cpp
-    ${cpp_serializers_SOURCE_DIR}/feature-test/capnproto/capnproto.cpp
     ${PROTOBUF_FEATURE_SOURCES}
     ${THRIFT_FEATURE_SOURCES}
 )

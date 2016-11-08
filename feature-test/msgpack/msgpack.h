@@ -1,12 +1,12 @@
-#ifndef CPP_SERIALIZERS_CAPNPROTO_H
-#define CPP_SERIALIZERS_CAPNPROTO_H
+#ifndef CPP_SERIALIZERS_MSGPACK_H
+#define CPP_SERIALIZERS_MSGPACK_H
 
 #include "../feature-test-obj.h"
 
-class CapNProtoTest : public FeatureTestObject
+class MsgPackTest : public FeatureTestObject
 {
 public:
-    CapNProtoTest();
+    MsgPackTest();
 
     bool check_missing_field();
     bool check_new_field();
@@ -15,4 +15,4 @@ public:
 };
 
 
-#endif //CPP_SERIALIZERS_CAPNPROTO_H
+#endif //CPP_SERIALIZERS_MSGPACK_H
