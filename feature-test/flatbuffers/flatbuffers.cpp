@@ -4,17 +4,17 @@
 #include <iostream>
 
 using namespace std;
-using namespace std;
+using namespace flatbuffers;
 
 FlatBuffersTest::FlatBuffersTest() : FeatureTestObject(string("FlatBuffers")) {
 
 }
 
 bool FlatBuffersTest::check_missing_field() {
-    vector<flatbuffers::Offset<flatbuffers::String>> strings;
+    vector<Offset<String>> strings;
     strings.reserve(kStringsCount);
 
-    flatbuffers::FlatBufferBuilder builder;
+    FlatBufferBuilder builder;
     for (size_t i = 0; i < kStringsCount; i++) {
         strings.push_back(builder.CreateString(kStringValue));
     }
@@ -28,7 +28,7 @@ bool FlatBuffersTest::check_missing_field() {
     auto sz = builder.GetSize();
     std::vector<char> buf(p, p + sz);
 
-    const RecordMissing* r2 = flatbuffers::GetRoot<RecordMissing>(buf.data());
+    const RecordMissing* r2 = GetRoot<RecordMissing>(buf.data());
     if (r2->ids()->size() != kIntegers.size()) {
         return false;
     }
@@ -42,10 +42,10 @@ bool FlatBuffersTest::check_missing_field() {
 }
 
 bool FlatBuffersTest::check_new_field() {
-    vector<flatbuffers::Offset<flatbuffers::String>> strings;
+    vector<Offset<String>> strings;
     strings.reserve(kStringsCount);
 
-    flatbuffers::FlatBufferBuilder builder;
+    FlatBufferBuilder builder;
     for (size_t i = 0; i < kStringsCount; i++) {
         strings.push_back(builder.CreateString(kStringValue));
     }
@@ -59,7 +59,7 @@ bool FlatBuffersTest::check_new_field() {
     auto sz = builder.GetSize();
     std::vector<char> buf(p, p + sz);
 
-    const RecordNewField* r2 = flatbuffers::GetRoot<RecordNewField>(buf.data());
+    const RecordNewField* r2 = GetRoot<RecordNewField>(buf.data());
     if (r2->strings()->size() != kStringsCount || r2->ids()->size() != kIntegers.size()) {
         return false;
     }
@@ -77,10 +77,10 @@ bool FlatBuffersTest::check_new_field() {
 }
 
 bool FlatBuffersTest::check_types_inheritance() {
-    vector<flatbuffers::Offset<flatbuffers::String>> strings;
+    vector<Offset<String>> strings;
     strings.reserve(kStringsCount);
 
-    flatbuffers::FlatBufferBuilder builder;
+    FlatBufferBuilder builder;
     for (size_t i = 0; i < kStringsCount; i++) {
         strings.push_back(builder.CreateString(kStringValue));
     }
@@ -94,7 +94,7 @@ bool FlatBuffersTest::check_types_inheritance() {
     auto sz = builder.GetSize();
     std::vector<char> buf(p, p + sz);
 
-    const RecordTypeInheritance* r2 = flatbuffers::GetRoot<RecordTypeInheritance>(buf.data());
+    const RecordTypeInheritance* r2 = GetRoot<RecordTypeInheritance>(buf.data());
     if (r2->strings()->size() != kStringsCount || r2->ids()->size() != kIntegers.size()) {
         return false;
     }
@@ -113,10 +113,10 @@ bool FlatBuffersTest::check_types_inheritance() {
 }
 
 bool FlatBuffersTest::check_field_names() {
-    vector<flatbuffers::Offset<flatbuffers::String>> strings;
+    vector<Offset<String>> strings;
     strings.reserve(kStringsCount);
 
-    flatbuffers::FlatBufferBuilder builder;
+    FlatBufferBuilder builder;
     for (size_t i = 0; i < kStringsCount; i++) {
         strings.push_back(builder.CreateString(kStringValue));
     }
@@ -130,7 +130,7 @@ bool FlatBuffersTest::check_field_names() {
     auto sz = builder.GetSize();
     std::vector<char> buf(p, p + sz);
 
-    const RecordRename* r2 = flatbuffers::GetRoot<RecordRename>(buf.data());
+    const RecordRename* r2 = GetRoot<RecordRename>(buf.data());
     if (r2->strings_rem()->size() != kStringsCount || r2->ids_rem()->size() != kIntegers.size()) {
         return false;
     }

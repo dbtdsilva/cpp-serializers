@@ -243,10 +243,4 @@ inline flatbuffers::Offset<RecordTypeInheritance> CreateRecordTypeInheritanceDir
   return CreateRecordTypeInheritance(_fbb, ids ? _fbb.CreateVector<double>(*ids) : 0, strings ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*strings) : 0);
 }
 
-inline const RecordTypeInheritance *GetRecordTypeInheritance(const void *buf) { return flatbuffers::GetRoot<RecordTypeInheritance>(buf); }
-
-inline bool VerifyRecordTypeInheritanceBuffer(flatbuffers::Verifier &verifier) { return verifier.VerifyBuffer<RecordTypeInheritance>(nullptr); }
-
-inline void FinishRecordTypeInheritanceBuffer(flatbuffers::FlatBufferBuilder &fbb, flatbuffers::Offset<RecordTypeInheritance> root) { fbb.Finish(root); }
-
 #endif  // FLATBUFFERS_GENERATED_TEST_H_

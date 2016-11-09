@@ -22,9 +22,3 @@ table RecordTypeInheritance {
 	ids:[double];
 	strings:[string];
 }
-
-root_type Record;
-root_type RecordMissing;
-root_type RecordNewField;
-root_type RecordRename;
-root_type RecordTypeInheritance;
