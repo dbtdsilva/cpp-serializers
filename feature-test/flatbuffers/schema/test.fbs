@@ -1,0 +1,30 @@
+table Record {
+	ids:[long];
+	strings:[string];
+}
+
+table RecordMissing {
+	ids:[long];
+}
+
+table RecordNewField {
+	ids:[long];
+	strings:[string];
+	id:int;
+}
+
+table RecordRename {
+	ids_rem:[long];
+	strings_rem:[string];
+}
+
+table RecordTypeInheritance {
+	ids:[double];
+	strings:[string];
+}
+
+root_type Record;
+root_type RecordMissing;
+root_type RecordNewField;
+root_type RecordRename;
+root_type RecordTypeInheritance;

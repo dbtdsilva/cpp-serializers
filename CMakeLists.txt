@@ -328,6 +328,19 @@ set_source_files_properties(
 set(PROTOBUF_FEATURE_SOURCES ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/schema/test.pb.cc)
 
 add_custom_command(
+        DEPENDS ${cpp_serializers_SOURCE_DIR}/feature-test/flatbuffers/schema/test.fbs
+        COMMAND ${FLATBUFFERS_GENERATOR}
+        ARGS --cpp -o ${cpp_serializers_SOURCE_DIR}/feature-test/flatbuffers/schema/ ${cpp_serializers_SOURCE_DIR}/feature-test/flatbuffers/schema/test.fbs
+        OUTPUT "${cpp_serializers_SOURCE_DIR}/feature-test/flatbuffers/schema/test_generated.h"
+        COMMENT "Executing FlatBuffers compiler"
+)
+set_source_files_properties(
+        ${cpp_serializers_SOURCE_DIR}/flatbuffers/test_generated.h
+        PROPERTIES GENERATED TRUE
+)
+set(FLATBUFFERS_FEATURE_SOURCES ${cpp_serializers_SOURCE_DIR}/feature-test/flatbuffers/schema/test_generated.h)
+
+add_custom_command(
         DEPENDS ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/test.thrift
         COMMAND ${THRIFT_GENERATOR}
         ARGS -r -gen cpp -o ${cpp_serializers_SOURCE_DIR}/feature-test/thrift ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/test.thrift
@@ -361,8 +374,10 @@ add_executable(
     ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/protobuf.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/thrift.cpp
     ${PROTOBUF_FEATURE_SOURCES}
+    ${FLATBUFFERS_FEATURE_SOURCES}
     ${THRIFT_FEATURE_SOURCES}
 )
+
 target_link_libraries(feature-test ${LINKLIBS})
 add_dependencies(feature-test thrift msgpack protobuf capnproto boost cereal avro flatbuffers bson)
 set_target_properties(feature-test PROPERTIES COMPILE_FLAGS "-std=c++14 -O3")
