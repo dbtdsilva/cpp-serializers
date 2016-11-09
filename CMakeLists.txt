@@ -314,6 +314,19 @@ set_target_properties(benchmark PROPERTIES COMPILE_FLAGS "-std=c++14 -O3")
 
 # Feature-test Compilation
 add_custom_command(
+        DEPENDS ${cpp_serializers_SOURCE_DIR}/feature-test/avro/schema/test.json
+        COMMAND ${AVRO_GENERATOR}
+        ARGS --input ${cpp_serializers_SOURCE_DIR}/feature-test/avro/schema/test.json --output ${cpp_serializers_SOURCE_DIR}/feature-test/avro/schema/record.h
+        OUTPUT  "${cpp_serializers_SOURCE_DIR}/feature-test/avro/schema/record.h"
+        COMMENT "Executing Avro compiler"
+)
+set_source_files_properties(
+        ${cpp_serializers_SOURCE_DIR}/feature-test/avro/schema/record.h
+        PROPERTIES GENERATED TRUE
+)
+set(AVRO_FEATURE_SOURCES ${cpp_serializers_SOURCE_DIR}/feature-test/avro/schema/record.h)
+
+add_custom_command(
     DEPENDS ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/test.proto
     COMMAND ${PROTOBUF_GENERATOR}
     ARGS -I${cpp_serializers_SOURCE_DIR}/feature-test/protobuf --cpp_out=${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/schema ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/test.proto
@@ -373,6 +386,7 @@ add_executable(
     ${cpp_serializers_SOURCE_DIR}/feature-test/msgpack/msgpack.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/protobuf.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/thrift.cpp
+    ${AVRO_FEATURE_SOURCES}
     ${PROTOBUF_FEATURE_SOURCES}
     ${FLATBUFFERS_FEATURE_SOURCES}
     ${THRIFT_FEATURE_SOURCES}

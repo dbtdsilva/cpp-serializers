@@ -1,0 +1,99 @@
+[
+    {
+        "type": "record",
+        "name": "Record",
+        "fields": [
+            {
+                "name": "ids",
+                "type": {
+                    "type": "array",
+                    "items": "long"
+                }
+            },
+            {
+                "name": "strings",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "RecordMissing",
+        "fields": [
+            {
+                "name": "ids",
+                "type": {
+                    "type": "array",
+                    "items": "long"
+                }
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "RecordNewField",
+        "fields": [
+            {
+                "name": "ids",
+                "type": {
+                    "type": "array",
+                    "items": "long"
+                }
+            },
+            {
+                "name": "strings",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "id",
+                "type": "long"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "RecordRename",
+        "fields": [
+            {
+                "name": "ids_rem",
+                "type": {
+                    "type": "array",
+                    "items": "long"
+                }
+            },
+            {
+                "name": "strings_rem",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "RecordTypeInheritance",
+        "fields": [
+            {
+                "name": "ids",
+                "type": {
+                    "type": "array",
+                    "items": "double"
+                }
+            },
+            {
+                "name": "strings",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            }
+        ]
+    }
+]
