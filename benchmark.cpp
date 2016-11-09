@@ -282,13 +282,9 @@ void msgpack_serialization_test(size_t iterations)
     }
 
     msgpack::sbuffer sbuf;
-
     msgpack::pack(sbuf, r1);
-
     std::string serialized(sbuf.data(), sbuf.size());
-
     msgpack::object_handle msg = msgpack::unpack(serialized.data(), serialized.size());
-
     msgpack::object obj = msg.get();
 
     obj.convert(r2);
