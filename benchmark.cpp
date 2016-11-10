@@ -572,6 +572,9 @@ int main(int argc, char **argv)
         }
     }
 
+    std::cout << "unserialized data has " << sizeof(int64_t) * kIntegers.size() +
+            sizeof(kStringValue) * kStringsCount << " bytes" << std::endl;
+
     std::cout << "performing " << iterations << " iterations" << std::endl << std::endl;
 
     /*std::cout << "total size: " << sizeof(kIntegerValue) * kIntegersCount + kStringValue.size() * kStringsCount << std::endl;*/
