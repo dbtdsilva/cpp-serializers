@@ -59,9 +59,9 @@ bool ThriftTest::check_missing_field() {
         return false;
     }
 
-    if (r2.ids.size() != r1.ids.size()) return false;
-    for (size_t i = 0; i < r2.ids.size(); i++) {
-        if (r2.ids.at(i) != r1.ids.at(i))
+    if (r2.strings.size() != r1.strings.size()) return false;
+    for (size_t i = 0; i < r2.strings.size(); i++) {
+        if (r2.strings.at(i) != r1.strings.at(i))
             return false;
     }
     return true;

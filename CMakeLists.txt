@@ -327,6 +327,19 @@ set_source_files_properties(
 set(AVRO_FEATURE_SOURCES ${cpp_serializers_SOURCE_DIR}/feature-test/avro/schema/record.h)
 
 add_custom_command(
+        DEPENDS ${cpp_serializers_SOURCE_DIR}/feature-test/capnproto/schema/test.capnp
+        COMMAND ${CAPNPROTO_GENERATOR}
+        ARGS compile -I${cpp_serializers_SOURCE_DIR} --src-prefix=${cpp_serializers_SOURCE_DIR} -o${CAPNPROTO_CPP_GENERATOR}:${cpp_serializers_SOURCE_DIR} ${cpp_serializers_SOURCE_DIR}/feature-test/capnproto/schema/test.capnp
+        OUTPUT  "${cpp_serializers_SOURCE_DIR}/feature-test/capnproto/schema/test.capnp.c++"
+        COMMENT "Executing Cap'n Proto compiler"
+)
+set_source_files_properties(
+        ${cpp_serializers_SOURCE_DIR}/feature-test/capnproto/schema/test.capnp.c++
+        ${cpp_serializers_SOURCE_DIR}/feature-test/capnproto/schema/test.capnp.h
+        PROPERTIES GENERATED TRUE
+)
+set(CAPNPROTO_FEATURE_SOURCES ${cpp_serializers_SOURCE_DIR}/feature-test/capnproto/schema/test.capnp.c++)
+add_custom_command(
     DEPENDS ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/test.proto
     COMMAND ${PROTOBUF_GENERATOR}
     ARGS -I${cpp_serializers_SOURCE_DIR}/feature-test/protobuf --cpp_out=${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/schema ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/test.proto
@@ -387,6 +400,7 @@ add_executable(
     ${cpp_serializers_SOURCE_DIR}/feature-test/protobuf/protobuf.cpp
     ${cpp_serializers_SOURCE_DIR}/feature-test/thrift/thrift.cpp
     ${AVRO_FEATURE_SOURCES}
+    ${CAPNPROTO_FEATURE_SOURCES}
     ${PROTOBUF_FEATURE_SOURCES}
     ${FLATBUFFERS_FEATURE_SOURCES}
     ${THRIFT_FEATURE_SOURCES}

@@ -29,11 +29,11 @@ bool FlatBuffersTest::check_missing_field() {
     std::vector<char> buf(p, p + sz);
 
     const RecordMissing* r2 = GetRoot<RecordMissing>(buf.data());
-    if (r2->ids()->size() != kIntegers.size()) {
+    if (r2->strings()->size() != kIntegers.size()) {
         return false;
     }
-    for (unsigned int i = 0; i < kIntegers.size(); i++) {
-        if (r2->ids()->Get(i) != kIntegers.at(i))
+    for (unsigned int i = 0; i < kStringsCount; i++) {
+        if (string(r2->strings()->Get(i)->c_str()) != kStringValue)
             return false;
     }
 

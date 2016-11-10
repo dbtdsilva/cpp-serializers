@@ -37,9 +37,9 @@ struct Record {
 };
 
 struct RecordMissing {
-    std::vector<int64_t > ids;
+    std::vector<std::string > strings;
     RecordMissing() :
-        ids(std::vector<int64_t >())
+        strings(std::vector<std::string >())
         { }
 };
 
@@ -194,7 +194,7 @@ template<> struct codec_traits<Record> {
 
 template<> struct codec_traits<RecordMissing> {
     static void encode(Encoder& e, const RecordMissing& v) {
-        avro::encode(e, v.ids);
+        avro::encode(e, v.strings);
     }
     static void decode(Decoder& d, RecordMissing& v) {
         if (avro::ResolvingDecoder *rd =
@@ -204,14 +204,14 @@ template<> struct codec_traits<RecordMissing> {
                 it != fo.end(); ++it) {
                 switch (*it) {
                 case 0:
-                    avro::decode(d, v.ids);
+                    avro::decode(d, v.strings);
                     break;
                 default:
                     break;
                 }
             }
         } else {
-            avro::decode(d, v.ids);
+            avro::decode(d, v.strings);
         }
     }
 };

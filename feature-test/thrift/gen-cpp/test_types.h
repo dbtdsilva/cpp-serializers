@@ -84,13 +84,13 @@ class RecordMissing {
   }
 
   virtual ~RecordMissing() throw();
-  std::vector<int32_t>  ids;
+  std::vector<std::string>  strings;
 
-  void __set_ids(const std::vector<int32_t> & val);
+  void __set_strings(const std::vector<std::string> & val);
 
   bool operator == (const RecordMissing & rhs) const
   {
-    if (!(ids == rhs.ids))
+    if (!(strings == rhs.strings))
       return false;
     return true;
   }

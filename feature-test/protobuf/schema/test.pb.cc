@@ -79,7 +79,7 @@ void protobuf_AssignDesc_test_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordTypes, _internal_metadata_));
   RecordMissing_descriptor_ = file->message_type(2);
   static const int RecordMissing_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordMissing, ids_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecordMissing, strings_),
   };
   RecordMissing_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -169,6 +169,7 @@ void protobuf_InitDefaults_test_2eproto_impl() {
   Record_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
   RecordTypes_default_instance_.DefaultConstruct();
+  ::google::protobuf::internal::GetEmptyString();
   RecordMissing_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
   RecordNewField_default_instance_.DefaultConstruct();
@@ -193,11 +194,11 @@ void protobuf_AddDesc_test_2eproto_impl() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\ntest.proto\022\rprotobuf_test\"&\n\006Record\022\013\n"
     "\003ids\030\001 \003(\005\022\017\n\007strings\030\002 \003(\t\"+\n\013RecordTyp"
-    "es\022\013\n\003ids\030\001 \003(\001\022\017\n\007strings\030\002 \003(\t\"\034\n\rReco"
-    "rdMissing\022\013\n\003ids\030\001 \003(\005\"<\n\016RecordNewField"
-    "\022\013\n\003ids\030\001 \003(\005\022\017\n\007strings\030\002 \003(\t\022\014\n\004ids2\030\003"
-    " \001(\005\"4\n\014RecordRename\022\017\n\007ids_rem\030\001 \003(\005\022\023\n"
-    "\013strings_rem\030\002 \003(\tb\006proto3", 266);
+    "es\022\013\n\003ids\030\001 \003(\001\022\017\n\007strings\030\002 \003(\t\" \n\rReco"
+    "rdMissing\022\017\n\007strings\030\002 \003(\t\"<\n\016RecordNewF"
+    "ield\022\013\n\003ids\030\001 \003(\005\022\017\n\007strings\030\002 \003(\t\022\014\n\004id"
+    "s2\030\003 \001(\005\"4\n\014RecordRename\022\017\n\007ids_rem\030\001 \003("
+    "\005\022\023\n\013strings_rem\030\002 \003(\tb\006proto3", 270);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "test.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_test_2eproto);
@@ -1009,7 +1010,7 @@ inline const RecordTypes* RecordTypes::internal_default_instance() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int RecordMissing::kIdsFieldNumber;
+const int RecordMissing::kStringsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RecordMissing::RecordMissing()
@@ -1069,7 +1070,7 @@ RecordMissing* RecordMissing::New(::google::protobuf::Arena* arena) const {
 
 void RecordMissing::Clear() {
 // @@protoc_insertion_point(message_clear_start:protobuf_test.RecordMissing)
-  ids_.Clear();
+  strings_.Clear();
 }
 
 bool RecordMissing::MergePartialFromCodedStream(
@@ -1082,19 +1083,21 @@ bool RecordMissing::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated int32 ids = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, this->mutable_ids())));
-        } else if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 1, 10, input, this->mutable_ids())));
+      // repeated string strings = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_strings:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_strings()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->strings(this->strings_size() - 1).data(),
+            this->strings(this->strings_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "protobuf_test.RecordMissing.strings"));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_strings;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1123,14 +1126,14 @@ failure:
 void RecordMissing::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:protobuf_test.RecordMissing)
-  // repeated int32 ids = 1;
-  if (this->ids_size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
-    output->WriteVarint32(_ids_cached_byte_size_);
-  }
-  for (int i = 0; i < this->ids_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32NoTag(
-      this->ids(i), output);
+  // repeated string strings = 2;
+  for (int i = 0; i < this->strings_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->strings(i).data(), this->strings(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "protobuf_test.RecordMissing.strings");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->strings(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:protobuf_test.RecordMissing)
@@ -1140,18 +1143,14 @@ void RecordMissing::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:protobuf_test.RecordMissing)
-  // repeated int32 ids = 1;
-  if (this->ids_size() > 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
-      1,
-      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
-      target);
-    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
-      _ids_cached_byte_size_, target);
-  }
-  for (int i = 0; i < this->ids_size(); i++) {
+  // repeated string strings = 2;
+  for (int i = 0; i < this->strings_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->strings(i).data(), this->strings(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "protobuf_test.RecordMissing.strings");
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteInt32NoTagToArray(this->ids(i), target);
+      WriteStringToArray(2, this->strings(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:protobuf_test.RecordMissing)
@@ -1162,23 +1161,12 @@ size_t RecordMissing::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:protobuf_test.RecordMissing)
   size_t total_size = 0;
 
-  // repeated int32 ids = 1;
-  {
-    size_t data_size = 0;
-    unsigned int count = this->ids_size();
-    for (unsigned int i = 0; i < count; i++) {
-      data_size += ::google::protobuf::internal::WireFormatLite::
-        Int32Size(this->ids(i));
-    }
-    if (data_size > 0) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
-    }
-    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
-    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _ids_cached_byte_size_ = cached_size;
-    GOOGLE_SAFE_CONCURRENT_WRITES_END();
-    total_size += data_size;
+  // repeated string strings = 2;
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->strings_size());
+  for (int i = 0; i < this->strings_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->strings(i));
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1214,7 +1202,7 @@ void RecordMissing::MergeFrom(const RecordMissing& from) {
 
 void RecordMissing::UnsafeMergeFrom(const RecordMissing& from) {
   GOOGLE_DCHECK(&from != this);
-  ids_.UnsafeMergeFrom(from.ids_);
+  strings_.UnsafeMergeFrom(from.strings_);
 }
 
 void RecordMissing::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1241,7 +1229,7 @@ void RecordMissing::Swap(RecordMissing* other) {
   InternalSwap(other);
 }
 void RecordMissing::InternalSwap(RecordMissing* other) {
-  ids_.UnsafeArenaSwap(&other->ids_);
+  strings_.UnsafeArenaSwap(&other->strings_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1257,34 +1245,59 @@ void RecordMissing::InternalSwap(RecordMissing* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // RecordMissing
 
-// repeated int32 ids = 1;
-int RecordMissing::ids_size() const {
-  return ids_.size();
+// repeated string strings = 2;
+int RecordMissing::strings_size() const {
+  return strings_.size();
 }
-void RecordMissing::clear_ids() {
-  ids_.Clear();
+void RecordMissing::clear_strings() {
+  strings_.Clear();
 }
-::google::protobuf::int32 RecordMissing::ids(int index) const {
-  // @@protoc_insertion_point(field_get:protobuf_test.RecordMissing.ids)
-  return ids_.Get(index);
+const ::std::string& RecordMissing::strings(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordMissing.strings)
+  return strings_.Get(index);
 }
-void RecordMissing::set_ids(int index, ::google::protobuf::int32 value) {
-  ids_.Set(index, value);
-  // @@protoc_insertion_point(field_set:protobuf_test.RecordMissing.ids)
+::std::string* RecordMissing::mutable_strings(int index) {
+  // @@protoc_insertion_point(field_mutable:protobuf_test.RecordMissing.strings)
+  return strings_.Mutable(index);
 }
-void RecordMissing::add_ids(::google::protobuf::int32 value) {
-  ids_.Add(value);
-  // @@protoc_insertion_point(field_add:protobuf_test.RecordMissing.ids)
+void RecordMissing::set_strings(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordMissing.strings)
+  strings_.Mutable(index)->assign(value);
 }
-const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-RecordMissing::ids() const {
-  // @@protoc_insertion_point(field_list:protobuf_test.RecordMissing.ids)
-  return ids_;
+void RecordMissing::set_strings(int index, const char* value) {
+  strings_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:protobuf_test.RecordMissing.strings)
 }
-::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-RecordMissing::mutable_ids() {
-  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordMissing.ids)
-  return &ids_;
+void RecordMissing::set_strings(int index, const char* value, size_t size) {
+  strings_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:protobuf_test.RecordMissing.strings)
+}
+::std::string* RecordMissing::add_strings() {
+  // @@protoc_insertion_point(field_add_mutable:protobuf_test.RecordMissing.strings)
+  return strings_.Add();
+}
+void RecordMissing::add_strings(const ::std::string& value) {
+  strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordMissing.strings)
+}
+void RecordMissing::add_strings(const char* value) {
+  strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:protobuf_test.RecordMissing.strings)
+}
+void RecordMissing::add_strings(const char* value, size_t size) {
+  strings_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:protobuf_test.RecordMissing.strings)
+}
+const ::google::protobuf::RepeatedPtrField< ::std::string>&
+RecordMissing::strings() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordMissing.strings)
+  return strings_;
+}
+::google::protobuf::RepeatedPtrField< ::std::string>*
+RecordMissing::mutable_strings() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordMissing.strings)
+  return &strings_;
 }
 
 inline const RecordMissing* RecordMissing::internal_default_instance() {

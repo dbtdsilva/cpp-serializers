@@ -328,24 +328,27 @@ class RecordMissing : public ::google::protobuf::Message /* @@protoc_insertion_p
 
   // accessors -------------------------------------------------------
 
-  // repeated int32 ids = 1;
-  int ids_size() const;
-  void clear_ids();
-  static const int kIdsFieldNumber = 1;
-  ::google::protobuf::int32 ids(int index) const;
-  void set_ids(int index, ::google::protobuf::int32 value);
-  void add_ids(::google::protobuf::int32 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-      ids() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-      mutable_ids();
+  // repeated string strings = 2;
+  int strings_size() const;
+  void clear_strings();
+  static const int kStringsFieldNumber = 2;
+  const ::std::string& strings(int index) const;
+  ::std::string* mutable_strings(int index);
+  void set_strings(int index, const ::std::string& value);
+  void set_strings(int index, const char* value);
+  void set_strings(int index, const char* value, size_t size);
+  ::std::string* add_strings();
+  void add_strings(const ::std::string& value);
+  void add_strings(const char* value);
+  void add_strings(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& strings() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_strings();
 
   // @@protoc_insertion_point(class_scope:protobuf_test.RecordMissing)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > ids_;
-  mutable int _ids_cached_byte_size_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> strings_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_test_2eproto_impl();
   friend void  protobuf_AddDesc_test_2eproto_impl();
@@ -775,34 +778,59 @@ inline const RecordTypes* RecordTypes::internal_default_instance() {
 
 // RecordMissing
 
-// repeated int32 ids = 1;
-inline int RecordMissing::ids_size() const {
-  return ids_.size();
+// repeated string strings = 2;
+inline int RecordMissing::strings_size() const {
+  return strings_.size();
 }
-inline void RecordMissing::clear_ids() {
-  ids_.Clear();
+inline void RecordMissing::clear_strings() {
+  strings_.Clear();
 }
-inline ::google::protobuf::int32 RecordMissing::ids(int index) const {
-  // @@protoc_insertion_point(field_get:protobuf_test.RecordMissing.ids)
-  return ids_.Get(index);
+inline const ::std::string& RecordMissing::strings(int index) const {
+  // @@protoc_insertion_point(field_get:protobuf_test.RecordMissing.strings)
+  return strings_.Get(index);
 }
-inline void RecordMissing::set_ids(int index, ::google::protobuf::int32 value) {
-  ids_.Set(index, value);
-  // @@protoc_insertion_point(field_set:protobuf_test.RecordMissing.ids)
+inline ::std::string* RecordMissing::mutable_strings(int index) {
+  // @@protoc_insertion_point(field_mutable:protobuf_test.RecordMissing.strings)
+  return strings_.Mutable(index);
 }
-inline void RecordMissing::add_ids(::google::protobuf::int32 value) {
-  ids_.Add(value);
-  // @@protoc_insertion_point(field_add:protobuf_test.RecordMissing.ids)
+inline void RecordMissing::set_strings(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:protobuf_test.RecordMissing.strings)
+  strings_.Mutable(index)->assign(value);
 }
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-RecordMissing::ids() const {
-  // @@protoc_insertion_point(field_list:protobuf_test.RecordMissing.ids)
-  return ids_;
+inline void RecordMissing::set_strings(int index, const char* value) {
+  strings_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:protobuf_test.RecordMissing.strings)
 }
-inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-RecordMissing::mutable_ids() {
-  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordMissing.ids)
-  return &ids_;
+inline void RecordMissing::set_strings(int index, const char* value, size_t size) {
+  strings_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:protobuf_test.RecordMissing.strings)
+}
+inline ::std::string* RecordMissing::add_strings() {
+  // @@protoc_insertion_point(field_add_mutable:protobuf_test.RecordMissing.strings)
+  return strings_.Add();
+}
+inline void RecordMissing::add_strings(const ::std::string& value) {
+  strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:protobuf_test.RecordMissing.strings)
+}
+inline void RecordMissing::add_strings(const char* value) {
+  strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:protobuf_test.RecordMissing.strings)
+}
+inline void RecordMissing::add_strings(const char* value, size_t size) {
+  strings_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:protobuf_test.RecordMissing.strings)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+RecordMissing::strings() const {
+  // @@protoc_insertion_point(field_list:protobuf_test.RecordMissing.strings)
+  return strings_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+RecordMissing::mutable_strings() {
+  // @@protoc_insertion_point(field_mutable_list:protobuf_test.RecordMissing.strings)
+  return &strings_;
 }
 
 inline const RecordMissing* RecordMissing::internal_default_instance() {

@@ -26,13 +26,16 @@ bool MsgPackTest::check_missing_field() {
     string serialized(sbuf.data(), sbuf.size());
     object_handle msg = unpack(serialized.data(), serialized.size());
     object obj = msg.get();
-    obj.convert(r2);
-
-    if (r1.ids.size() != r2.ids.size())
+    try {
+        obj.convert(r2);
+    } catch(...) {
+        return false;
+    }
+    if (r1.strings.size() != r2.strings.size())
         return false;
 
-    for (unsigned int i = 0; i < r1.ids.size(); i++) {
-        if (r1.ids.at(i) != r2.ids.at(i))
+    for (unsigned int i = 0; i < r1.strings.size(); i++) {
+        if (r1.strings.at(i) != r2.strings.at(i))
             return false;
     }
     return true;

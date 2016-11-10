@@ -34,9 +34,9 @@ bool ProtobufTest::check_missing_field() {
     // check if we can deserialize back
     RecordMissing r2;
     bool ok = r2.ParseFromString(serialized);
-    if (!ok || r1.ids_size() != r2.ids_size()) return false;
-    for (int i = 0; i < r1.ids_size(); i++) {
-        if (r2.ids(i) != r1.ids(i))
+    if (!ok || r1.strings_size() != r2.strings_size()) return false;
+    for (int i = 0; i < r1.strings_size(); i++) {
+        if (r2.strings(i) != r1.strings(i))
             return false;
     }
     return true;

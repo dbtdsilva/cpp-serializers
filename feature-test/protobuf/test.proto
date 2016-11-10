@@ -12,7 +12,7 @@ message RecordTypes {
 }
 
 message RecordMissing {
-    repeated int32 ids = 1;
+    repeated string strings = 2;
 }
 
 message RecordNewField {

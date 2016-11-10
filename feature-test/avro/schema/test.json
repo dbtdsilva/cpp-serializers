@@ -24,10 +24,10 @@
         "name": "RecordMissing",
         "fields": [
             {
-                "name": "ids",
+                "name": "strings",
                 "type": {
                     "type": "array",
-                    "items": "long"
+                    "items": "string"
                 }
             }
         ]

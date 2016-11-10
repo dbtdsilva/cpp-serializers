@@ -29,11 +29,16 @@ bool AvroTest::check_missing_field() {
     std::unique_ptr<InputStream> in = memoryInputStream(*out);
     DecoderPtr decoder = binaryDecoder();
 
+
     decoder->init(*in);
     RecordMissing r2;
-    decode(*decoder, r2);
+    try {
+        decode(*decoder, r2);
+    } catch (...) {
+        return false;
+    }
 
-    return !(r1.ids != r2.ids || r2.ids.size() != kIntegers.size());
+    return !(r1.strings != r2.strings || r2.strings.size() != kStringsCount);
 }
 
 bool AvroTest::check_new_field() {
@@ -56,7 +61,11 @@ bool AvroTest::check_new_field() {
 
     decoder->init(*in);
     RecordNewField r2;
-    decode(*decoder, r2);
+    try {
+        decode(*decoder, r2);
+    } catch (...) {
+        return false;
+    }
 
     return !(r1.ids != r2.ids || r2.ids.size() != kIntegers.size() || r1.strings != r2.strings ||
             r2.strings.size() != kStringsCount);
@@ -84,7 +93,7 @@ bool AvroTest::check_types_inheritance() {
     RecordTypeInheritance r2;
     try {
         decode(*decoder, r2);
-    } catch (avro::Exception&) {
+    } catch (...) {
         return false;
     }
 
@@ -112,7 +121,11 @@ bool AvroTest::check_field_names() {
 
     decoder->init(*in);
     RecordRename r2;
-    decode(*decoder, r2);
+    try {
+        decode(*decoder, r2);
+    } catch (...) {
+        return false;
+    }
 
     return !(r1.ids != r2.ids_rem || r2.ids_rem.size() != kIntegers.size() || r1.strings != r2.strings_rem ||
              r2.strings_rem.size() != kStringsCount);

@@ -167,8 +167,8 @@ RecordMissing::~RecordMissing() throw() {
 }
 
 
-void RecordMissing::__set_ids(const std::vector<int32_t> & val) {
-  this->ids = val;
+void RecordMissing::__set_strings(const std::vector<std::string> & val) {
+  this->strings = val;
 }
 
 uint32_t RecordMissing::read(::apache::thrift::protocol::TProtocol* iprot) {
@@ -183,7 +183,7 @@ uint32_t RecordMissing::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   using ::apache::thrift::protocol::TProtocolException;
 
-  bool isset_ids = false;
+  bool isset_strings = false;
 
   while (true)
   {
@@ -193,22 +193,22 @@ uint32_t RecordMissing::read(::apache::thrift::protocol::TProtocol* iprot) {
     }
     switch (fid)
     {
-      case 1:
+      case 2:
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
-            this->ids.clear();
+            this->strings.clear();
             uint32_t _size14;
             ::apache::thrift::protocol::TType _etype17;
             xfer += iprot->readListBegin(_etype17, _size14);
-            this->ids.resize(_size14);
+            this->strings.resize(_size14);
             uint32_t _i18;
             for (_i18 = 0; _i18 < _size14; ++_i18)
             {
-              xfer += iprot->readI32(this->ids[_i18]);
+              xfer += iprot->readString(this->strings[_i18]);
             }
             xfer += iprot->readListEnd();
           }
-          isset_ids = true;
+          isset_strings = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -222,7 +222,7 @@ uint32_t RecordMissing::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   xfer += iprot->readStructEnd();
 
-  if (!isset_ids)
+  if (!isset_strings)
     throw TProtocolException(TProtocolException::INVALID_DATA);
   return xfer;
 }
@@ -232,13 +232,13 @@ uint32_t RecordMissing::write(::apache::thrift::protocol::TProtocol* oprot) cons
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("RecordMissing");
 
-  xfer += oprot->writeFieldBegin("ids", ::apache::thrift::protocol::T_LIST, 1);
+  xfer += oprot->writeFieldBegin("strings", ::apache::thrift::protocol::T_LIST, 2);
   {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_I32, static_cast<uint32_t>(this->ids.size()));
-    std::vector<int32_t> ::const_iterator _iter19;
-    for (_iter19 = this->ids.begin(); _iter19 != this->ids.end(); ++_iter19)
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->strings.size()));
+    std::vector<std::string> ::const_iterator _iter19;
+    for (_iter19 = this->strings.begin(); _iter19 != this->strings.end(); ++_iter19)
     {
-      xfer += oprot->writeI32((*_iter19));
+      xfer += oprot->writeString((*_iter19));
     }
     xfer += oprot->writeListEnd();
   }
@@ -251,20 +251,20 @@ uint32_t RecordMissing::write(::apache::thrift::protocol::TProtocol* oprot) cons
 
 void swap(RecordMissing &a, RecordMissing &b) {
   using ::std::swap;
-  swap(a.ids, b.ids);
+  swap(a.strings, b.strings);
 }
 
 RecordMissing::RecordMissing(const RecordMissing& other20) {
-  ids = other20.ids;
+  strings = other20.strings;
 }
 RecordMissing& RecordMissing::operator=(const RecordMissing& other21) {
-  ids = other21.ids;
+  strings = other21.strings;
   return *this;
 }
 void RecordMissing::printTo(std::ostream& out) const {
   using ::apache::thrift::to_string;
   out << "RecordMissing(";
-  out << "ids=" << to_string(ids);
+  out << "strings=" << to_string(strings);
   out << ")";
 }
 

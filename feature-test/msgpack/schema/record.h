@@ -17,9 +17,9 @@ public:
 
 class RecordMissing {
 public:
-    std::vector<int32_t> ids;
+    std::vector<std::string> strings;
 
-    MSGPACK_DEFINE(ids);
+    MSGPACK_DEFINE(strings);
 };
 
 class RecordNewField {

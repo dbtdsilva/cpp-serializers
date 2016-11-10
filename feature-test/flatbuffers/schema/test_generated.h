@@ -63,13 +63,14 @@ inline flatbuffers::Offset<Record> CreateRecordDirect(flatbuffers::FlatBufferBui
 
 struct RecordMissing FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
-    VT_IDS = 4
+    VT_STRINGS = 4
   };
-  const flatbuffers::Vector<int64_t> *ids() const { return GetPointer<const flatbuffers::Vector<int64_t> *>(VT_IDS); }
+  const flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *strings() const { return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *>(VT_STRINGS); }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_IDS) &&
-           verifier.Verify(ids()) &&
+           VerifyField<flatbuffers::uoffset_t>(verifier, VT_STRINGS) &&
+           verifier.Verify(strings()) &&
+           verifier.VerifyVectorOfStrings(strings()) &&
            verifier.EndTable();
   }
 };
@@ -77,7 +78,7 @@ struct RecordMissing FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 struct RecordMissingBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_ids(flatbuffers::Offset<flatbuffers::Vector<int64_t>> ids) { fbb_.AddOffset(RecordMissing::VT_IDS, ids); }
+  void add_strings(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> strings) { fbb_.AddOffset(RecordMissing::VT_STRINGS, strings); }
   RecordMissingBuilder(flatbuffers::FlatBufferBuilder &_fbb) : fbb_(_fbb) { start_ = fbb_.StartTable(); }
   RecordMissingBuilder &operator=(const RecordMissingBuilder &);
   flatbuffers::Offset<RecordMissing> Finish() {
@@ -87,15 +88,15 @@ struct RecordMissingBuilder {
 };
 
 inline flatbuffers::Offset<RecordMissing> CreateRecordMissing(flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<int64_t>> ids = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> strings = 0) {
   RecordMissingBuilder builder_(_fbb);
-  builder_.add_ids(ids);
+  builder_.add_strings(strings);
   return builder_.Finish();
 }
 
 inline flatbuffers::Offset<RecordMissing> CreateRecordMissingDirect(flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<int64_t> *ids = nullptr) {
-  return CreateRecordMissing(_fbb, ids ? _fbb.CreateVector<int64_t>(*ids) : 0);
+    const std::vector<flatbuffers::Offset<flatbuffers::String>> *strings = nullptr) {
+  return CreateRecordMissing(_fbb, strings ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*strings) : 0);
 }
 
 struct RecordNewField FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {

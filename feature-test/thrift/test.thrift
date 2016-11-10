@@ -6,7 +6,7 @@ struct Record {
 }
 
 struct RecordMissing {
-    1: required list<i32>       ids
+    2: required list<string>    strings
 }
 
 struct RecordNewField {
