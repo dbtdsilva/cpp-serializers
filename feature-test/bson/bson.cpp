@@ -13,6 +13,8 @@ BsonTest::BsonTest() : FeatureTestObject(string("Bson")) {
 bool BsonTest::check_missing_field() {
     bson_t bson, ints, strings;
     bson_init(&bson);
+    bson_iter_t iter;
+    bson_iter_t sub_iter;
 
     bson_append_array_begin(&bson, "ints", -1, &ints);
     for (size_t i = 0; i < kIntegers.size(); i++)
@@ -37,6 +39,8 @@ bool BsonTest::check_missing_field() {
         bson_iter_utf8(&sub_iter, NULL);
     }
     bson_destroy(&bson);
+
+    return true;
 }
 
 bool BsonTest::check_new_field() {
