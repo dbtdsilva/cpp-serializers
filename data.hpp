@@ -4,9 +4,13 @@
 #include <vector>
 #include <stdint.h>
 
+// Data size = 16600 bytes
+
+// (100 * 86) chars = 8600
 const size_t      kStringsCount = 100;
 const std::string kStringValue  = "shgfkghsdfjhgsfjhfgjhfgjsffghgsfdhgsfdfkdjhfioukjhkfdljgdfkgvjafdhasgdfwurtjkghfsdjkfg";
 
+// 8000 bytes -> 100 * 10 integers * 8 bytes = 8000
 const std::vector<int64_t> kIntegers = {
     34492,6603,44033,8874,47607,38416,20395,29192,38620,36775,
     35058,20501,39664,64574,11261,35679,16607,26020,39476,16699,

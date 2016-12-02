@@ -795,9 +795,9 @@ int main(int argc, char **argv)
             names.insert(argv[i]);
         }
     }
-
+    
     std::cout << "unserialized data has " << sizeof(int64_t) * kIntegers.size() +
-            sizeof(kStringValue) * kStringsCount << " bytes" << std::endl;
+            kStringValue.size() * kStringsCount << " bytes" << std::endl;
 
     std::cout << "performing " << iterations << " iterations" << std::endl << std::endl;
 
