@@ -15,6 +15,7 @@ CapNProtoTest::CapNProtoTest() : FeatureTestObject(string("CapNProto")) {
 }
 
 bool CapNProtoTest::check_missing_field() {
+    capnp::
     MallocMessageBuilder message;
     Record::Builder r1 = message.getRoot<Record>();
 
