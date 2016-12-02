@@ -45,7 +45,6 @@ void thrift_serialization_test(size_t iterations, ThriftSerializationProto proto
     using apache::thrift::protocol::TCompactProtocolT;
 
     using namespace thrift_test;
-
     boost::shared_ptr<TMemoryBuffer> buffer1(new TMemoryBuffer());
     boost::shared_ptr<TMemoryBuffer> buffer2(new TMemoryBuffer());
 
@@ -56,17 +55,14 @@ void thrift_serialization_test(size_t iterations, ThriftSerializationProto proto
     TCompactProtocolT<TMemoryBuffer> compact_protocol2(buffer2);
 
     Record r1;
-
     for (size_t i = 0; i < kIntegers.size(); i++) {
         r1.ids.push_back(kIntegers[i]);
     }
-
     for (size_t i = 0; i < kStringsCount; i++) {
         r1.strings.push_back(kStringValue);
     }
 
     std::string serialized;
-
     if (proto == ThriftSerializationProto::Binary) {
         r1.write(&binary_protocol1);
     } else if (proto == ThriftSerializationProto::Compact) {
@@ -74,12 +70,9 @@ void thrift_serialization_test(size_t iterations, ThriftSerializationProto proto
     }
 
     serialized = buffer1->getBufferAsString();
-
     // check if we can deserialize back
     Record r2;
-
     buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
-
     if (proto == ThriftSerializationProto::Binary) {
         r2.read(&binary_protocol2);
     } else if (proto == ThriftSerializationProto::Compact) {
@@ -91,7 +84,6 @@ void thrift_serialization_test(size_t iterations, ThriftSerializationProto proto
     }
 
     std::string tag;
-
     if (proto == ThriftSerializationProto::Binary) {
         tag = "thrift-binary:";
     } else if (proto == ThriftSerializationProto::Compact) {
@@ -121,7 +113,40 @@ void thrift_serialization_test(size_t iterations, ThriftSerializationProto proto
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << tag << " time = " << duration << " milliseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    if (proto == ThriftSerializationProto::Binary) {
+        for (size_t i = 0; i < iterations; i++) {
+            buffer1->resetBuffer();
+            r1.write(&binary_protocol1);
+            serialized = buffer1->getBufferAsString();
+        }
+    } else if (proto == ThriftSerializationProto::Compact) {
+        for (size_t i = 0; i < iterations; i++) {
+            buffer1->resetBuffer();
+            r1.write(&compact_protocol1);
+            serialized = buffer1->getBufferAsString();
+        }
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << tag << " time = " << duration << " milliseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    if (proto == ThriftSerializationProto::Binary) {
+        for (size_t i = 0; i < iterations; i++) {
+            buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
+            r2.read(&binary_protocol2);
+        }
+    } else if (proto == ThriftSerializationProto::Compact) {
+        for (size_t i = 0; i < iterations; i++) {
+            buffer2->resetBuffer((uint8_t*)serialized.data(), serialized.length());
+            r2.read(&compact_protocol2);
+        }
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << tag << " time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
@@ -130,11 +155,9 @@ void protobuf_serialization_test(size_t iterations)
     using namespace protobuf_test;
 
     Record r1;
-
     for (size_t i = 0; i < kIntegers.size(); i++) {
         r1.add_ids(kIntegers[i]);
     }
-
     for (size_t i = 0; i < kStringsCount; i++) {
         r1.add_strings(kStringValue);
     }
@@ -158,10 +181,29 @@ void protobuf_serialization_test(size_t iterations)
         serialized.clear();
         r1.SerializeToString(&serialized);
         r2.ParseFromString(serialized);
+
+        (void)r2.ids().size();
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "protobuf: time = " << duration << " milliseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        serialized.clear();
+        r1.SerializeToString(&serialized);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "protobuf: time = " << duration << " milliseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        r2.ParseFromString(serialized);
+        (void)r2.ids().size();
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "protobuf: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
@@ -205,27 +247,51 @@ void capnproto_serialization_test(size_t iterations)
     for (size_t i = 0; i < iterations; i++) {
         capnp::MallocMessageBuilder message;
         Record::Builder r1 = message.getRoot<Record>();
-
         auto ids = r1.initIds(kIntegers.size());
         for (size_t i = 0; i < kIntegers.size(); i++) {
             ids.set(i, kIntegers[i]);
         }
-
         auto strings = r1.initStrings(kStringsCount);
         for (size_t i = 0; i < kStringsCount; i++) {
             strings.set(i, kStringValue);
         }
-
         serialized = message.getSegmentsForOutput();
         capnp::SegmentArrayMessageReader reader(serialized);
         auto r2 = reader.getRoot<Record>();
-
         (void)r2.getIds().size();
         (void)r2.getStrings().size();
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "capnproto: time = " << duration << " milliseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        capnp::MallocMessageBuilder message;
+        Record::Builder r1 = message.getRoot<Record>();
+        auto ids = r1.initIds(kIntegers.size());
+        for (size_t i = 0; i < kIntegers.size(); i++) {
+            ids.set(i, kIntegers[i]);
+        }
+        auto strings = r1.initStrings(kStringsCount);
+        for (size_t i = 0; i < kStringsCount; i++) {
+            strings.set(i, kStringValue);
+        }
+        serialized = message.getSegmentsForOutput();
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "capnproto: time = " << duration << " milliseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        capnp::SegmentArrayMessageReader reader(serialized);
+        auto r2 = reader.getRoot<Record>();
+        (void)r2.getIds().size();
+        (void)r2.getStrings().size();
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "capnproto: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
@@ -263,7 +329,23 @@ void boost_serialization_test(size_t iterations)
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "boost: time = " << duration << " milliseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        serialized.clear();
+        to_string(r1, serialized);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "boost: time = " << duration << " milliseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        from_string(r2, serialized);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "boost: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
@@ -306,7 +388,25 @@ void msgpack_serialization_test(size_t iterations)
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "msgpack: time = " << duration << " milliseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        sbuf.clear();
+        msgpack::pack(sbuf, r1);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "msgpack: time = " << duration << " milliseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        msgpack::object_handle msg = msgpack::unpack(sbuf.data(), sbuf.size());
+        msgpack::object obj = msg.get();
+        obj.convert(r2);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "msgpack: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
@@ -319,7 +419,6 @@ void cereal_serialization_test(size_t iterations)
     for (size_t i = 0; i < kIntegers.size(); i++) {
         r1.ids.push_back(kIntegers[i]);
     }
-
     for (size_t i = 0; i < kStringsCount; i++) {
         r1.strings.push_back(kStringValue);
     }
@@ -332,7 +431,6 @@ void cereal_serialization_test(size_t iterations)
     if (r1 != r2) {
         throw std::logic_error("cereal's case: deserialization failed");
     }
-
     std::cout << "cereal: size = " << serialized.size() << " bytes" << std::endl;
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -343,7 +441,23 @@ void cereal_serialization_test(size_t iterations)
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "cereal: time = " << duration << " milliseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        serialized.clear();
+        to_string(r1, serialized);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "cereal: time = " << duration << " milliseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        from_string(r2, serialized);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "cereal: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
@@ -356,11 +470,9 @@ void avro_serialization_test(size_t iterations)
     for (size_t i = 0; i < kIntegers.size(); i++) {
         r1.ids.push_back(kIntegers[i]);
     }
-
     for (size_t i = 0; i < kStringsCount; i++) {
         r1.strings.push_back(kStringValue);
     }
-
     std::unique_ptr<avro::OutputStream> out = avro::memoryOutputStream();
     avro::EncoderPtr encoder = avro::binaryEncoder();
 
@@ -396,7 +508,28 @@ void avro_serialization_test(size_t iterations)
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "avro: time = " << duration << " milliseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        auto out = avro::memoryOutputStream();
+        auto encoder = avro::binaryEncoder();
+        encoder->init(*out);
+        avro::encode(*encoder, r1);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "avro: time = " << duration << " milliseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        auto in = avro::memoryInputStream(*out);
+        auto decoder = avro::binaryDecoder();
+        decoder->init(*in);
+        avro::decode(*decoder, r2);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "avro: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
@@ -428,19 +561,15 @@ void flatbuffers_serialization_test(size_t iterations)
     }
 
     std::cout << "flatbuffers: size = " << builder.GetSize() << " bytes" << std::endl;
-
     builder.ReleaseBufferPointer();
 
     auto start = std::chrono::high_resolution_clock::now();
     for (size_t i = 0; i < iterations; i++) {
         builder.Clear();
         strings.clear();
-        // buf.clear();
-
         for (size_t i = 0; i < kStringsCount; i++) {
             strings.push_back(builder.CreateString(kStringValue));
         }
-
         auto ids_vec = builder.CreateVector(kIntegers);
         auto strings_vec = builder.CreateVector(strings);
         auto r1 = CreateRecord(builder, ids_vec, strings_vec);
@@ -456,7 +585,46 @@ void flatbuffers_serialization_test(size_t iterations)
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "flatbuffers: time = " << duration << " milliseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        builder.Clear();
+        strings.clear();
+        for (size_t i = 0; i < kStringsCount; i++) {
+            strings.push_back(builder.CreateString(kStringValue));
+        }
+        auto ids_vec = builder.CreateVector(kIntegers);
+        auto strings_vec = builder.CreateVector(strings);
+        auto r1 = CreateRecord(builder, ids_vec, strings_vec);
+        builder.Finish(r1);
+
+        builder.ReleaseBufferPointer();
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "flatbuffers: time = " << duration << " milliseconds" << std::endl;
+
+    builder.Clear();
+    strings.clear();
+    for (size_t i = 0; i < kStringsCount; i++) {
+        strings.push_back(builder.CreateString(kStringValue));
+    }
+
+    ids_vec = builder.CreateVector(kIntegers);
+    strings_vec = builder.CreateVector(strings);
+    r1 = CreateRecord(builder, ids_vec, strings_vec);
+    builder.Finish(r1);
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        auto p = reinterpret_cast<char*>(builder.GetBufferPointer());
+        auto sz = builder.GetSize();
+        std::vector<char> buf(p, p + sz);
+        auto r2 = GetRecord(buf.data());
+        (void)r2->ids()[0];
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "flatbuffers: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
@@ -477,11 +645,6 @@ void bson_serialization_test(size_t iterations)
         bson_append_utf8(&strings, "0", -1, kStringValue.c_str(), kStringValue.size());
     }
     bson_append_array_end(&bson, &strings);
-
-    //char *str;
-    //str = bson_as_json (&bson, NULL);
-    //printf ("%s\n", str);
-    //bson_free (str);
     bson_iter_t iter;
     bson_iter_t sub_iter;
 
@@ -507,16 +670,14 @@ void bson_serialization_test(size_t iterations)
     }
     std::cout << "bson: size = " << bson.len << " bytes" << std::endl;
     bson_destroy(&bson);
+
     auto start = std::chrono::high_resolution_clock::now();
-    
     for (size_t i = 0; i < iterations; i++) {
         bson_init(&bson);
-        
         bson_append_array_begin(&bson, "ints", -1, &ints);
         for (size_t i = 0; i < kIntegers.size(); i++)
             bson_append_int32(&ints, "0", -1, kIntegers[i]);
         bson_append_array_end(&bson, &ints);
-
         bson_append_array_begin(&bson, "strings", -1, &strings);
         for (size_t i = 0; i < kStringsCount; i++)
             bson_append_utf8(&strings, "0", -1, kStringValue.c_str(), kStringValue.size());
@@ -538,7 +699,52 @@ void bson_serialization_test(size_t iterations)
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "bson: time = " << duration << " milliseconds" << std::endl;
 
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        bson_init(&bson);
+        bson_append_array_begin(&bson, "ints", -1, &ints);
+        for (size_t i = 0; i < kIntegers.size(); i++)
+            bson_append_int32(&ints, "0", -1, kIntegers[i]);
+        bson_append_array_end(&bson, &ints);
+        bson_append_array_begin(&bson, "strings", -1, &strings);
+        for (size_t i = 0; i < kStringsCount; i++)
+            bson_append_utf8(&strings, "0", -1, kStringValue.c_str(), kStringValue.size());
+        bson_append_array_end(&bson, &strings);
+
+        bson_destroy(&bson);
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+    std::cout << "bson: time = " << duration << " milliseconds" << std::endl;
+
+    bson_init(&bson);
+    bson_append_array_begin(&bson, "ints", -1, &ints);
+    for (size_t i = 0; i < kIntegers.size(); i++)
+        bson_append_int32(&ints, "0", -1, kIntegers[i]);
+    bson_append_array_end(&bson, &ints);
+    bson_append_array_begin(&bson, "strings", -1, &strings);
+    for (size_t i = 0; i < kStringsCount; i++)
+        bson_append_utf8(&strings, "0", -1, kStringValue.c_str(), kStringValue.size());
+    bson_append_array_end(&bson, &strings);
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < iterations; i++) {
+        if (bson_iter_init_find (&iter, &bson, "ints") &&
+            (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
+            bson_iter_recurse (&iter, &sub_iter)) {
+            bson_iter_next (&sub_iter);
+            bson_iter_int32(&sub_iter);
+        }
+        if (bson_iter_init_find (&iter, &bson, "strings") &&
+            (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
+            bson_iter_recurse (&iter, &sub_iter)) {
+            bson_iter_next (&sub_iter);
+            bson_iter_utf8(&sub_iter, NULL);
+        }
+    }
+    finish = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "bson: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 

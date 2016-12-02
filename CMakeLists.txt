@@ -406,7 +406,7 @@ add_executable(
     ${THRIFT_FEATURE_SOURCES}
 )
 
+
 target_link_libraries(feature-test ${LINKLIBS})
 add_dependencies(feature-test thrift msgpack protobuf capnproto boost cereal avro flatbuffers bson)
 set_target_properties(feature-test PROPERTIES COMPILE_FLAGS "-std=c++14 -O3")
-
