@@ -630,26 +630,35 @@ void flatbuffers_serialization_test(size_t iterations)
 
 void bson_serialization_test(size_t iterations)
 {
-    bson_t bson, ints, strings;
-    bson_init(&bson);
-    
+    bson_t ints, strings;
+    bson_t* bson;
+    uint8_t *buf = NULL;
+    size_t buflen = 0;
 
-    bson_append_array_begin(&bson, "ints", -1, &ints);
+    bson_writer_t* writer = bson_writer_new(&buf, &buflen, 0, bson_realloc_ctx, NULL);
+    bson_writer_begin (writer, &bson);
+    bson_append_array_begin(bson, "ints", -1, &ints);
     for (size_t i = 0; i < kIntegers.size(); i++) {
         bson_append_int32(&ints, "0", -1, kIntegers[i]);
     }
-    bson_append_array_end(&bson, &ints);
+    bson_append_array_end(bson, &ints);
 
-    bson_append_array_begin(&bson, "strings", -1, &strings);
+    bson_append_array_begin(bson, "strings", -1, &strings);
     for (size_t i = 0; i < kStringsCount; i++) {
         bson_append_utf8(&strings, "0", -1, kStringValue.c_str(), kStringValue.size());
     }
-    bson_append_array_end(&bson, &strings);
+    bson_append_array_end(bson, &strings);
+    bson_writer_end (writer);
+
     bson_iter_t iter;
     bson_iter_t sub_iter;
 
     unsigned int count_strings = 0, count_ints = 0;
-    if (bson_iter_init_find (&iter, &bson, "ints") &&
+    bson_reader_t* reader = bson_reader_new_from_data(buf, buflen);
+    bool eof;
+    const bson_t* bson_read;
+    bson_read = bson_reader_read (reader, &eof);
+    if (bson_iter_init_find (&iter, bson_read, "ints") &&
             (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
             bson_iter_recurse (&iter, &sub_iter)) {
         while (bson_iter_next (&sub_iter)) {
@@ -657,7 +666,7 @@ void bson_serialization_test(size_t iterations)
             count_ints++;
         }
     }
-    if (bson_iter_init_find (&iter, &bson, "strings") &&
+    if (bson_iter_init_find (&iter, bson_read, "strings") &&
             (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
             bson_iter_recurse (&iter, &sub_iter)) {
         while (bson_iter_next (&sub_iter)) {
@@ -668,34 +677,43 @@ void bson_serialization_test(size_t iterations)
     if (count_strings != kStringsCount || count_ints != kIntegers.size()) {
         throw std::logic_error("bson's case: deserialization failed");
     }
-    std::cout << "bson: size = " << bson.len << " bytes" << std::endl;
-    bson_destroy(&bson);
+    std::cout << "bson: size = " << bson_read->len << " bytes" << std::endl;
 
     auto start = std::chrono::high_resolution_clock::now();
     for (size_t i = 0; i < iterations; i++) {
-        bson_init(&bson);
-        bson_append_array_begin(&bson, "ints", -1, &ints);
-        for (size_t i = 0; i < kIntegers.size(); i++)
-            bson_append_int32(&ints, "0", -1, kIntegers[i]);
-        bson_append_array_end(&bson, &ints);
-        bson_append_array_begin(&bson, "strings", -1, &strings);
-        for (size_t i = 0; i < kStringsCount; i++)
-            bson_append_utf8(&strings, "0", -1, kStringValue.c_str(), kStringValue.size());
-        bson_append_array_end(&bson, &strings);
+        uint8_t *buf_iter = NULL;
+        size_t buflen_iter = 0;
+        bson_t* bson_iter;
+        bson_t ints_iter, strings_iter;
 
-        if (bson_iter_init_find (&iter, &bson, "ints") &&
-                (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
-                bson_iter_recurse (&iter, &sub_iter)) {
+        bson_writer_t* writer_iter = bson_writer_new(&buf_iter, &buflen_iter, 0, bson_realloc_ctx, NULL);
+        bson_writer_begin (writer_iter, &bson_iter);
+
+        bson_append_array_begin(bson_iter, "ints", -1, &ints_iter);
+        for (size_t i = 0; i < kIntegers.size(); i++)
+            bson_append_int32(&ints_iter, "0", -1, kIntegers[i]);
+        bson_append_array_end(bson_iter, &ints_iter);
+        bson_append_array_begin(bson_iter, "strings", -1, &strings_iter);
+        for (size_t i = 0; i < kStringsCount; i++)
+            bson_append_utf8(&strings_iter, "0", -1, kStringValue.c_str(), kStringValue.size());
+        bson_append_array_end(bson_iter, &strings_iter);
+        bson_writer_end(writer_iter);
+
+        bson_reader_t* reader_iter = bson_reader_new_from_data(buf_iter, buflen_iter);
+        const bson_t* bson_read_iter;
+        bson_read_iter = bson_reader_read (reader_iter, &eof);
+        if (bson_iter_init_find (&iter, bson_read_iter, "ints") &&
+            (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
+            bson_iter_recurse (&iter, &sub_iter)) {
             bson_iter_next (&sub_iter);
             bson_iter_int32(&sub_iter);
         }
-        if (bson_iter_init_find (&iter, &bson, "strings") &&
-                (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
-                bson_iter_recurse (&iter, &sub_iter)) {
+        if (bson_iter_init_find (&iter, bson_read_iter, "strings") &&
+            (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
+            bson_iter_recurse (&iter, &sub_iter)) {
             bson_iter_next (&sub_iter);
             bson_iter_utf8(&sub_iter, NULL);
         }
-        bson_destroy(&bson);
     }
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
@@ -703,40 +721,40 @@ void bson_serialization_test(size_t iterations)
 
     start = std::chrono::high_resolution_clock::now();
     for (size_t i = 0; i < iterations; i++) {
-        bson_init(&bson);
-        bson_append_array_begin(&bson, "ints", -1, &ints);
-        for (size_t i = 0; i < kIntegers.size(); i++)
-            bson_append_int32(&ints, "0", -1, kIntegers[i]);
-        bson_append_array_end(&bson, &ints);
-        bson_append_array_begin(&bson, "strings", -1, &strings);
-        for (size_t i = 0; i < kStringsCount; i++)
-            bson_append_utf8(&strings, "0", -1, kStringValue.c_str(), kStringValue.size());
-        bson_append_array_end(&bson, &strings);
+        uint8_t *buf_iter = NULL;
+        size_t buflen_iter = 0;
+        bson_t* bson_iter;
+        bson_t ints_iter, strings_iter;
 
-        bson_destroy(&bson);
+        bson_writer_t* writer_iter = bson_writer_new(&buf_iter, &buflen_iter, 0, bson_realloc_ctx, NULL);
+        bson_writer_begin (writer_iter, &bson_iter);
+
+        bson_append_array_begin(bson_iter, "ints", -1, &ints_iter);
+        for (size_t i = 0; i < kIntegers.size(); i++)
+            bson_append_int32(&ints_iter, "0", -1, kIntegers[i]);
+        bson_append_array_end(bson_iter, &ints_iter);
+        bson_append_array_begin(bson_iter, "strings", -1, &strings_iter);
+        for (size_t i = 0; i < kStringsCount; i++)
+            bson_append_utf8(&strings_iter, "0", -1, kStringValue.c_str(), kStringValue.size());
+        bson_append_array_end(bson_iter, &strings_iter);
+        bson_writer_end(writer_iter);
     }
     finish = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "bson: time = " << duration << " milliseconds" << std::endl;
 
-    bson_init(&bson);
-    bson_append_array_begin(&bson, "ints", -1, &ints);
-    for (size_t i = 0; i < kIntegers.size(); i++)
-        bson_append_int32(&ints, "0", -1, kIntegers[i]);
-    bson_append_array_end(&bson, &ints);
-    bson_append_array_begin(&bson, "strings", -1, &strings);
-    for (size_t i = 0; i < kStringsCount; i++)
-        bson_append_utf8(&strings, "0", -1, kStringValue.c_str(), kStringValue.size());
-    bson_append_array_end(&bson, &strings);
     start = std::chrono::high_resolution_clock::now();
     for (size_t i = 0; i < iterations; i++) {
-        if (bson_iter_init_find (&iter, &bson, "ints") &&
+        bson_reader_t* reader_iter = bson_reader_new_from_data(buf, buflen);
+        const bson_t* bson_read_iter;
+        bson_read_iter = bson_reader_read (reader_iter, &eof);
+        if (bson_iter_init_find (&iter, bson_read_iter, "ints") &&
             (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
             bson_iter_recurse (&iter, &sub_iter)) {
             bson_iter_next (&sub_iter);
             bson_iter_int32(&sub_iter);
         }
-        if (bson_iter_init_find (&iter, &bson, "strings") &&
+        if (bson_iter_init_find (&iter, bson_read_iter, "strings") &&
             (BSON_ITER_HOLDS_DOCUMENT (&iter) || BSON_ITER_HOLDS_ARRAY (&iter)) &&
             bson_iter_recurse (&iter, &sub_iter)) {
             bson_iter_next (&sub_iter);
@@ -745,7 +763,7 @@ void bson_serialization_test(size_t iterations)
     }
     finish = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
-    std::cout << "bson: time = " << duration << " milliseconds" << std::endl << std::endl;
+    std::cout << "bson: time = " << duration << " milliseconds" << std::endl;
 }
 
 int main(int argc, char **argv)

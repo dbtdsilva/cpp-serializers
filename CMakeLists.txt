@@ -197,8 +197,8 @@ set(bson_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/external/libbson)
 ExternalProject_Add(
     bson
     PREFIX ${bson_PREFIX}
-    URL "https://github.com/mongodb/libbson/releases/download/1.3.6/libbson-1.3.6.tar.gz"
-    URL_MD5 "4623409184c42124b6830dabc7a12540"
+    URL "https://github.com/mongodb/libbson/releases/download/1.5.0/libbson-1.5.0.tar.gz"
+    URL_MD5 "fc75449cbe7ecfbaa8ab0139678239cc"
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${bson_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
     LOG_UPDATE ON
     LOG_CONFIGURE ON
