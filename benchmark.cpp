@@ -770,38 +770,36 @@ void bson_serialization_test(size_t iterations)
 int main(int argc, char **argv)
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-    if (argc < 2) {
-        std::cout << "usage: " << argv[0] << " N [thrift-binary thrift-compact protobuf boost msgpack cereal avro capnproto flatbuffers bson]";
+    if (argc < 3) {
+        std::cout << "usage: " << argv[0] << " N ITER_SIZE [thrift-binary thrift-compact protobuf boost msgpack cereal avro capnproto flatbuffers bson]";
         std::cout << std::endl << std::endl;
         std::cout << "arguments: " << std::endl;
-        std::cout << " N  -- number of iterations" << std::endl << std::endl;
+        std::cout << " N  -- number of iterations" << std::endl;
+        std::cout << " ITER_SIZE -- number of iterations modifying data size" << std::endl << std::endl;
         return EXIT_SUCCESS;
     }
 
     size_t iterations;
-
+    size_t iterations_over_size;
     try {
         iterations = boost::lexical_cast<size_t>(argv[1]);
+        iterations_over_size = boost::lexical_cast<size_t>(argv[2]);
     } catch (std::exception &exc) {
         std::cerr << "Error: " << exc.what() << std::endl;
-        std::cerr << "First positional argument must be an integer." << std::endl;
+        std::cerr << "First and second positional argument must be an integer." << std::endl;
         return EXIT_FAILURE;
     }
 
     std::set<std::string> names;
-
-    if (argc > 2) {
-        for (int i = 2; i < argc; i++) {
+    if (argc > 3) {
+        for (int i = 3; i < argc; i++) {
             names.insert(argv[i]);
         }
     }
     
     std::cout << "unserialized data has " << sizeof(int64_t) * kIntegers.size() +
             kStringValue.size() * kStringsCount << " bytes" << std::endl;
-
     std::cout << "performing " << iterations << " iterations" << std::endl << std::endl;
-
     /*std::cout << "total size: " << sizeof(kIntegerValue) * kIntegersCount + kStringValue.size() * kStringsCount << std::endl;*/
 
     try {
