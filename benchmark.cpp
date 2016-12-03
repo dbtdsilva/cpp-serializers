@@ -30,6 +30,7 @@
 #include "flatbuffers/test_generated.h"
 
 #include "data.hpp"
+#include "data_generator.h"
 
 enum class ThriftSerializationProto {
     Binary,
