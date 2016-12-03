@@ -300,6 +300,7 @@ set(CEREAL_SERIALIZATION_SOURCES ${cpp_serializers_SOURCE_DIR}/cereal/record.cpp
 add_executable(
     benchmark
     ${cpp_serializers_SOURCE_DIR}/benchmark.cpp
+    ${cpp_serializers_SOURCE_DIR}/data_generator.cpp ${cpp_serializers_SOURCE_DIR}/data_generator.h
     ${THRIFT_SERIALIZATION_SOURCES}
     ${PROTOBUF_SERIALIZATION_SOURCES}
     ${CAPNPROTO_SERIALIZATION_SOURCES}
