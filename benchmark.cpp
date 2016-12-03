@@ -37,7 +37,8 @@ enum class ThriftSerializationProto {
     Compact
 };
 
-void thrift_serialization_test(size_t iterations, ThriftSerializationProto proto = ThriftSerializationProto::Binary)
+void thrift_serialization_test(size_t iterations, size_t iterations_over_size, DataGenerator& data_ref,
+                               ThriftSerializationProto proto = ThriftSerializationProto::Binary)
 {
     using apache::thrift::transport::TMemoryBuffer;
     using apache::thrift::protocol::TBinaryProtocol;
@@ -151,7 +152,7 @@ void thrift_serialization_test(size_t iterations, ThriftSerializationProto proto
     std::cout << tag << " time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void protobuf_serialization_test(size_t iterations)
+void protobuf_serialization_test(size_t iterations, size_t iterations_over_size, DataGenerator& data_ref)
 {
     using namespace protobuf_test;
 
@@ -208,7 +209,7 @@ void protobuf_serialization_test(size_t iterations)
     std::cout << "protobuf: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void capnproto_serialization_test(size_t iterations)
+void capnproto_serialization_test(size_t iterations, size_t iterations_over_size, DataGenerator& data_ref)
 {
     using namespace capnp_test;
 
@@ -296,7 +297,7 @@ void capnproto_serialization_test(size_t iterations)
     std::cout << "capnproto: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void boost_serialization_test(size_t iterations)
+void boost_serialization_test(size_t iterations, size_t iterations_over_size, DataGenerator& data_ref)
 {
     using namespace boost_test;
 
@@ -350,7 +351,7 @@ void boost_serialization_test(size_t iterations)
     std::cout << "boost: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void msgpack_serialization_test(size_t iterations)
+void msgpack_serialization_test(size_t iterations, size_t iterations_over_size, DataGenerator& data_ref)
 {
     using namespace msgpack_test;
 
@@ -411,7 +412,7 @@ void msgpack_serialization_test(size_t iterations)
     std::cout << "msgpack: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void cereal_serialization_test(size_t iterations)
+void cereal_serialization_test(size_t iterations, size_t iterations_over_size, DataGenerator& data_ref)
 {
     using namespace cereal_test;
 
@@ -462,7 +463,7 @@ void cereal_serialization_test(size_t iterations)
     std::cout << "cereal: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void avro_serialization_test(size_t iterations)
+void avro_serialization_test(size_t iterations, size_t iterations_over_size, DataGenerator& data_ref)
 {
     using namespace avro_test;
 
@@ -534,7 +535,7 @@ void avro_serialization_test(size_t iterations)
     std::cout << "avro: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void flatbuffers_serialization_test(size_t iterations)
+void flatbuffers_serialization_test(size_t iterations, size_t iterations_over_size, DataGenerator& data_ref)
 {
     using namespace flatbuffers_test;
 
@@ -629,7 +630,7 @@ void flatbuffers_serialization_test(size_t iterations)
     std::cout << "flatbuffers: time = " << duration << " milliseconds" << std::endl << std::endl;
 }
 
-void bson_serialization_test(size_t iterations)
+void bson_serialization_test(size_t iterations, size_t iterations_over_size, DataGenerator& data_ref)
 {
     bson_t ints, strings;
     bson_t* bson;
@@ -771,11 +772,12 @@ int main(int argc, char **argv)
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     if (argc < 3) {
-        std::cout << "usage: " << argv[0] << " N ITER_SIZE [thrift-binary thrift-compact protobuf boost msgpack cereal avro capnproto flatbuffers bson]";
+        std::cout << "usage: " << argv[0] << " N ITER_SIZE [thrift-binary thrift-compact protobuf boost msgpack "
+                "cereal avro capnproto flatbuffers bson]";
         std::cout << std::endl << std::endl;
         std::cout << "arguments: " << std::endl;
-        std::cout << " N  -- number of iterations" << std::endl;
-        std::cout << " ITER_SIZE -- number of iterations modifying data size" << std::endl << std::endl;
+        std::cout << " N  -- number of iterations on the same size" << std::endl;
+        std::cout << " ITER_SIZE -- number of iterations where the data size is modified" << std::endl << std::endl;
         return EXIT_SUCCESS;
     }
 
@@ -796,51 +798,52 @@ int main(int argc, char **argv)
             names.insert(argv[i]);
         }
     }
-    
-    std::cout << "unserialized data has " << sizeof(int64_t) * kIntegers.size() +
-            kStringValue.size() * kStringsCount << " bytes" << std::endl;
-    std::cout << "performing " << iterations << " iterations" << std::endl << std::endl;
-    /*std::cout << "total size: " << sizeof(kIntegerValue) * kIntegersCount + kStringValue.size() * kStringsCount << std::endl;*/
+
+    DataGenerator data(iterations_over_size);
+    std::cout << "unserialized data has " << (sizeof(data.integer_list_[0]) + data.string_list_[0].size()) *
+            iterations_over_size << " bytes" << std::endl;
+    std::cout << "performing " << iterations_over_size << "iterations where the size is modified and "
+            <<  iterations << " iterations on the same size. " << std::endl << std::endl;
 
     try {
         if (names.empty() || names.find("thrift-binary") != names.end()) {
-            thrift_serialization_test(iterations, ThriftSerializationProto::Binary);
+            thrift_serialization_test(iterations, iterations_over_size, data, ThriftSerializationProto::Binary);
         }
 
         if (names.empty() || names.find("thrift-compact") != names.end()) {
-            thrift_serialization_test(iterations, ThriftSerializationProto::Compact);
+            thrift_serialization_test(iterations, iterations_over_size, data, ThriftSerializationProto::Compact);
         }
 
         if (names.empty() || names.find("protobuf") != names.end()) {
-            protobuf_serialization_test(iterations);
+            protobuf_serialization_test(iterations, iterations_over_size, data);
         }
 
         if (names.empty() || names.find("capnproto") != names.end()) {
-            capnproto_serialization_test(iterations);
+            capnproto_serialization_test(iterations, iterations_over_size, data);
         }
 
         if (names.empty() || names.find("boost") != names.end()) {
-            boost_serialization_test(iterations);
+            boost_serialization_test(iterations, iterations_over_size, data);
         }
 
         if (names.empty() || names.find("msgpack") != names.end()) {
-            msgpack_serialization_test(iterations);
+            msgpack_serialization_test(iterations, iterations_over_size, data);
         }
 
         if (names.empty() || names.find("cereal") != names.end()) {
-            cereal_serialization_test(iterations);
+            cereal_serialization_test(iterations, iterations_over_size, data);
         }
 
         if (names.empty() || names.find("avro") != names.end()) {
-            avro_serialization_test(iterations);
+            avro_serialization_test(iterations, iterations_over_size, data);
         }
 
         if (names.empty() || names.find("flatbuffers") != names.end()) {
-            flatbuffers_serialization_test(iterations);
+            flatbuffers_serialization_test(iterations, iterations_over_size, data);
         }
 
         if (names.empty() || names.find("bson") != names.end()) {
-            bson_serialization_test(iterations);
+            bson_serialization_test(iterations, iterations_over_size, data);
         }
     } catch (std::exception &exc) {
         std::cerr << "Error: " << exc.what() << std::endl;
