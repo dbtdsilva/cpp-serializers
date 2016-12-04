@@ -6,7 +6,7 @@ then
 	exit 1
 fi
 
-data_size=700000 	# 70000 * (8 + 8) = 1.2 MB
+data_size=1000 	# 70000 * (8 + 8) = 1.2 MB
 data_sequence=1000
 data_interval=$((data_size/data_sequence))
 
