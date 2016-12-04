@@ -3,6 +3,8 @@
 #include <ctime>
 #include <iostream>
 
+#include "data.hpp"
+
 const std::string DataGenerator::ALPHANUM("0123456789!@#$%^&*ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
 const int DataGenerator::RANGE(50000);
 
