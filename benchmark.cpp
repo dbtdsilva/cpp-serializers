@@ -5,20 +5,16 @@
 #include <memory>
 #include <chrono>
 #include <sstream>
-
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
 
 #include <thrift/transport/TBufferTransports.h>
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/protocol/TCompactProtocol.h>
-
 #include "thrift/gen-cpp/test_types.h"
 #include "thrift/gen-cpp/test_constants.h"
-
 #include <capnp/message.h>
 #include <capnp/serialize.h>
-
 #include <bson.h>
 
 #include "protobuf/test.pb.h"
@@ -29,7 +25,6 @@
 #include "avro/record.hpp"
 #include "flatbuffers/test_generated.h"
 
-#include "data.hpp"
 #include "data_generator.h"
 
 enum class ThriftSerializationProto {
@@ -57,11 +52,11 @@ void thrift_serialization_test(size_t iterations, size_t iterations_over_size, D
     TCompactProtocolT<TMemoryBuffer> compact_protocol2(buffer2);
 
     Record r1;
-    for (size_t i = 0; i < kIntegers.size(); i++) {
-        r1.ids.push_back(kIntegers[i]);
+    for (size_t i = 0; i < data_ref.integer_list_.size(); i++) {
+        r1.ids.push_back(data_ref.integer_list_[i]);
     }
-    for (size_t i = 0; i < kStringsCount; i++) {
-        r1.strings.push_back(kStringValue);
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        r1.strings.push_back(data_ref.string_list_[i]);
     }
 
     std::string serialized;
@@ -157,11 +152,11 @@ void protobuf_serialization_test(size_t iterations, size_t iterations_over_size,
     using namespace protobuf_test;
 
     Record r1;
-    for (size_t i = 0; i < kIntegers.size(); i++) {
-        r1.add_ids(kIntegers[i]);
+    for (size_t i = 0; i < data_ref.integer_list_.size(); i++) {
+        r1.add_ids(data_ref.integer_list_[i]);
     }
-    for (size_t i = 0; i < kStringsCount; i++) {
-        r1.add_strings(kStringValue);
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        r1.add_strings(data_ref.string_list_[i]);
     }
 
     std::string serialized;
@@ -216,30 +211,29 @@ void capnproto_serialization_test(size_t iterations, size_t iterations_over_size
     capnp::MallocMessageBuilder message;
     Record::Builder r1 = message.getRoot<Record>();
 
-    auto ids = r1.initIds(kIntegers.size());
-    for (size_t i = 0; i < kIntegers.size(); i++) {
-        ids.set(i, kIntegers[i]);
+    auto ids = r1.initIds(data_ref.integer_list_.size());
+    for (size_t i = 0; i < data_ref.integer_list_.size(); i++) {
+        ids.set(i, data_ref.integer_list_[i]);
     }
 
-    auto strings = r1.initStrings(kStringsCount);
-    for (size_t i = 0; i < kStringsCount; i++) {
-        strings.set(i, kStringValue);
+    auto strings = r1.initStrings(data_ref.string_list_.size());
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        strings.set(i, data_ref.string_list_[i]);
     }
 
-
-    kj::ArrayPtr<const kj::ArrayPtr<const capnp::word>> serialized =
-        message.getSegmentsForOutput();
+    kj::ArrayPtr<const kj::ArrayPtr<const capnp::word>> serialized = message.getSegmentsForOutput();
 
     // check if we can deserialize back
     capnp::SegmentArrayMessageReader reader(serialized);
     Record::Reader r2 = reader.getRoot<Record>();
-    if (r2.getIds().size() != kIntegers.size()) {
+    if (r2.getIds().size() != data_ref.integer_list_.size() ||
+            r2.getStrings().size() != data_ref.string_list_.size()) {
         throw std::logic_error("capnproto's case: deserialization failed");
     }
 
     size_t size = 0;
     for (auto segment: serialized) {
-      size += segment.asBytes().size();
+        size += segment.asBytes().size();
     }
 
     std::cout << "capnproto: version = " << CAPNP_VERSION << std::endl;
@@ -249,13 +243,13 @@ void capnproto_serialization_test(size_t iterations, size_t iterations_over_size
     for (size_t i = 0; i < iterations; i++) {
         capnp::MallocMessageBuilder message;
         Record::Builder r1 = message.getRoot<Record>();
-        auto ids = r1.initIds(kIntegers.size());
-        for (size_t i = 0; i < kIntegers.size(); i++) {
-            ids.set(i, kIntegers[i]);
+        auto ids = r1.initIds(data_ref.integer_list_.size());
+        for (size_t j = 0; j < data_ref.integer_list_.size(); j++) {
+            ids.set(j, data_ref.integer_list_[j]);
         }
-        auto strings = r1.initStrings(kStringsCount);
-        for (size_t i = 0; i < kStringsCount; i++) {
-            strings.set(i, kStringValue);
+        auto strings = r1.initStrings(data_ref.string_list_.size());
+        for (size_t j = 0; j < data_ref.string_list_.size(); j++) {
+            strings.set(j, data_ref.string_list_[j]);
         }
         serialized = message.getSegmentsForOutput();
         capnp::SegmentArrayMessageReader reader(serialized);
@@ -271,13 +265,13 @@ void capnproto_serialization_test(size_t iterations, size_t iterations_over_size
     for (size_t i = 0; i < iterations; i++) {
         capnp::MallocMessageBuilder message;
         Record::Builder r1 = message.getRoot<Record>();
-        auto ids = r1.initIds(kIntegers.size());
-        for (size_t i = 0; i < kIntegers.size(); i++) {
-            ids.set(i, kIntegers[i]);
+        auto ids = r1.initIds(data_ref.integer_list_.size());
+        for (size_t j = 0; j < data_ref.integer_list_.size(); j++) {
+            ids.set(j, data_ref.integer_list_[j]);
         }
-        auto strings = r1.initStrings(kStringsCount);
-        for (size_t i = 0; i < kStringsCount; i++) {
-            strings.set(i, kStringValue);
+        auto strings = r1.initStrings(data_ref.string_list_.size());
+        for (size_t j = 0; j < data_ref.string_list_.size(); j++) {
+            strings.set(j, data_ref.string_list_[j]);
         }
         serialized = message.getSegmentsForOutput();
     }
@@ -285,6 +279,18 @@ void capnproto_serialization_test(size_t iterations, size_t iterations_over_size
     duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
     std::cout << "capnproto: time = " << duration << " milliseconds" << std::endl;
 
+
+
+    r1 = message.getRoot<Record>();
+    auto ids2 = r1.initIds(data_ref.integer_list_.size());
+    for (size_t j = 0; j < data_ref.integer_list_.size(); j++) {
+        ids.set(j, data_ref.integer_list_[j]);
+    }
+    strings = r1.initStrings(data_ref.string_list_.size());
+    for (size_t j = 0; j < data_ref.string_list_.size(); j++) {
+        strings.set(j, data_ref.string_list_[j]);
+    }
+    serialized = message.getSegmentsForOutput();
     start = std::chrono::high_resolution_clock::now();
     for (size_t i = 0; i < iterations; i++) {
         capnp::SegmentArrayMessageReader reader(serialized);
@@ -303,12 +309,12 @@ void boost_serialization_test(size_t iterations, size_t iterations_over_size, Da
 
     Record r1, r2;
 
-    for (size_t i = 0; i < kIntegers.size(); i++) {
-        r1.ids.push_back(kIntegers[i]);
+    for (size_t i = 0; i < data_ref.integer_list_.size(); i++) {
+        r1.ids.push_back(data_ref.integer_list_[i]);
     }
 
-    for (size_t i = 0; i < kStringsCount; i++) {
-        r1.strings.push_back(kStringValue);
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        r1.strings.push_back(data_ref.string_list_[i]);
     }
 
     std::string serialized;
@@ -357,12 +363,12 @@ void msgpack_serialization_test(size_t iterations, size_t iterations_over_size, 
 
     Record r1, r2;
 
-    for (size_t i = 0; i < kIntegers.size(); i++) {
-        r1.ids.push_back(kIntegers[i]);
+    for (size_t i = 0; i < data_ref.integer_list_.size(); i++) {
+        r1.ids.push_back(data_ref.integer_list_[i]);
     }
 
-    for (size_t i = 0; i < kStringsCount; i++) {
-        r1.strings.push_back(kStringValue);
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        r1.strings.push_back(data_ref.string_list_[i]);
     }
 
     msgpack::sbuffer sbuf;
@@ -418,11 +424,11 @@ void cereal_serialization_test(size_t iterations, size_t iterations_over_size, D
 
     Record r1, r2;
 
-    for (size_t i = 0; i < kIntegers.size(); i++) {
-        r1.ids.push_back(kIntegers[i]);
+    for (size_t i = 0; i < data_ref.integer_list_.size(); i++) {
+        r1.ids.push_back(data_ref.integer_list_[i]);
     }
-    for (size_t i = 0; i < kStringsCount; i++) {
-        r1.strings.push_back(kStringValue);
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        r1.strings.push_back(data_ref.string_list_[i]);
     }
 
     std::string serialized;
@@ -469,11 +475,11 @@ void avro_serialization_test(size_t iterations, size_t iterations_over_size, Dat
 
     Record r1, r2;
 
-    for (size_t i = 0; i < kIntegers.size(); i++) {
-        r1.ids.push_back(kIntegers[i]);
+    for (size_t i = 0; i < data_ref.integer_list_.size(); i++) {
+        r1.ids.push_back(data_ref.integer_list_[i]);
     }
-    for (size_t i = 0; i < kStringsCount; i++) {
-        r1.strings.push_back(kStringValue);
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        r1.strings.push_back(data_ref.string_list_[i]);
     }
     std::unique_ptr<avro::OutputStream> out = avro::memoryOutputStream();
     avro::EncoderPtr encoder = avro::binaryEncoder();
@@ -490,7 +496,7 @@ void avro_serialization_test(size_t iterations, size_t iterations_over_size, Dat
     avro::decode(*decoder, r2);
 
     if (r1.ids != r2.ids || r1.strings != r2.strings ||
-        r2.ids.size() != kIntegers.size() || r2.strings.size() != kStringsCount) {
+        r2.ids.size() != data_ref.integer_list_.size() || r2.strings.size() != data_ref.string_list_.size()) {
         throw std::logic_error("avro's case: deserialization failed");
     }
 
@@ -540,14 +546,14 @@ void flatbuffers_serialization_test(size_t iterations, size_t iterations_over_si
     using namespace flatbuffers_test;
 
     std::vector<flatbuffers::Offset<flatbuffers::String>> strings;
-    strings.reserve(kStringsCount);
+    strings.reserve(data_ref.string_list_.size());
 
     flatbuffers::FlatBufferBuilder builder;
-    for (size_t i = 0; i < kStringsCount; i++) {
-        strings.push_back(builder.CreateString(kStringValue));
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        strings.push_back(builder.CreateString(data_ref.string_list_[i]));
     }
 
-    auto ids_vec = builder.CreateVector(kIntegers);
+    auto ids_vec = builder.CreateVector(data_ref.integer_list_);
     auto strings_vec = builder.CreateVector(strings);
     auto r1 = CreateRecord(builder, ids_vec, strings_vec);
 
@@ -558,7 +564,7 @@ void flatbuffers_serialization_test(size_t iterations, size_t iterations_over_si
     std::vector<char> buf(p, p + sz);
 
     auto r2 = GetRecord(buf.data());
-    if (r2->strings()->size() != kStringsCount || r2->ids()->size() != kIntegers.size()) {
+    if (r2->strings()->size() != data_ref.string_list_.size() || r2->ids()->size() != data_ref.integer_list_.size()) {
         throw std::logic_error("flatbuffer's case: deserialization failed");
     }
 
@@ -569,10 +575,10 @@ void flatbuffers_serialization_test(size_t iterations, size_t iterations_over_si
     for (size_t i = 0; i < iterations; i++) {
         builder.Clear();
         strings.clear();
-        for (size_t i = 0; i < kStringsCount; i++) {
-            strings.push_back(builder.CreateString(kStringValue));
+        for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+            strings.push_back(builder.CreateString(data_ref.string_list_[i]));
         }
-        auto ids_vec = builder.CreateVector(kIntegers);
+        auto ids_vec = builder.CreateVector(data_ref.integer_list_);
         auto strings_vec = builder.CreateVector(strings);
         auto r1 = CreateRecord(builder, ids_vec, strings_vec);
         builder.Finish(r1);
@@ -593,10 +599,10 @@ void flatbuffers_serialization_test(size_t iterations, size_t iterations_over_si
     for (size_t i = 0; i < iterations; i++) {
         builder.Clear();
         strings.clear();
-        for (size_t i = 0; i < kStringsCount; i++) {
-            strings.push_back(builder.CreateString(kStringValue));
+        for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+            strings.push_back(builder.CreateString(data_ref.string_list_[i]));
         }
-        auto ids_vec = builder.CreateVector(kIntegers);
+        auto ids_vec = builder.CreateVector(data_ref.integer_list_);
         auto strings_vec = builder.CreateVector(strings);
         auto r1 = CreateRecord(builder, ids_vec, strings_vec);
         builder.Finish(r1);
@@ -609,11 +615,11 @@ void flatbuffers_serialization_test(size_t iterations, size_t iterations_over_si
 
     builder.Clear();
     strings.clear();
-    for (size_t i = 0; i < kStringsCount; i++) {
-        strings.push_back(builder.CreateString(kStringValue));
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        strings.push_back(builder.CreateString(data_ref.string_list_[i]));
     }
 
-    ids_vec = builder.CreateVector(kIntegers);
+    ids_vec = builder.CreateVector(data_ref.integer_list_);
     strings_vec = builder.CreateVector(strings);
     r1 = CreateRecord(builder, ids_vec, strings_vec);
     builder.Finish(r1);
@@ -640,14 +646,14 @@ void bson_serialization_test(size_t iterations, size_t iterations_over_size, Dat
     bson_writer_t* writer = bson_writer_new(&buf, &buflen, 0, bson_realloc_ctx, NULL);
     bson_writer_begin (writer, &bson);
     bson_append_array_begin(bson, "ints", -1, &ints);
-    for (size_t i = 0; i < kIntegers.size(); i++) {
-        bson_append_int32(&ints, "0", -1, kIntegers[i]);
+    for (size_t i = 0; i < data_ref.integer_list_.size(); i++) {
+        bson_append_int32(&ints, "0", -1, data_ref.integer_list_[i]);
     }
     bson_append_array_end(bson, &ints);
 
     bson_append_array_begin(bson, "strings", -1, &strings);
-    for (size_t i = 0; i < kStringsCount; i++) {
-        bson_append_utf8(&strings, "0", -1, kStringValue.c_str(), kStringValue.size());
+    for (size_t i = 0; i < data_ref.string_list_.size(); i++) {
+        bson_append_utf8(&strings, "0", -1, data_ref.string_list_[i].c_str(), data_ref.string_list_[i].size());
     }
     bson_append_array_end(bson, &strings);
     bson_writer_end (writer);
@@ -676,7 +682,7 @@ void bson_serialization_test(size_t iterations, size_t iterations_over_size, Dat
             count_strings++;
         }
     }
-    if (count_strings != kStringsCount || count_ints != kIntegers.size()) {
+    if (count_strings != data_ref.string_list_.size() || count_ints != data_ref.integer_list_.size()) {
         throw std::logic_error("bson's case: deserialization failed");
     }
     std::cout << "bson: size = " << bson_read->len << " bytes" << std::endl;
@@ -692,12 +698,12 @@ void bson_serialization_test(size_t iterations, size_t iterations_over_size, Dat
         bson_writer_begin (writer_iter, &bson_iter);
 
         bson_append_array_begin(bson_iter, "ints", -1, &ints_iter);
-        for (size_t i = 0; i < kIntegers.size(); i++)
-            bson_append_int32(&ints_iter, "0", -1, kIntegers[i]);
+        for (size_t i = 0; i < data_ref.integer_list_.size(); i++)
+            bson_append_int32(&ints_iter, "0", -1, data_ref.integer_list_[i]);
         bson_append_array_end(bson_iter, &ints_iter);
         bson_append_array_begin(bson_iter, "strings", -1, &strings_iter);
-        for (size_t i = 0; i < kStringsCount; i++)
-            bson_append_utf8(&strings_iter, "0", -1, kStringValue.c_str(), kStringValue.size());
+        for (size_t i = 0; i < data_ref.string_list_.size(); i++)
+            bson_append_utf8(&strings_iter, "0", -1, data_ref.string_list_[i].c_str(), data_ref.string_list_[i].size());
         bson_append_array_end(bson_iter, &strings_iter);
         bson_writer_end(writer_iter);
 
@@ -732,12 +738,12 @@ void bson_serialization_test(size_t iterations, size_t iterations_over_size, Dat
         bson_writer_begin (writer_iter, &bson_iter);
 
         bson_append_array_begin(bson_iter, "ints", -1, &ints_iter);
-        for (size_t i = 0; i < kIntegers.size(); i++)
-            bson_append_int32(&ints_iter, "0", -1, kIntegers[i]);
+        for (size_t i = 0; i < data_ref.integer_list_.size(); i++)
+            bson_append_int32(&ints_iter, "0", -1, data_ref.integer_list_[i]);
         bson_append_array_end(bson_iter, &ints_iter);
         bson_append_array_begin(bson_iter, "strings", -1, &strings_iter);
-        for (size_t i = 0; i < kStringsCount; i++)
-            bson_append_utf8(&strings_iter, "0", -1, kStringValue.c_str(), kStringValue.size());
+        for (size_t i = 0; i < data_ref.string_list_.size(); i++)
+            bson_append_utf8(&strings_iter, "0", -1, data_ref.string_list_[i].c_str(), data_ref.string_list_[i].size());
         bson_append_array_end(bson_iter, &strings_iter);
         bson_writer_end(writer_iter);
     }
