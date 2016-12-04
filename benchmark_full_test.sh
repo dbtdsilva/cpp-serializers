@@ -1,13 +1,16 @@
 #!/bin/bash
 
-if [ -z "$1" ]
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ];
 then
-	echo "Usage: $0 output_file"
+	printf "Usage: $0 OUTPUT_FILE NUMBER_TESTS MAX_SIZE"
+	printf "\n\t OUTPUT_FILE is where the data will be stored." 	
+	printf "\n\t NUMBER_OF_TESTS is the number of distinct tests that are going to run."
+	printf "\n\t MAX_SIZE is the total number of items to be tested (used to generate a vector of NUMBER_OF_TESTS elements from 0 to MAX_SIZE).\n"
 	exit 1
 fi
 
-data_size=1000 	# 70000 * (8 + 8) = 1.2 MB
-data_sequence=1000
+data_size=$3
+data_sequence=$2
 data_interval=$((data_size/data_sequence))
 
 current_data_request=1
