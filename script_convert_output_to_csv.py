@@ -4,10 +4,10 @@ import re
 
 expressions = [(re.compile('of .* tests', re.IGNORECASE), ''), \
 	(re.compile('milliseconds', re.IGNORECASE), ''), \
-	(re.compile(':.*size = ', re.IGNORECASE), '_size:'), \
-	(re.compile(':.*total time = ', re.IGNORECASE), '_total:'), \
-	(re.compile(':.*unserialize time = ', re.IGNORECASE), '_unserialize:'),\
-	(re.compile(':.*serialize time = ', re.IGNORECASE), '_serialize:')]
+	(re.compile(':.*size = ', re.IGNORECASE), '-size:'), \
+	(re.compile(':.*total time = ', re.IGNORECASE), '-total:'), \
+	(re.compile(':.*unserialize time = ', re.IGNORECASE), '-unserialize:'),\
+	(re.compile(':.*serialize time = ', re.IGNORECASE), '-serialize:')]
 
 dic = collections.OrderedDict()
 data = 0
@@ -39,7 +39,7 @@ for key in dic.keys():
 for i in range(data):
 	for key in dic.keys():
 		if 'serialize' in key or 'unserialize' in key or 'total' in key:
-			sys.stdout.write(str((dic[key][i]/dic['iterations'][i])))
+			sys.stdout.write(str((dic[key][i]/dic['iterations'][i]) * 1000.0))
 		else:
 			sys.stdout.write(str(dic[key][i]))
 
